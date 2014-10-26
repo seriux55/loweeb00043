@@ -1,0 +1,80 @@
+{% extends "::Base.html.twig" %}
+
+{% block body %}
+<div class="bloc_page_bodyg">
+    <div class="blocgau">
+        {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
+    </div>
+    <div class="menucompty">
+        <div class="menucompto">
+            <div class="contenu1">
+                <h2>
+                    Demandes, confirmations,...
+                </h2>
+            </div>
+        </div>	
+        <!-- debut -->
+        {% for data in product %}
+        <div class="sectionaq">
+            <div class="demcon">
+                <h6>Réservation</h6>
+                <div class="plosa">
+                    <div class="nouvie3">
+                        {% if data.user.gender == 1 %}
+                        <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}"/>
+                        {% else %}
+                        <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}"/>
+                        {% endif %}
+                    </div>
+                    <p class="prixnuit">
+                        {% if data.user.gender == 1 %} Passager {% else %} Passagère {% endif %}
+                        <br/>
+                        <strong>{{ data.user.secondename }}</strong>
+                    </p>
+                </div>
+                <div class="choirc">
+                    <p class="ploso">
+                        <strong>{{ data.nombre }}</strong> place reservé
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="supprimer">
+            {% if data.etat == 2 %}
+                <p><a href="{{ path('nroho_base_demande_yes', { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Refuser</a></p>
+                <p><a href="{{ path('nroho_base_demande_no',  { 'id': data.id }) }}">Accepter</a></p>
+            {% elseif data.etat == 1 %}
+                <p>Accepter</p>    
+            {% elseif data.etat == 0 %}
+                <p>Refuser</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <!-- fin -->
+        <!--
+        <div class="sectionaq">
+            <div class="demcon">
+                <h6>Demandes</h6>
+                <div class="plosa">
+                    <div class="nouvie3">
+                        <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}"/>
+                    </div>
+                    <p class="prixnuit">
+                        Conducteur<br/><strong>Karim</strong>
+                    </p>
+                </div>
+                <div class="choirc">
+                    <p class="ploso">
+                        <strong>2</strong> places Acceptés
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="supprimer">
+            <p><a href="#" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Annuler</a></p>
+        </div> 
+        -->
+    </div>	
+</div>
+
+{% endblock %}

@@ -1,0 +1,277 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+{% for data in product %}
+<div class="bloc_page_bodyg">
+    <div class="blocgau">
+        {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
+        {# include menu.php #}
+    </div>
+    <div class="detail1r1">
+        <h3>
+            Conducteur				
+        </h3>
+    </div>
+    <div class="detail1i1">
+        <div class="detailima">
+            <div class="detail3">
+                <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}" alt="covoiturage algerie nroho"/>							<!-- <img src="../images/moustache_nroho_covoiturage_algerie.png"/> -->
+            </div>
+            <div class="detaizinfo">
+                <p class="detailnom">
+                    <strong>{{ data.user.secondename }}</strong>
+                </p>
+                <div class="detailop">
+                    <p>{{ "now"|date('Y') - data.user.born }} ans - {{ data.vehicule }}<br />{{ data.user.phone }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="detailimo"> 
+            <div class="dezaili1">
+                <div class="misa1">
+                    <a href="#example" class="openModal">
+                        Réserver
+                    </a>
+                </div>
+                <div class="misa">
+                    <div class="dez1">
+                        <p class="placeo">
+                            <strong>{{ data.place }}</strong> places libres
+                        </p>
+                    </div>
+                    <div class="dez1">
+                        <p class="prixnuito">
+                            <strong>{{ data.prix }}</strong> Dinars
+                        </p>
+                    </div>
+                    <div class="dez1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detailono">
+        <div class="mt1">
+            <div class="detailform">
+                <div class="detailt2">
+                    <div class="rcdout">
+                        <div class="nouveau1">
+                            <div class="nouvie1">
+                                <p>{{ data.depart }} ({{ data.villea }})</p>									
+                            </div>
+                            <div class="detail2">
+                                <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="direction covoiturage algerie" />
+                            </div>
+                            <div class="nouvie1">
+                                <p>{{ data.arrivee }} ({{ data.villeb }})</p>
+                            </div>
+                        </div>
+                        <div class="nouveau2">
+                            <article>
+                                <h1>{{ data.date|date('d/m/Y') }} - {{ data.heure }}</h1>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="detailcon">
+                    {% if data.fumer==1 %}
+                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumeur.png') }}" alt="covoiturage non fumeur"/></div>
+                    {% else %}
+                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage non fumeur"/></div>                               
+                    {% endif %}
+
+                    {% if data.musique==1 %}
+                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_musique.png') }}" alt="covoiturage pas de musique"/></div>
+                    {% else %}
+                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage pas de musique"/></div>
+                    {% endif %}
+
+                    {% if data.animal==1 %}
+                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_animaux.png') }}" alt="covoiturage sans animaux"/></div>
+                    {% else %}
+                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage sans animaux"/></div>
+                    {% endif %}
+
+                    {% if data.blabla==1 %}
+                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/gosra.png') }}" alt="covoiturage sans animaux"/></div>
+                    {% endif %}						
+                </div>
+                <div class="detail7">
+                    <article>
+                        <p>{{ data.message }}</p>
+                    </article>
+                </div>
+                <div class="dezailcon">
+                    <p>Publier le : {{ data.deposit|date('d/m/Y') }} - Vu : {{ data.vue }} fois</p>
+                </div>
+            </div>
+        </div>
+    </div>
+                
+    <!-- les commentaires -->
+
+    <div class="detailono">
+        <div class="publiy">
+            <div class="comail">
+                <h3>{% for data in nbr %}{{ data.nbr }}{% endfor %} Commentaires</h3>
+                <div class="reponsi">             
+                    <p>
+                        {% for data in comments %}
+                        <div class="reponsi">
+                            <div class="echangi">
+                                <div class="echangi3">
+                                    {% if data.user.gender == 0 %}
+                                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}"/>
+                                    {% else %}
+                                        <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}"/>
+                                    {% endif%}
+                                </div>
+                                <div class="echangi4">
+                                    <div class="echangi1">
+                                        <p><a href="#">{{ data.user.secondename }}</a>{{ data.comment }}</p>
+                                    </div>
+                                    <div class="echangi2">
+                                        <p>Le {{ data.depot|date('d/m/Y à h:i') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>	
+    </div>
+    <!-- fin des commentaires -->
+        
+    <form method="post" {{ form_enctype(form) }}>	
+        <div class="detailono">
+            <div class="publiy">
+                <div class="comail">
+                    <h3>Publier un commentaire</h3>
+                    {{ form_errors(form) }}
+                </div>
+                <div class="commesg">
+                    <div class="textary">
+                        <div>
+                            {{ form_label(form.comment, " ") }}
+                            {{ form_errors(form.comment) }}
+                            {{ form_widget(form.comment) }}
+                        </div>
+                        <!--
+                        <textarea onFocus="if (this.value=='Un avis, une question,...') this.value=''" class="textaro" name="message" id="ville">
+                            Un avis, une question,...
+                        </textarea>
+                        -->
+                    </div>
+                    <input class="ccabirati" name="mail" type="text" size="35" value=""/>
+                    <input type="hidden" name="idPaki" value="28763"/>
+                </div>
+                {{ form_rest(form) }}
+                <div class="publio">
+                    <div class="boutin">
+                        <input class="publier" name="valider" type="submit" value="Publier"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>	
+<!--	La balise aside pour les messages privés -->
+<aside id="example" class="modal">
+    <div>
+        <form class="envm" method="post" {{ form_enctype(formD) }}>
+            <div>
+                <div class="modhead"> 
+                    <a href="#close" class="close" title="Fermer">x</a>
+                    <h2>Réservation</h2>
+                </div>
+                {{ form_errors(formD) }}
+                <div class="modfooter">
+                    {{ form_label(formD.nombre, " ") }}
+                    {{ form_errors(formD.nombre) }}
+                    {{ form_widget(formD.nombre) }}
+                </div>
+                {{ form_rest(formD) }}
+                {#`
+                {% for data in nbrPlace %}
+                    {{ data.nbrPlace }}
+                {% endfor %}
+                #}
+                <div class="publio">
+                    <div class="boutin">
+                        <input class="publier" type="submit" value="Envoyez"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</aside>
+<div id="conf" class="modil">
+    <div>
+        <div class="modhead"> 
+            <h2>Message envoyé</h2>
+            <a href="#close" class="close" title="Fermer">x</a>
+        </div>
+        <div class="modbody">
+            <p>Votre message a été envoyé</p>
+        </div>
+    </div>
+</div>	
+<!-- fin de la balise aside -->	
+<!--
+<div class="detailpri">
+    <a href="index.php#ancre_offre">Retour à la liste des resultats</a>
+</div>
+-->
+{% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+<script type='text/javascript'>
+/*
+// test email
+function test_email (my_email) {
+    var new_string = new String(my_email);
+    if (!new_string.match('^[-_\.0-9a-zA-Z]{1,}@[-_\.0-9a-zA-Z]{1,}[\.][0-9a-zA-Z]{2,}$')) {
+            return false;
+    }
+    else {
+            return true;
+    }
+}
+// fin test email
+$(document).ready(function(){
+    $('#example').on('submit', function() {
+        var pseudo   = $('#nommessage').val();
+        var mail     = $('#mailmessage').val();
+        var message  = $('#mesagemessage').val();
+        var mailling = $('#mailling').val();
+        if(mailling == ''){
+            if (test_email(mail) == true) {
+                if(pseudo == '' || mail == '' || message == '' || message == 'Écrivez votre message...') {
+                    alert('Tous les champs doivent êtres remplis');
+                    return false;
+                } else {
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: $(this).attr('method'),
+                        data: $(this).serialize(),
+                        success: function() { 
+                            //je récupère la réponse du fichier PHP
+                            //setTimeout(function() {document.getElementById('confid').style.display='inline-block'; }, 2000);
+                            //setTimeout(function() {document.getElementById('confid').style.display='none'; }, 4000);
+                        }
+                    });
+                }
+            }else{ 
+                alert("L'adresse mail n'est pas valide !"); 
+                return false; 
+            }
+        }
+        //return false;
+    });
+});
+*/
+</script>
+{% endblock %}

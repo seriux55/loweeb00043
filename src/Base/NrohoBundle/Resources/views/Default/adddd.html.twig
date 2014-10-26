@@ -1,0 +1,63 @@
+{% extends "::Base.html.twig" %}
+
+{% block body %}
+    <h1>Ajouter un produit</h1>
+    <form method="post" {{ form_enctype(form) }}>
+        
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+        
+        
+        <div>
+            {{ form_label(form.gender, " ") }}
+            {{ form_errors(form.gender) }}
+            {{ form_widget(form.gender) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.firstname, "Nom") }}
+            {{ form_errors(form.firstname) }}
+            {{ form_widget(form.firstname) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.secondename, "Prénom") }}
+            {{ form_errors(form.secondename) }}
+            {{ form_widget(form.secondename) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.born, "Année de naissance") }}
+            {{ form_errors(form.born) }}
+            {{ form_widget(form.born) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.phone, "Téléphone") }}
+            {{ form_errors(form.phone) }}
+            {{ form_widget(form.phone) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.mail, "Adresse mail") }}
+            {{ form_errors(form.mail) }}
+            {{ form_widget(form.mail) }}
+        </div>
+        
+        <div>
+            {{ form_label(form.pwd, "Mot de passe") }}
+            {{ form_errors(form.pwd) }}
+            {{ form_widget(form.pwd) }}
+        </div>
+        
+        
+
+        {# Autres champs -> obligatoire #}
+        {{ form_rest(form) }}
+        
+        
+        {# {{ form_widget(form) }} #}
+        
+        <input type="submit">
+    </form>
+{% endblock%}

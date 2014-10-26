@@ -1,0 +1,174 @@
+{% extends "::Base.html.twig" %}
+
+{% block body %}
+<div class="bloc_page_bodyg">
+    <div class="blocgau">
+        {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
+    </div>
+    <div class="menucompty">
+        <div class="menucompto">
+            <div class="contenu1">
+                <h2>
+                    Recherche,...
+                </h2>
+            </div>
+        </div>	
+        <div class="sectionaq">
+            <div class="demcon">
+                <h6>Cherchez des places, un trajet,...</h6>
+            </div>
+            <!-- Recherche -->
+            <div class="bloc_page_load">		
+                <div class="n10load">
+                    <div class="nouveau11">
+                        <div class="ssload">
+                            <div class="mrr1">
+                                <form class="formmo" method="post" action="#ancre_offre">
+                                    <div class="mr74">
+                                        <div class="loadl">
+                                            <div class="mrr44">
+                                                <div class="mrch">
+                                                    <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" alt="" />
+                                                    <label>Départ</label>
+                                                </div>
+                                                <select class="ouardepi" name="departsearch" id="departsearch">
+                                                    <option value="">Ville de départ</option>
+                                                    <option value="Alger">Alger</option>
+                                                </select>
+                                            </div>
+                                            <div class="mrr44">
+                                                <div class="mrch">
+                                                    <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" alt="" />
+                                                    <label>Arrivée</label>
+                                                </div>
+                                                <div class="load" id="loadersearch" style="display:none">
+                                                    <img src="{{ asset('bundles/basenroho/img/loading.gif') }}" alt="Chargement"/>
+                                                </div>
+                                                <select class="ouardepi" name="arriversearch" id="arriversearch" disabled="true">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mrrload">
+                                            <input class="trouvezo" id="search" type="submit" name="chercher" onClick="return false;" value="Cherchez"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div id="filtre" style="display:none">
+            </div>
+            <div id="loadersearching" style="display:none" class="centi">
+                <img src="images/loading.gif" alt="Chargement"/>
+            </div>
+            <!-- FinRecherche -->
+            <div id="normal">
+            <!-- Début -->
+            {% for data in product %}
+                <div class="sectionn">
+                    <div class="caseoi">
+                        <div class="choirc1">
+                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                                <div class="detrc">
+                                    <div class="nouvie3">
+                                        <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}" alt="covoiturage Rose"/>
+                                    </div>
+                                    <p class="prixnuit">
+                                        Conductrice
+                                        <br/><strong>{{ data.user.secondename }}</strong>
+                                    </p>
+                                </div>
+                                <div class="destrcco">
+                                    <div class="detrc">
+                                        <p>{{ "now"|date('Y') - data.user.born }}</p>
+                                    </div>
+                                    <div class="detrc">
+                                    </div>
+                                    <div class="detrc">
+                                            <p>{{ data.vehicule }}</p>
+                                    </div>
+                                </div>
+                                <div class="opicon">
+                                    {% if data.fumer==1 %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumeur.png') }}" alt="covoiturage non fumeur"/></div>
+                                    {% else %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage non fumeur"/></div>                               
+                                    {% endif %}
+
+                                    {% if data.musique==1 %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_musique.png') }}" alt="covoiturage pas de musique"/></div>
+                                    {% else %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage pas de musique"/></div>
+                                    {% endif %}
+
+                                    {% if data.animal==1 %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_animaux.png') }}" alt="covoiturage sans animaux"/></div>
+                                    {% else %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage sans animaux"/></div>
+                                    {% endif %}
+
+                                    {% if data.blabla==1 %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/gosra.png') }}" alt="covoiturage sans animaux"/></div>
+                                    {% endif %}
+                                </div>
+                            </a>
+                        </div>
+                        <div class="rc">
+                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                                <div class="nouveau1">
+                                    <div class="nouvie1">
+                                        <p>{{ data.depart }} ({{ data.villea }})</p>
+                                    </div>
+                                    <div class="nouvie2">
+                                        <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>
+                                    </div>
+                                    <div class="nouvie1">
+                                        <p>{{ data.arrivee }} ({{ data.villeb }})</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="nouveau2">
+                                <article>
+                                    <a href="{{ path('nroho_base_product', { 'id': data.id }) }}"><h1>{{ data.date|date("m/d/Y") }} - {{ data.heure }}</h1></a>
+                                    <p>{{ data.message }}</p>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="choirc">
+                            <div class="detrc">
+                                <p class="prixnuito">
+                                    <strong>{{ data.prix }}</strong> Dinars
+                                </p>
+                            </div>
+                            <div class="detrc1">
+                                <p><strong>{{ data.place }}</strong> places<br/></p>
+                            </div>
+                            {% if data.filles==1 %}
+                            <div class="detrc1p">
+                                <p>Entre Elles</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="caseoa">
+                    </div>
+                </div>
+                <div class="interi" style="display:none">
+                    <div class="interi2">
+                        <div class="boutin2">
+                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">Voir</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- Fin -->
+            </div>
+        </div>
+    </div>	
+</div>
+<script charset="utf-8" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
+<script charset="utf-8" src="{{ asset('bundles/basenroho/js/search.js') }}"></script>
+                
+{% endblock %}

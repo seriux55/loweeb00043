@@ -1,0 +1,44 @@
+{% extends "::Base.html.twig" %}
+
+{% block body %}
+<div class="bloc_page_bodyg">
+    <div class="foc_1">
+        <img src="{{ asset('bundles/basenroho/img/700_250_campus.png') }}"/>
+        <div class="detailform">
+            <div class="detai1">
+            </div>
+            <div class="detai1">
+            </div>
+            <div class="detai2">
+            </div>
+        </div>
+    </div>
+    <div class="blocde">
+        <h6>Mes trajets</h6>
+    </div>
+    <div class="blocde">
+        <h6>Avis</h6>
+    </div>
+    <div class="blocde">
+        <h6>Déposez un avis</h6>
+        <form method="post" {{ form_enctype(form) }}>
+            
+            {{ form_errors(form) }}
+            <div class="modfooter">
+                {{ form_label(form.avis, " ") }}
+                {{ form_errors(form.avis) }}
+                {{ form_widget(form.avis) }}
+            </div>
+            {{ form_rest(form) }}
+            <div class="publio">
+                <div class="boutin">
+                    <input class="publier" type="submit" value="Envoyez"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="blocde">
+        <h6>Signalez</h6>
+    </div>
+</div>		
+{% endblock %}

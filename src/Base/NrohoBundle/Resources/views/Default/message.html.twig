@@ -1,0 +1,108 @@
+{% extends "::Base.html.twig" %}
+
+{% block body %}
+<div class="bloc_page_bodyg">
+    <div class="blocgau">
+        {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
+    </div>
+    <div class="menucompte1">
+        <div class="menucompte2">
+            <nav class="menuinf1">
+                <ul>
+                    
+                    {% for data in product %}
+                    <li>
+                        <div class="echangi3">
+                            {% if data.gender == 0 %}
+                                <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
+                            {% else %}
+                                <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}">
+                            {% endif %}
+                        </div>
+                        <a href="#">
+                            {{ data.secondename }}
+                        </a>
+                            {{ data.depot|date('d/m/Y') }}
+                    </li>
+                    {% endfor %}
+                    
+                </ul>
+            </nav>
+        </div>
+        <!--
+        <div class="contenu2">
+            <h2>
+                Karim
+            </h2>
+            <nav class="menuinf2">
+                <li>
+                    <div class="echangi3">
+                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
+                    </div>
+                    <div class="echangi3r"> 
+                        <a href="#">Karim</a>
+                            4 Juin
+                    </div>
+                    <div class="echangi3r">
+                        <p>	
+                            30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
+                            à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
+                            Et de tous ceux que vous ne connaissiez pas encore.
+                        </p>
+                    </div>
+                </li>              
+                <li>
+                    <div class="echangi3">
+                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
+                    </div>
+                        <div class="echangi3r"> 
+                            <a href="#">Karim</a>
+                                4 Juin
+                        </div>
+                        <div class="echangi3r"> 
+                        <p>	
+                            30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
+                            à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
+                            Et de tous ceux que vous ne connaissiez pas encore.
+                        </p>
+                    </div>
+                </li>              
+                <li>
+                    <div class="echangi3">
+                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
+                    </div>
+                    <div class="echangi3r"> 
+                        <a href="#">Karim</a>
+                        4 Juin
+                    </div>
+                    <div class="echangi3r"> 
+                        <p>	
+                           30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
+                           à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
+                           Et de tous ceux que vous ne connaissiez pas encore.
+                        </p>
+                    </div>
+                </li>
+            </nav>
+            <form class="contenu4" method="post" action="#">	
+                <div class="detaily">
+                    <div class="publiyo">
+                        <div class="commesg">
+                            <div class="textary">
+                                <textarea onFocus="if (this.value=='Votre réponse...') this.value=''"class="textaro" name="message" id="ville" placeholder="Votre réponse...">Votre réponse...</textarea>
+                            </div>
+                            <input class="ccabirati" name="mail" type="text" size="35" value=""/>
+                        </div>
+                        <div class="publio">
+                            <div class="boutina">
+                                <input class="publiera" name="valider" type="submit" value="Répondre"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        -->
+    </div>
+</div>
+{% endblock %}		

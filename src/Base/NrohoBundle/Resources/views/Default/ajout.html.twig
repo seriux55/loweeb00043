@@ -1,0 +1,209 @@
+{% extends "::Base.html.twig" %}
+
+{% block body %}
+<div class="bloc_page_bodyg">
+    <div class="blocgau">
+        {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
+        {# include menu.php #}
+    </div>
+    <div class="menucompty">
+        <div class="menucompto">
+            <div class="contenu1">
+                <h2>
+                    Demandes, confirmations,...
+                </h2>
+            </div>
+        </div>	
+        <div class="sectionaq">
+            <div class="demcon">
+                <h6>Nouveau trajet</h6>
+            </div>
+            <div class="mt1">
+                <form method="post" action="#">
+                    <div class="nouvio">
+                        <p>
+                            <input type="radio" name="type" value="1" 
+                                   onClick="document.getElementById('offre1').style.display='none'; 
+                                            document.getElementById('demande1').style.display='inline-block'; 
+                                            document.getElementById('offre2').style.display='none'; 
+                                            document.getElementById('demande2').style.display='inline-block';
+                                            document.getElementById('mir2').style.display='inline-block';
+                                            document.getElementById('mir').style.display='inline-block';"/>Je propose des places
+                        </p>
+                        <p>
+                            <input type="radio" name="type" value="0" 
+                                   onClick="document.getElementById('demande1').style.display='none'; 
+                                            document.getElementById('offre1').style.display='inline-block'; 
+                                            document.getElementById('demande2').style.display='none'; 
+                                            document.getElementById('offre2').style.display='inline-block'; 
+                                            document.getElementById('mir2').style.display='none';
+                                            document.getElementById('mir').style.display='none';"/>Je cherche des places
+                        </p>
+                    </div>
+                    <div class="mt2">
+                        <p>Mon trajet, départ, arrivée..</p>
+
+                    </div>
+                    <div class="nouveau7">
+                        <fieldset>
+                            <legend class="garlab">Infos sur le rendez-vous au DEPART :</legend>
+                            <div class="mr7"> 
+                                <div class="mr3">
+                                    <label class="garlabi">Ville :</label>
+                                    <select class="ouardep" name="select3">
+                                        <option value='Alger'>Alger</option>
+                                    </select>
+
+                                </div>
+                                    <div class="mr3">
+                                        <label class="garlabi">Lieu exact :</label> 
+                                        <input class="ouardep" type="text" name="villea" placeholder="ex : La grande poste" 
+                                        size="35" value=""/>
+                                    </div>
+                                    <div class="mr3">
+                                        <label class="garlabi">Date de départ :</label>
+                                        <input type="text" class="datepicker" size="20" name="date" value="" />
+
+                                    </div>
+                                    <div id="mir">
+                                    <div class="mr3">
+                                        <label class="garlabi">Heure du départ :</label>
+                                        <select name="hour">
+                                            <option value="">50</option>
+                                        </select>
+                                        <select name="minutes">
+                                            <option value="">50</option>
+                                        </select>
+                                    </div>
+                                    <div class="mr3">
+                                        <label class="garlabi">Mon véhicule :</label> 
+                                        <input class="ouardepo" type="text" name="vehicule" placeholder="EX : 407" 
+                                        size="35" value=""/>
+                                    </div>
+                                    </div>
+
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend class="garlab">Lieu de dépose à l'ARRIVEE :</legend>
+                            <div class="mr7"> 
+                                <div class="mr3">
+                                    <label class="garlabi">Ville :</label>
+                                    <select class="ouardep" name="select4">
+                                            <option value='Alger' selected>Alger</option>
+                                    </select>
+                                </div>
+                                <div class="mr3">
+                                    <label class="garlabi">Lieu exact :</label> 
+                                    <input class="ouardep" type="text" name="villeb" placeholder="ex : Boufarik" 
+                                    size="35" value=""/>
+                                    <input class="ccabirati" name="moment" type="text" size="35" value=""/>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mt2">
+                        <p> Mes préférences : </p>
+                    </div>
+                    <div class="nouveau7">
+                        <fieldset>
+                            <legend class="garlab">Gros bagage ? Chien ? Pauses ? Tolérance retard ? Fumeur ?...</legend>
+                            <div class="mr7">
+                                <div class="mr3y">
+                                    <div class="mr3">
+                                        <label class="garlabi">Places disponibles :</label>
+                                        <select name="place">
+                                            <option value="">azerty</option>
+                                        </select>
+                                    </div>
+                                    <div class="mr3">
+                                        <label class="garlabi">Prix (Da/place) :</label>
+                                        <select name="hour">
+                                            <option value="">50</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mr3z" id="mir2">
+                                    <div class="mr3">
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="fumer" value="non" checked>Non fumeur
+                                        </p>
+                                    </div>
+                                    <div class="mr3">
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="musique" value="non">Pas de musique
+                                        </p>
+                                    </div>
+                                    <div class="mr3">
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="animal" value="non" checked>Pas d'animaux 
+                                        </p>
+                                    </div>
+                                    <div class="mr3">
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="blabla" value="oui" checked>Discussion <? echo $data['sexe']; ?>
+                                        </p>
+                                    </div>
+                                    <div class="mr3">
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="filles" value="oui" checked>Entre filles
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="mr3i">
+                                    <label class="garlabi">Précisez : Gros bagage ? Chat ? Pauses ? Tolérance retard ?...</label>
+                                    <textarea class="textarea" name="message"
+                                    rows="10" cols="50">Hello</textarea>
+                                </div>
+                                <div class="mr3z">
+
+                                    <div class="nouvio">
+                                        <p>
+                                        <input type="radio" name="maj" value="0" checked 
+                                        onclick="getElementById('trajet').style.display='none';" />Trajet unique
+                                        </p>
+                                        <p>
+                                        <input type="radio" name="maj" value="1" 
+                                        onclick="getElementById('trajet').style.display='block';" />Trajet régulier
+                                        </p>
+                                    </div>
+
+                                    <div class="mr3" id="trajet" style="display:none;">
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="dimanche" value="oui">dimanche
+                                        </p>
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="lundi" value="oui">lundi
+                                        </p>
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="mardi" value="oui">mardi
+                                        </p>
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="mercredi" value="oui">mercredi
+                                        </p>
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="jeudi" value="oui">jeudi
+                                        </p>
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="vendredi" value="oui">vendredi
+                                        </p>
+                                        <p class="garlabo">
+                                            <INPUT type= "checkbox" name="samedi" value="oui">samedi
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="mr2">
+                        <div class="mr6">
+                            <input class="trouvezzz" name="valider" type="submit" value="Je publie"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>	
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{#% extends "BaseUserBundle::layout.html.twig" %#}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <p></p>
+    <div class="bloc_page_bodyg">
+        <div class="nouveau1r1">
+            <h3>inscription</h3>
+        </div>
+        <div class="sectiono">
+            <div id="mr1">
+                <div class="nouveau7">  
+                    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+
+                        {{ form_errors(form) }}
+
+                        <div>
+                            {{ form_label(form.gender, " ") }}
+                            {{ form_errors(form.gender) }}
+                            {{ form_widget(form.gender) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.firstname, "Nom") }}
+                            {{ form_errors(form.firstname) }}
+                            {{ form_widget(form.firstname) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.secondename, "Prénom") }}
+                            {{ form_errors(form.secondename) }}
+                            {{ form_widget(form.secondename) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.born, "Année de naissance") }}
+                            {{ form_errors(form.born) }}
+                            {{ form_widget(form.born) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.phone, "Téléphone") }}
+                            {{ form_errors(form.phone) }}
+                            {{ form_widget(form.phone) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.email, "Adresse mail") }}
+                            {{ form_errors(form.email) }}
+                            {{ form_widget(form.email) }}
+                        </div>
+
+                        <div>
+                            {{ form_label(form.plainPassword, " ") }}
+                            {{ form_errors(form.plainPassword) }}
+                            {{ form_widget(form.plainPassword) }}
+                        </div>                    
+
+                        {{ form_rest(form) }}
+
+                        <div class="mr2">
+                            <div class="mr6">
+                                <input class="trouvezzz" type="submit" value="{{ 'registration.submit'|trans }}" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

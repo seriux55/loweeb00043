@@ -1,0 +1,69 @@
+nroho_base_default:
+    pattern:  /
+    defaults: { _controller: BaseNrohoBundle:Default:index }
+
+nroho_base_add:
+    pattern: /add
+    defaults: { _controller: BaseNrohoBundle:Default:inscription }
+
+nroho_base_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: BaseNrohoBundle:Default:edit }
+    requirements:
+        id:  \d+
+
+nroho_base_product:
+    pattern: /product/{id}
+    defaults: { _controller: BaseNrohoBundle:Default:product }
+    requirements:
+        id:  \d+
+
+nroho_base_inscription:
+    pattern: /inscription
+    defaults: { _controller: BaseNrohoBundle:Default:inscription }
+    
+nroho_base_compte:
+    pattern: /compte
+    defaults: { _controller: BaseNrohoBundle:Default:compte }
+    
+nroho_base_ajout:
+    pattern: /ajout
+    defaults: { _controller: BaseNrohoBundle:Default:ajout }
+    
+nroho_base_annonce:
+    pattern: /annonce
+    defaults: { _controller: BaseNrohoBundle:Default:annonce }
+    
+nroho_base_demande:
+    pattern: /demande
+    defaults: { _controller: BaseNrohoBundle:Default:demande }
+    
+nroho_base_message:
+    pattern: /message
+    defaults: { _controller: BaseNrohoBundle:Default:message }
+    
+nroho_base_recherche:
+    pattern: /recherche
+    defaults: { _controller: BaseNrohoBundle:Default:recherche }
+    
+nroho_base_profil:
+    pattern: /profil/{id}
+    defaults: { _controller: BaseNrohoBundle:Default:profil }
+    requirements:
+        id:  \d+
+    
+nroho_base_aide:
+    pattern: /aide
+    defaults: { _controller: BaseNrohoBundle:Default:aide }
+    
+nroho_base_demande_yes:
+    pattern: /demande/yes/{id}
+    defaults: { _controller: BaseNrohoBundle:Default:yes_demande }
+    requirements:
+        id:  \d+
+    
+nroho_base_demande_no:
+    pattern: /demande/no/{id}
+    defaults: { _controller: BaseNrohoBundle:Default:no_demande }
+    requirements:
+        id:  \d+

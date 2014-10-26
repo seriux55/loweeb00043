@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="Description" content="Le site de covoiturage en Algérie. nroho.com, pour moins de pollution, moins d'embouteillage, moins de frais, et plus de sorties... " />
+        <meta name="Keywords" content="covoiturage, algerie, co, voiturage, algérie, dinars, coovoiturage, premier, site, voyage, gratuit, transport, ecologique, voiture, economique" />
+        
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/basenroho/css/style.css') }}" />
+        {% endblock %}
+        
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>{% block title %}nroho.com | Le site de covoiturage en Algérie{% endblock %}</title>
+        
+    </head>
+    <body>
+        {% block head %}
+        <div class="bloc_page_entete_22">
+            <div id="bloc_page_entete">
+                <div class="bloc_page_entete_1">
+                    <a href="{{ url('nroho_base_default') }}"><img src="{{ asset('bundles/basenroho/img/logo-nroho_44.png') }}" alt="logo de nroho.com" id="logoo"/></a>
+                </div>
+                <div class="bloc_page_entete_2">
+                    <nav class="entete3"> 
+                        <a href="#">Accueil</a>
+                        <a href="#">Cherchez des places</a>  
+                        <a href="#">Nouveau trajet</a>
+                        <a href="#">Mes trajet</a>
+                        <a href="#">Aide</a>
+                        <a href="#">Déconnexion</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        {% block foot %}
+        <div class="bloc_page_footer33">	
+            <div id="bloc_page_footer3">
+                <a href="{{ url('nroho_base_default') }}">À propos de nous</a> | Copyright © 2013 <a href="{{ url('nroho_base_default') }}">nroho.com</a> 
+            </div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

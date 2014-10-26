@@ -1,0 +1,358 @@
+{% extends "::Base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" media="screen and (max-width:900px)" href="css/style_small.css"/>
+{% endblock %}
+
+{% block body %}		
+<div class="backimag">
+    <div class="nouveau101r">
+        <h3>Partagez votre trajet ici!</h3>
+    </div>			
+    <div class="bloc_page_bodyoo">		
+        <div class="nouveaur10">
+            <div class="nouveau11">
+                <div class="ssection">
+                    <div class="mrr1">
+                        <form class="formmo" method="post" action="#">
+                            <div class="mr74">
+                                <div class="loadlm">
+                                    <div class="mrr44d">
+                                        <div class="icol">
+                                            <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" alt="" />
+                                            <label>De</label>
+                                        </div>
+                                        <select class="ouardepi" name="select3">
+                                            <option value='16 - Alger'>16 - Alger</option>
+                                            <option value='06 - Béjaia' selected>06 - Béjaia</option>
+                                        </select>
+                                    </div>
+                                    <div class="mrr44d">
+                                        <div class="icol">
+                                            <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" alt="" />
+                                            <label>À</label>
+                                        </div>
+                                        <select class="ouardepi" name="select4">
+                                            <option value='16 - Alger'>16 - Alger</option>
+                                            <option value='06 - Béjaia' selected>06 - Béjaia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mrr66">
+                                    <input class="trd" type="submit" value="Déposez"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="message">
+        <a href="#ancre_offre">Trouvez des places</a>
+    </div>		
+</div>
+<div id="ancre_offre"></div><br/>
+<div class="nouveau101">
+    <h3 >Il y'a  <span>10</span> covoiturages actuellement!</h3>
+</div>		
+<div class="nouveau11">
+    <div class="bloc_page_bodyy">
+        <div class="bloc_page_load">
+            <div class="n10load">
+                <div class="nouveau11">
+                    <div class="ssload">
+                        <div class="mrr1">
+                            <form class="formmo" method="post" action="#ancre_offre">
+                                <div class="mr74">
+                                    <div class="loadl">
+                                        <div class="mrr44">
+                                            <div class="mrch">
+                                                <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" alt="" />
+                                                <label>Départ</label>
+                                            </div>
+                                            <select class="ouardepi" name="departsearch" id="departsearch">
+                                                <option value="">Ville de départ</option>
+                                                <option value="16 - Alger">16 - Alger</option>
+                                            </select>
+                                        </div>
+                                        <div class="mrr44">
+                                            <div class="mrch">
+                                                <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" />
+                                                <label>Arrivée</label>
+                                            </div>
+                                            <div class="load" id="loadersearch" style="display:none">
+                                                <img src="{{ asset('bundles/basenroho/img/loading.gif') }}" alt="Chargement"/>
+                                            </div>
+                                            <select class="ouardepi" name="arriversearch" id="arriversearch" disabled="true">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mrrload">
+                                        <input class="trouvezo" id="search" type="submit" name="chercher" onClick="return false;" value="Cherchez"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    <div id="filtre" style="display:none"></div>
+        <div id="loadersearching" style="display:none" class="centi">
+            <img src="{{ asset('bundles/basenroho/img/loading.gif') }}" alt="Chargement"/>
+        </div>
+        <div id="normal">
+            <!-- Début -->
+            {% for data in product %}
+            <div class="sectionn">
+                <div class="caseoi">
+                    <div class="choirc1">
+                        <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                            <div class="detrc">
+                                <div class="nouvie3">
+                                    <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}" alt="covoiturage Rose"/>
+                                </div>
+                                <p class="prixnuit">
+                                    Conductrice
+                                    <br/><strong>{{ data.user.secondename }}</strong>
+                                </p>
+                            </div>
+                            <div class="destrcco">
+                                <div class="detrc">
+                                    <p>{{ "now"|date('Y') - data.user.born }}</p>
+                                </div>
+                                <div class="detrc">
+                                </div>
+                                <div class="detrc">
+                                        <p>{{ data.vehicule }}</p>
+                                </div>
+                            </div>
+                            <div class="opicon">
+                                {% if data.fumer==1 %}
+                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumeur.png') }}" alt="covoiturage non fumeur"/></div>
+                                {% else %}
+                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage non fumeur"/></div>                               
+                                {% endif %}
+                                
+                                {% if data.musique==1 %}
+                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_musique.png') }}" alt="covoiturage pas de musique"/></div>
+                                {% else %}
+                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage pas de musique"/></div>
+                                {% endif %}
+                                
+                                {% if data.animal==1 %}
+                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_animaux.png') }}" alt="covoiturage sans animaux"/></div>
+                                {% else %}
+                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage sans animaux"/></div>
+                                {% endif %}
+                                
+                                {% if data.blabla==1 %}
+                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/gosra.png') }}" alt="covoiturage sans animaux"/></div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                    <div class="rc">
+                        <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                            <div class="nouveau1">
+                                <div class="nouvie1">
+                                    <p>{{ data.depart }} ({{ data.villea }})</p>
+                                </div>
+                                <div class="nouvie2">
+                                    <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>
+                                </div>
+                                <div class="nouvie1">
+                                    <p>{{ data.arrivee }} ({{ data.villeb }})</p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="nouveau2">
+                            <article>
+                                <a href="{{ path('nroho_base_product', { 'id': data.id }) }}"><h1>{{ data.date|date("m/d/Y") }} - {{ data.heure }}</h1></a>
+                                <p>{{ data.message }}</p>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="choirc">
+                        <div class="detrc">
+                            <p class="prixnuito">
+                                <strong>{{ data.prix }}</strong> Dinars
+                            </p>
+                        </div>
+                        <div class="detrc1">
+                            <p><strong>{{ data.place }}</strong> places<br/></p>
+                        </div>
+                        {% if data.filles==1 %}
+                        <div class="detrc1p">
+                            <p>Entre Elles</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="caseoa">
+                </div>
+            </div>
+            <div class="interi" style="display:none">
+                <div class="interi2">
+                    <div class="boutin2">
+                        <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">Voir</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <!-- Fin -->
+        </div>
+        <div class="sectionnor">
+            <p>
+                <a href="coordonees.php">
+                    Dépose ton annonce ici
+                </a>
+            </p>
+        </div>
+    </div>		
+</div>
+<div id="ancre_marche"></div><br/> 
+<hr>
+<br/>
+<br/>
+<div class="nouveau101">
+    <h3>Le site de covoiturage en Algérie!</h3>
+</div>	
+<div class="bloc_page_body4">
+    <div class="desccc31">
+        <div class="desccc11">
+            <h3>C'est Nouveau!</h3>
+        </div>
+        <div class="desccc2">
+            <p>Une nouvelle station de transport, pour voyager ensemble et partager des trajets!</p>
+            <p>La station est propulée par les voyageurs, elle est Ouverte 24/24 - 7jours/7 - Souvent des palces sont à 0 Dinar.</p>
+        </div>
+    </div>
+    <div class="desccc32">
+        <div class="desccc11">
+            <h3>C'est Simple!</h3>
+        </div>
+        <div class="desccc2">
+            <p>Déposez, trouvez une annonce, des places en quelques clics! C'est très simple et très rapide!</p>
+            <p>Cette nouvelle façon de voyager est beaucoup moins cher, plus écologique, plus souple et surtout plus agréable!</p>
+        </div>
+    </div>
+    <div class="desccc33">
+        <div class="desccc11">
+            <h3>Et c'est gratuit!</h3>
+        </div>
+        <div class="desccc2">
+            <p>La station de "transport par covoiturage" et gratuite, pas besoin de payer pour l'utiliser</p>
+            <p>En plus d'etre un moyen efficace pour faciliter les déplacements en Algérie, avec moins d'encombrement!</p>
+        </div>
+    </div>	
+</div>		
+<hr>
+<div id="ancre_marche"></div><br/>
+<div class="nouveau101">
+        <h3>Voila comment ça marche!</h3>
+</div>
+<div class="bloc_page_body2">
+    <div class="desccc3">
+        <div class="desccc1">
+            <h3>1</h3>
+        </div>
+        <div class="desccc2">
+            <p>Conducteur : "Je propose mes places libres, pour prendre avec moi quelques personnes."</p>
+            <p>Passager  : "Je recherche une voiture, une place, pour me déplacer vers ma destination."</p>
+        </div>
+        <div class="desccc4">
+            <img src="{{ asset('bundles/basenroho/img/proposer.jpg') }}" alt="nroho.com coiturage en Algérie"/>
+        </div>
+        <div class="desccc5">
+            <a href="#" target="_blank" >Déposez votre trajet</a> 
+        </div>
+    </div>
+    <div class="desccc3">
+        <div class="desccc1">
+            <h3>2</h3>
+        </div>
+        <div class="desccc2">
+            <p>Je trouve mon covoitureur selon mes préférences.
+                <br/>Conducteur et passager, vous serez gagnants!
+            </p>
+            <p>C'est une nouvelle façon de voyager qui arrive!</p>
+        </div>
+        <div class="desccc4">
+            <img src="{{ asset('bundles/basenroho/img/annonces.jpg') }}" alt="nroho.com coiturage en Algérie"/>
+        </div>
+        <div class="desccc5">
+            <a href="index.php#ancre_offre" "target=_blank" >Trouvez des places</a>
+        </div>
+    </div>
+    <div class="desccc3">
+        <div class="desccc1">
+            <h3>3</h3>
+        </div>
+        <div class="desccc2">
+            <p>Nous partageons le voyage.</p>
+            <p>
+                Vous allez faire le même trajet! c'est plus économique, plus écologique et surtout plus agréable!
+            </p>
+            <p>
+                C'est un nouveau moyen de transport, fiable, et illimité!
+            </p>
+        </div>
+        <div class="desccc4">
+            <img src="{{ asset('bundles/basenroho/img/partez.jpg') }}" alt="nroho.com coiturage en Algérie"/>
+        </div>
+        <div class="desccc5">
+            <a href="index.php#ancre_offre" target="_blank" rel="nofollow">Cherchez un trajet</a>
+        </div>
+    </div>
+</div>
+<div class="youtu">
+    <iframe width="560" height="315" src="//www.youtube.com/embed/Wqpx66bYvIw" frameborder="0" allowfullscreen></iframe>
+</div>
+<hr>
+<div class="nouveau101">
+    <h3>Suivez-nous!</h3>
+</div>
+<div class="bloc_page_body2">
+    <a href="https://www.facebook.com/pages/nrohocom/483641018368349" target="_blank">
+        <div class="social_body1">
+        </div>
+    </a>
+    <a href="https://twitter.com/nrohoAlgerie" target="_blank">
+        <div class="social_body2">
+        </div>
+    </a>
+</div>
+<hr>
+<div class="nouveau101">
+    <h3>ils nous soutiennent!</h3>
+</div>
+<div class="bloc_page_body2">
+    <div class="souti">
+        <div class="souti1">
+                <a href="https://www.bledvoyage.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/bledvoyage.jpg') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
+        </div>
+        <div class="souti1">
+                <a href="https://www.twiiza.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/twiiza.png') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
+        </div>
+        <div class="souti1">
+                <a href="http://centresebastopol.com/lagarderie/" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/lagarderie.png') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
+        </div>
+        <div class="souti1">
+                <a href="http://www.diridarek.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/diridarek.png') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
+        </div>
+    </div>
+</div>	
+{% endblock %} 
+
+{% block javascripts %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script charset="utf-8" src="{{ asset('bundles/basenroho/js/date.js') }}"></script>
+<script charset="utf-8" src="{{ asset('bundles/basenroho/js/date2.js') }}"></script>
+<script charset="utf-8" src="{{ asset('bundles/basenroho/js/classdate.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
+<script charset="utf-8" src="{{ asset('bundles/basenroho/js/search.js') }}"></script>
+{% endblock %}
