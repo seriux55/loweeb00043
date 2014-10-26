@@ -19,7 +19,7 @@
             </div>
             <div class="detaizinfo">
                 <p class="detailnom">
-                    <strong>{{ data.user.secondename }}</strong>
+                    <strong><a href="{{ path('nroho_base_profil', { 'id': data.id }) }}">{{ data.user.secondename }}</a></strong>
                 </p>
                 <div class="detailop">
                     <p>{{ "now"|date('Y') - data.user.born }} ans - {{ data.vehicule }}<br />{{ data.user.phone }}</p>
