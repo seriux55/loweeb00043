@@ -2,6 +2,7 @@
 
 {% block body %}
 <div class="bloc_page_bodyg">
+    <!--
     <div class="foc_1">
         <img src="{{ asset('bundles/basenroho/img/700_250_campus.png') }}"/>
         <div class="detailform">
@@ -13,18 +14,77 @@
             </div>
         </div>
     </div>
+    -->
+    <div class="detail1r1">
+        <h3>
+            Conducteur				
+        </h3>
+    </div>
+    <div class="detail1i1">
+        <div class="detailima">
+            <div class="detail3">
+                <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}" alt="covoiturage algerie nroho"/>							<!-- <img src="../images/moustache_nroho_covoiturage_algerie.png"/> -->
+            </div>
+            <div class="detaizinfo">
+                <p class="detailnom">
+                    <strong><a href="{{ path('nroho_base_profil', { 'id': '1' }) }}">Karim</a></strong>
+                </p>
+                <div class="detailop">
+                    <p>24 ans - 206<br />0606060606</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="blocde">
         <h6>Mes trajets</h6>
     </div>
     <div class="blocde">
         <h6>Avis</h6>
+        <p>Il y n'a pas encore d'avis.</p>
     </div>
+
+    <!-- les commentaires -->
+
+    <div class="detailono">
+        <div class="publiy">
+            <div class="comail">
+                <h3>Avis sur conducteur</h3>
+                <div class="reponsi">             
+                    <p>
+                        {% for data in avis %}
+                        <div class="reponsi">
+                            <div class="echangi">
+                                <div class="echangi3">
+                                    {% if data.user.gender == 0 %}
+                                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}"/>
+                                    {% else %}
+                                        <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}"/>
+                                    {% endif%}
+                                </div>
+                                <div class="echangi4">
+                                    <div class="echangi1">
+                                        <p><a href="#">{{ data.user.secondename }}</a>{{ data.avis }}</p>
+                                    </div>
+                                    <div class="echangi2">
+                                        <p>Le {{ data.depot|date('d/m/Y à h:i') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+        </div>	
+    </div>
+    <!-- fin des commentaires -->
+
+                
     <div class="blocde">
         <h6>Déposez un avis</h6>
-        <form method="post" {{ form_enctype(form) }}>
-            
+        <form method="post" {{ form_enctype(form) }}> 
             {{ form_errors(form) }}
-            
+            1. Votre humeur sur ce profil ?
             <div class="avibod">
                 <a id="smily1" class="adb" onclick="return false;" href="">
                     <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo1.png') }}" alt="Amis">
@@ -36,7 +96,7 @@
                     <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo3.png') }}" alt="Amis">
                 </a>
             </div>
-            
+            2. Votre avis 
             <div class="modfooter">
                 {{ form_label(form.avis, " ") }}
                 {{ form_errors(form.avis) }}
@@ -50,66 +110,12 @@
             </div>
         </form>
     </div>
+            
+    <!--
     <div class="blocde">
         <h6>Signalez</h6>
     </div>
-            
-            
-            
-            
-<div class="contpho">
-<div class="phohear">
-<img class="ihepg" src="../images/icone/aviso.png" alt="Amis">
-<h2>Avis</h2>
-<p>Les filles, cette partie ne peut etre vu que par vous.</p>
-</div>
-<div class="phobod">
-<div class="lesbod">
-<p>Il y n'a pas encore d'avis.</p>
-</div>
-</div>
-</div>
-<div class="contpho">
-<div class="phohear">
-<img class="ihepg" src="../images/icone/depav.png" alt="Amis">
-<h2>Déposez un Avis</h2>
-<p>Les filles, Mettez un avis sur ce profil.</p>
-</div>
-<div class="phobod">
-<div class="desav">
-<form>
-<div id="commoo">
-<h2>1. Votre humeur sur ce profil ?</h2>
-<div class="avibod">
-<a id="smily1" class="adb" onclick="return false;" href="">
-<img class="ihepg" src="../images/icone/emo1.png" alt="Amis">
-</a>
-<a id="smily2" class="adb" onclick="return false;" href="">
-<img class="ihepg" src="../images/icone/emo2.png" alt="Amis">
-</a>
-<a id="smily3" class="adb" onclick="return false;" href="">
-<img class="ihepg" src="../images/icone/emo3.png" alt="Amis">
-</a>
-</div>
-<div id="seconde_comment" style="">
-<h2>2. Aidez les filles à y voir plus claire</h2>
-<textarea id="texti" class="textarea" cols="50" rows="10" name="" onfocus="if (this.value=='Donnez votre avis sur ce profil') this.value=''">Donnez votre avis sur ce profil</textarea>
-<input id="aze" type="hidden" value="smily2">
-</div>
-<div id="third_comment" class="validas" style="">
-<input id="publi" class="avios" type="submit" onclick="return false;" value="Publier">
-</div>
-</div>
-<div id="merComm" class="validas" style="display:none">
-<img src="../images/check.png">
-<input class="avias" type="button" onclick="return false;" value="C'est envoyé, merci.">
-</div>
-</form>
-</div>
-</div>
-</div>
-            
-            
+    -->     
             
 </div>		
 {% endblock %}

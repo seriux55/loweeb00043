@@ -406,8 +406,18 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('nroho_base_profil', array('id' => $id)));
         }
         
+        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Avis')
+                   ->createQueryBuilder('a')
+                   ->leftJoin('a.user_avis', 'b')->addSelect('b')
+                   ->orderBy('a.id','ASC')
+                   ->where('a.user = :id')
+                   ->setParameter('id', $id)
+                ;
+        $tout_avis = $qb->getQuery()->getResult();
+        
         return $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form' => $form->createView(),
+            'avis' => $tout_avis,
         ));
     }
     

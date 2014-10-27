@@ -35,6 +35,13 @@ class Avis
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="emo", type="integer")
+     */
+    private $emo;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="avis", type="string", length=255)
@@ -63,6 +70,7 @@ class Avis
     {
         $this->depot = new \DateTime();
         $this->ip = $_SERVER['REMOTE_ADDR'];
+        $this->emo = 1;
     }
     
     /**
@@ -75,6 +83,29 @@ class Avis
         return $this->id;
     }
 
+    /**
+     * Set emo
+     *
+     * @param integer $emo
+     * @return Avis
+     */
+    public function setEmo($emo)
+    {
+        $this->emo = $emo;
+
+        return $this;
+    }
+
+    /**
+     * Get emo
+     *
+     * @return integer 
+     */
+    public function getEmo()
+    {
+        return $this->emo;
+    }
+    
     /**
      * Set avis
      *

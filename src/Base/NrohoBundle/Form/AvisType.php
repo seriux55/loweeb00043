@@ -15,7 +15,10 @@ class AvisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('avis', 'textarea')
+            ->add('avis', 'textarea', array(
+                'attr' => array('cols' => '92', 'rows' => '5'),
+            ))
+            ->add('emo', 'hidden')
             //->add('ip')
             //->add('depot')
             //->add('user')
