@@ -408,16 +408,37 @@ class DefaultController extends Controller
         
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Avis')
                    ->createQueryBuilder('a')
-                   ->leftJoin('a.user_avis', 'b')->addSelect('b')
+                   ->leftJoin('a.user', 'b')->addSelect('b')
+                   //->leftJoin('a.user_avis', 'c')->addSelect('c')
                    ->orderBy('a.id','ASC')
-                   ->where('a.user = :id')
+                   ->where('a.user_avis = :id')
                    ->setParameter('id', $id)
                 ;
         $tout_avis = $qb->getQuery()->getResult();
         
+        $qb = $this->getDoctrine()->getRepository('BaseUserBundle:User')
+                   ->createQueryBuilder('a')
+                   ->where('a.id = :id')
+                   ->setParameter('id', $id)
+                   ->setMaxResults(1)
+                ;
+        $user = $qb->getQuery()->getResult();
+        
+        /*
+        $user = array(
+            'secondename' => $this->get('security.context')->getToken()->getUser()->getSecondename(),
+            'born' => $this->get('security.context')->getToken()->getUser()->getBorn(),
+            'phone' => $this->get('security.context')->getToken()->getUser()->getPhone(),
+            'gender' => $this->get('security.context')->getToken()->getUser()->getGender(),
+        );
+        
+        $user = $this->get('security.context')->getToken()->getUser();
+        */
+        
         return $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form' => $form->createView(),
             'avis' => $tout_avis,
+            'user' => $user,
         ));
     }
     

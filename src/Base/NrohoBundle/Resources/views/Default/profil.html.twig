@@ -26,23 +26,28 @@
                 <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}" alt="covoiturage algerie nroho"/>							<!-- <img src="../images/moustache_nroho_covoiturage_algerie.png"/> -->
             </div>
             <div class="detaizinfo">
+                {% for data in user %}
                 <p class="detailnom">
-                    <strong><a href="{{ path('nroho_base_profil', { 'id': '1' }) }}">Karim</a></strong>
+                    <strong>{{ data.secondename }}</strong>
                 </p>
                 <div class="detailop">
-                    <p>24 ans - 206<br />0606060606</p>
+                    <p>{{ data.born }} ans - 206 (a revoir)<br />{{ data.phone }}</p>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>
     <div class="blocde">
         <h6>Mes trajets</h6>
     </div>
+    
+    <!--
     <div class="blocde">
         <h6>Avis</h6>
         <p>Il y n'a pas encore d'avis.</p>
     </div>
-
+    -->
+    
     <!-- les commentaires -->
 
     <div class="detailono">
@@ -59,11 +64,18 @@
                                         <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}"/>
                                     {% else %}
                                         <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}"/>
-                                    {% endif%}
+                                    {% endif %}
                                 </div>
                                 <div class="echangi4">
                                     <div class="echangi1">
                                         <p><a href="#">{{ data.user.secondename }}</a>{{ data.avis }}</p>
+                                        {% if data.emo == 1 %}
+                                            <img class="ihe" src="{{ asset('bundles/basenroho/img/emo1.png') }}" alt="Amis">
+                                        {% elseif data.emo == 2 %}
+                                            <img class="ihe" src="{{ asset('bundles/basenroho/img/emo2.png') }}" alt="Amis">
+                                        {% elseif data.emo == 3 %}
+                                            <img class="ihe" src="{{ asset('bundles/basenroho/img/emo3.png') }}" alt="Amis">
+                                        {% endif %}
                                     </div>
                                     <div class="echangi2">
                                         <p>Le {{ data.depot|date('d/m/Y à h:i') }}</p>
@@ -84,7 +96,7 @@
         <h6>Déposez un avis</h6>
         <form method="post" {{ form_enctype(form) }}> 
             {{ form_errors(form) }}
-            1. Votre humeur sur ce profil ?
+            1. Votre humeur sur ce covoitureur ?
             <div class="avibod">
                 <a id="smily1" class="adb" onclick="return false;" href="">
                     <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo1.png') }}" alt="Amis">
@@ -96,16 +108,18 @@
                     <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo3.png') }}" alt="Amis">
                 </a>
             </div>
-            2. Votre avis 
-            <div class="modfooter">
-                {{ form_label(form.avis, " ") }}
-                {{ form_errors(form.avis) }}
-                {{ form_widget(form.avis) }}
-            </div>
-            {{ form_rest(form) }}
-            <div class="publio">
-                <div class="boutin">
-                    <input class="publier" type="submit" value="Envoyez"/>
+            <div class="cibero" style="display:none">
+                2. Votre avis 
+                <div class="modfooter">
+                    {{ form_label(form.avis, " ") }}
+                    {{ form_errors(form.avis) }}
+                    {{ form_widget(form.avis) }}
+                </div>
+                {{ form_rest(form) }}
+                <div class="publio">
+                    <div class="boutin">
+                        <input class="publier" type="submit" value="Envoyez"/>
+                    </div>
                 </div>
             </div>
         </form>
@@ -117,5 +131,16 @@
     </div>
     -->     
             
-</div>		
+</div>
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+    $(".adb").on('click', function(){
+        $("#base_nrohobundle_avis_emo").val(this.id.substr(5));
+        $(".cibero").slideDown();
+    });
+});
+</script>
 {% endblock %}
