@@ -3,7 +3,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" media="screen and (max-width:900px)" href="css/style_small.css"/>
+    <link rel="stylesheet" media="screen and (max-width:900px)" href="{{ asset('bundles/basenroho/css/style_small.css') }}"/>
 {% endblock %}
 
 {% block body %}		
@@ -202,9 +202,17 @@
                     </div>
                 </div>
             </div>
-        {% endfor %}
-        <!-- Fin -->
+            {% endfor %}
+            <div id="resultatsuite">
+            </div>
+            <!-- Fin -->
         </div>
+        
+        {% block content %}   
+            
+            <input type="button" value="allo" id="mm">
+        {% endblock %}
+        
         <div class="sectionnor">
             <p>
                 <a href="#">
@@ -352,7 +360,114 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script charset="utf-8" src="{{ asset('bundles/basenroho/js/date.js') }}"></script>
 <script charset="utf-8" src="{{ asset('bundles/basenroho/js/date2.js') }}"></script>
-<script charset="utf-8" src="{{ asset('bundles/basenroho/js/classdate.js') }}"></script>
+<!-- <script charset="utf-8" src="{{ asset('bundles/basenroho/js/classdate.js') }}"></script> -->
 <script type="text/javascript" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
 <script charset="utf-8" src="{{ asset('bundles/basenroho/js/search.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    first = 2;
+    $("#mm").on("click", function(){
+        var result = "";
+        var route = "{{ path('nroho_base_top', { 'page': "text" }) }}";
+        var url = route.replace("text", first);
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: 'application/json',
+            cache: false,
+            success: function(json){
+                var jsonn = JSON.parse( json );
+                console.log(jsonn);
+                if (jsonn !== null){
+                    lili = "";
+                    for (var i = 0; i < jsonn.length; i++){
+                        //options += '<option value="' + json[i].wilaya + '">' + json[i].wilaya + '</option>';
+                        
+                        
+                        result += '\
+                        <div class="sectionn">\
+                            <div class="caseoi">\
+                                <div class="choirc1">\
+                                    <a href="">\
+                                        <div class="detrc">\
+                                            <div class="nouvie3">\
+                                                <img src="" alt="covoiturage Rose"/>\
+                                            </div>\
+                                            <p class="prixnuit">\
+                                                Conductrice\
+                                                <br/><strong>'+ jsonn[i].user.secondename +'</strong>\
+                                            </p>\
+                                         </div>\
+                                         <div class="destrcco">\
+                                             <div class="detrc">\
+                                                 <p></p>\
+                                             </div>\
+                                             <div class="detrc">\
+                                             </div>\
+                                             <div class="detrc">\
+                                                     <p>'+ jsonn[i].vehicule +'</p>\
+                                             </div>\
+                                         </div>\
+                                         <div class="opicon">\
+                                         </div>\
+                                     </a>\
+                                 </div>\
+                                 <div class="rc">\
+                                     <a href="">\
+                                         <div class="nouveau1">\
+                                             <div class="nouvie1">\
+                                                 <p>'+ jsonn[i].depart +' ('+ jsonn[i].villea +')</p>\
+                                             </div>\
+                                             <div class="nouvie2">\
+                                                 <img src="" alt="vers"/>\
+                                             </div>\
+                                             <div class="nouvie1">\
+                                                 <p>'+ jsonn[i].arrivee +' ('+ jsonn[i].villeb +')</p>\
+                                             </div>\
+                                         </div>\
+                                     </a>\
+                                     <div class="nouveau2">\
+                                         <article>\
+                                             <a href=""><h1>'+ jsonn[i].date +' - '+ jsonn[i].heure +'</h1></a>\
+                                             <p>'+ jsonn[i].message +'</p>\
+                                         </article>\
+                                     </div>\
+                                 </div>\
+                                 <div class="choirc">\
+                                     <div class="detrc">\
+                                         <p class="prixnuito">\
+                                             <strong>'+ jsonn[i].prix +'</strong> Dinars\
+                                         </p>\
+                                     </div>\
+                                     <div class="detrc1">\
+                                         <p><strong>'+ jsonn[i].place +'</strong> places<br/></p>\
+                                     </div>\
+                                     <div class="detrc1p">\
+                                         <p>Entre Elles</p>\
+                                     </div>\
+                                 </div>\
+                             </div>\
+                             <div class="caseoa">\
+                             </div>\
+                        </div>\
+                        <div class="interi" style="display:none">\
+                             <div class="interi2">\
+                                 <div class="boutin2">\
+                                     <a href="">Voir</a>\
+                                 </div>\
+                             </div>\
+                        </div>';
+                        
+                        
+                        
+                    }
+                    $("#resultatsuite").append(result);
+                }
+                //alert(lili);
+            }
+        });
+        first = first + 2;
+    });
+});
+</script>
 {% endblock %}

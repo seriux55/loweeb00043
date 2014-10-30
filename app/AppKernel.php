@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Base\UserBundle\BaseUserBundle(),
             new Base\NrohoBundle\BaseNrohoBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

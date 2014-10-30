@@ -67,3 +67,7 @@ nroho_base_demande_no:
     defaults: { _controller: BaseNrohoBundle:Default:no_demande }
     requirements:
         id:  \d+
+
+nroho_base_top:
+    pattern: /top/{page}
+    defaults: { _controller: BaseNrohoBundle:Default:top, page: 8 }

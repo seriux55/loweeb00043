@@ -14,6 +14,9 @@ use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\AvisType;
 use Symfony\Component\HttpFoundation\Request;
 //use Doctrine\ORM\Query\Expr;
+//use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use JMS\SerializerBundle\JMSSerializerBundle;
 
 class DefaultController extends Controller
 {
@@ -461,5 +464,23 @@ class DefaultController extends Controller
         $product = $em->find('BaseNrohoBundle:Demande', $id)->setEtat('0');
         $em->flush();
         return $this->forward('BaseNrohoBundle:Default:demande');
+    }
+    
+    public function topAction($page = 8)
+    {
+        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+                   ->createQueryBuilder('a')
+                   //->addSelect('b')
+                   //->leftJoin('a.user', 'b')
+                   ->orderBy('a.id','DESC')
+                   ->setFirstResult($page) //offset
+                   ->setMaxResults(2)  //limit
+                ;
+        $product = $qb->getQuery()->getResult();
+        
+        $serializer = $this->container->get('serializer');
+        $reports = $serializer->serialize($product, 'json');
+        return new Response($reports);
+        
     }
 }

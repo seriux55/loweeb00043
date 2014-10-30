@@ -1,4 +1,3 @@
-﻿
 jQuery(function($){
 	$.datepicker.regional['fr'] = {
 		closeText: 'Fermer',
@@ -20,7 +19,6 @@ jQuery(function($){
 		yearSuffix: ''};
 	//$.datepicker.setDefaults($.datepicker.regional['fr']);
 
-//	$(function() {
 	$.datepicker.setDefaults( $.datepicker.regional[ "" ] );
 	$( ".datepicker" ).datepicker( $.datepicker.regional[ "fr" ] );
 });
@@ -30,7 +28,6 @@ jQuery(function($){
 // fonction classe pour datepicker
 $(function() {
 	$('input.datepicker').datepicker();
-
 });
 
 
