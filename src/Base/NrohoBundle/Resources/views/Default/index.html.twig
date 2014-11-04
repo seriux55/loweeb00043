@@ -207,12 +207,12 @@
             </div>
             <!-- Fin -->
         </div>
-        
-        {% block content %}   
-            
-            <input type="button" value="allo" id="mm">
-        {% endblock %}
-        
+        <div id="plus" class="casedeto">
+            <center><a id="mm" href="#" onclick="return false">Voir la suite</a></center>
+        </div>
+        <div id="loadersearching" style="display:none" class="centi">
+            <img src="{{ asset('bundles/basenroho/img/loading.gif') }}" alt="Chargement"/>
+        </div>
         <div class="sectionnor">
             <p>
                 <a href="#">
@@ -367,6 +367,8 @@
 $(document).ready(function(){
     first = 2;
     $("#mm").on("click", function(){
+        $("#plus").hide();
+        $("#loadersearching").show();
         var result = "";
         var route = "{{ path('nroho_base_top', { 'page': "text" }) }}";
         var url = route.replace("text", first);
@@ -464,6 +466,8 @@ $(document).ready(function(){
                     $("#resultatsuite").append(result);
                 }
                 //alert(lili);
+                $("#loadersearching").hide();
+                $("#plus").show();
             }
         });
         first = first + 2;
