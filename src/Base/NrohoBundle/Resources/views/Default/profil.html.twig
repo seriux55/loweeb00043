@@ -91,39 +91,42 @@
     </div>
     <!-- fin des commentaires -->
 
-                
-    <div class="blocde">
-        <h6>Déposez un avis</h6>
-        <form method="post" {{ form_enctype(form) }}> 
-            {{ form_errors(form) }}
-            1. Votre humeur sur ce covoitureur ?
-            <div class="avibod">
-                <a id="smily1" class="adb" onclick="return false;" href="">
-                    <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo1.png') }}" alt="Amis">
-                </a>
-                <a id="smily2" class="adb" onclick="return false;" href="">
-                    <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo2.png') }}" alt="Amis">
-                </a>
-                <a id="smily3" class="adb" onclick="return false;" href="">
-                    <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo3.png') }}" alt="Amis">
-                </a>
-            </div>
-            <div class="cibero" style="display:none">
-                2. Votre avis 
-                <div class="modfooter">
-                    {{ form_label(form.avis, " ") }}
-                    {{ form_errors(form.avis) }}
-                    {{ form_widget(form.avis) }}
+    {% if id != app.user.id %}
+    <!-- debut avis -->     
+        <div class="blocde">
+            <h6>Déposez un avis</h6>
+            <form method="post" {{ form_enctype(form) }}> 
+                {{ form_errors(form) }}
+                1. Votre humeur sur ce covoitureur ?
+                <div class="avibod">
+                    <a id="smily1" class="adb" onclick="return false;" href="">
+                        <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo1.png') }}" alt="Amis">
+                    </a>
+                    <a id="smily2" class="adb" onclick="return false;" href="">
+                        <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo2.png') }}" alt="Amis">
+                    </a>
+                    <a id="smily3" class="adb" onclick="return false;" href="">
+                        <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo3.png') }}" alt="Amis">
+                    </a>
                 </div>
-                {{ form_rest(form) }}
-                <div class="publio">
-                    <div class="boutin">
-                        <input class="publier" type="submit" value="Envoyez"/>
+                <div class="cibero" style="display:none">
+                    2. Votre avis 
+                    <div class="modfooter">
+                        {{ form_label(form.avis, " ") }}
+                        {{ form_errors(form.avis) }}
+                        {{ form_widget(form.avis) }}
+                    </div>
+                    {{ form_rest(form) }}
+                    <div class="publio">
+                        <div class="boutin">
+                            <input class="publier" type="submit" value="Envoyez"/>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+        <!-- fin avis -->
+    {% endif %}
             
     <!--
     <div class="blocde">

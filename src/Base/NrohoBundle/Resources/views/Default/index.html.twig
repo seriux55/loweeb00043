@@ -25,8 +25,9 @@
                                             <label>De</label>
                                         </div>
                                         <select class="ouardepi" name="select3">
-                                            <option value='16 - Alger'>16 - Alger</option>
-                                            <option value='06 - Béjaia' selected>06 - Béjaia</option>
+                                            {% for data in wilaya %}
+                                                <option value='{{ data }}' {% if data == '16 - Alger' %}selected{% endif %}>{{ data }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="mrr44d">
@@ -35,8 +36,9 @@
                                             <label>À</label>
                                         </div>
                                         <select class="ouardepi" name="select4">
-                                            <option value='16 - Alger'>16 - Alger</option>
-                                            <option value='06 - Béjaia' selected>06 - Béjaia</option>
+                                            {% for data in wilaya %}
+                                                <option value='{{ data }}' {% if data == '06 - Bejaia' %}selected{% endif %}>{{ data }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
@@ -101,9 +103,6 @@
             </div> 
         </div>
     <div id="filtre" style="display:none"></div>
-        <div id="loadersearching" style="display:none" class="centi">
-            <img src="{{ asset('bundles/basenroho/img/loading.gif') }}" alt="Chargement"/>
-        </div>
         <div id="normal">
             <!-- Début -->
             {% for data in product %}
@@ -113,7 +112,11 @@
                         <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
                             <div class="detrc">
                                 <div class="nouvie3">
-                                    <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}" alt="covoiturage Rose"/>
+                                    {% if data.user.gender == 1 %}
+                                        <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}" alt="covoiturage Moustache"/>
+                                    {% elseif data.user.gender == 0 %}
+                                        <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}" alt="covoiturage Rose"/>
+                                    {% endif %}
                                 </div>
                                 <p class="prixnuit">
                                     Conductrice
@@ -215,9 +218,7 @@
         </div>
         <div class="sectionnor">
             <p>
-                <a href="#">
-                    Dépose ton annonce ici
-                </a>
+                <a href="{{ path('nroho_base_add') }}">Dépose ton annonce ici</a>
             </p>
         </div>
     </div>		
@@ -358,11 +359,11 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-<script charset="utf-8" src="{{ asset('bundles/basenroho/js/date.js') }}"></script>
-<script charset="utf-8" src="{{ asset('bundles/basenroho/js/date2.js') }}"></script>
-<!-- <script charset="utf-8" src="{{ asset('bundles/basenroho/js/classdate.js') }}"></script> -->
-<script type="text/javascript" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
-<script charset="utf-8" src="{{ asset('bundles/basenroho/js/search.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/date.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/date2.js') }}"></script>
+<!-- <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/classdate.js') }}"></script> -->
+<script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
+<script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/search.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
     first = 2;
@@ -393,7 +394,7 @@ $(document).ready(function(){
                                     <a href="">\
                                         <div class="detrc">\
                                             <div class="nouvie3">\
-                                                <img src="" alt="covoiturage Rose"/>\
+                                                <img src="'; if(jsonn[i].user.gender==1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender==0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
                                             </div>\
                                             <p class="prixnuit">\
                                                 Conductrice\
@@ -421,7 +422,7 @@ $(document).ready(function(){
                                                  <p>'+ jsonn[i].depart +' ('+ jsonn[i].villea +')</p>\
                                              </div>\
                                              <div class="nouvie2">\
-                                                 <img src="" alt="vers"/>\
+                                                 <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>\
                                              </div>\
                                              <div class="nouvie1">\
                                                  <p>'+ jsonn[i].arrivee +' ('+ jsonn[i].villeb +')</p>\
@@ -445,7 +446,7 @@ $(document).ready(function(){
                                          <p><strong>'+ jsonn[i].place +'</strong> places<br/></p>\
                                      </div>\
                                      <div class="detrc1p">\
-                                         <p>Entre Elles</p>\
+                                         <p>'; if(jsonn[i].filles==1) result += 'Entre Elles'; result += '</p>\
                                      </div>\
                                  </div>\
                              </div>\
