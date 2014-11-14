@@ -9,7 +9,6 @@ use Base\NrohoBundle\Form\ProductType;
 use Base\NrohoBundle\Entity\Comment;
 use Base\NrohoBundle\Form\CommentType;
 use Base\NrohoBundle\Entity\Demande;
-use Base\NrohoBundle\Form\DemandeType;
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\AvisType;
 use Symfony\Component\HttpFoundation\Request;
@@ -239,10 +238,7 @@ class DefaultController extends Controller
     
     public function productAction($id)
     {
-        $reservation = new Demande;
-        $formD = $this->createForm(new DemandeType(), $reservation);
-        //$formD = $this->createFormBuilder($reservation)->add('nombre', 'text');
-        
+        // detail du covoiturage
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
@@ -250,6 +246,16 @@ class DefaultController extends Controller
                    ->setParameter('id', $id)
                 ;
         $product = $qb->getQuery()->getResult();
+        
+        // nombre de places max
+        foreach($product as $value) {
+            $nbrPlace = $value->getPlace();
+        }
+        
+        // formulaire de reservation
+        $reservation = new Demande;
+        //$formD = $this->createForm(new DemandeType(), $reservation);
+        $formD = $this->createFormBuilder($reservation)->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' => $nbrPlace)))->getForm();
         
         // --- Gestion du commentaire ---
         $comment = new Comment();
@@ -278,7 +284,7 @@ class DefaultController extends Controller
                 $em->persist($reservation);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $reservation->getId())));
+                return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $id)));
             }
             
         }
@@ -309,7 +315,6 @@ class DefaultController extends Controller
             'nbr'      => $nbr,
             'form'     => $form->createView(),
             'formD'    => $formD->createView(),
-            //'nbrPlace' => $nbrPlace,
         ));
     }
     
@@ -355,6 +360,7 @@ class DefaultController extends Controller
                    ->where('b.user = :id')
                    ->setParameter('id', $this->get('security.context')->getToken()->getUser())
                    ->orderBy('a.depot', 'DESC')
+                   ->orderBy('a.etat', 'DESC')
                    //->setFirstResult(0) //offset
                    //->setMaxResults(0)  //limit
                 ;

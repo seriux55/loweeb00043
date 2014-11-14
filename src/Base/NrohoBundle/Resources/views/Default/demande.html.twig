@@ -23,9 +23,9 @@
                 <div class="plosa">
                     <div class="nouvie3">
                         {% if data.user.gender == 1 %}
-                        <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}"/>
+                            <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}"/>
                         {% else %}
-                        <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}"/>
+                            <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}"/>
                         {% endif %}
                     </div>
                     <p class="prixnuit">
@@ -43,8 +43,8 @@
         </div>
         <div class="supprimer">
             {% if data.etat == 2 %}
-                <p><a href="{{ path('nroho_base_demande_yes', { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Refuser</a></p>
-                <p><a href="{{ path('nroho_base_demande_no',  { 'id': data.id }) }}">Accepter</a></p>
+                <p><a href="{{ path('nroho_base_demande_no', { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Refuser</a></p>
+                <p><a href="{{ path('nroho_base_demande_yes',  { 'id': data.id }) }}">Accepter</a></p>
             {% elseif data.etat == 1 %}
                 <p>Accepter</p>    
             {% elseif data.etat == 0 %}
