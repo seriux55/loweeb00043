@@ -304,11 +304,11 @@ class DefaultController extends Controller
                     ->getQuery()->getResult();
         
         return $this->render('BaseNrohoBundle:Default:product.html.twig', array(
-            'product' => $product,
+            'product'  => $product,
             'comments' => $comments,
-            'nbr' => $nbr,
-            'form' => $form->createView(),
-            'formD' => $formD->createView(),
+            'nbr'      => $nbr,
+            'form'     => $form->createView(),
+            'formD'    => $formD->createView(),
             //'nbrPlace' => $nbrPlace,
         ));
     }

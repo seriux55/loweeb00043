@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class DemandeType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -16,6 +16,7 @@ class DemandeType extends AbstractType
     {
         $builder
             ->add('nombre')
+            //->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' =>5)))
         ;
     }
     

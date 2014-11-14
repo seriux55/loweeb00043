@@ -3,10 +3,11 @@
 {% block body %}
 {% for data in product %}
 <div class="bloc_page_bodyg">
+    {#
     <div class="blocgau">
         {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
-        {# include menu.php #}
     </div>
+    #}
     <div class="detail1r1">
         <h3>
             Conducteur				
@@ -109,39 +110,42 @@
     </div>
                 
     <!-- les commentaires -->
-
-    <div class="detailono">
-        <div class="publiy">
-            <div class="comail">
-                <h3>{% for data in nbr %}{{ data.nbr }}{% endfor %} Commentaires</h3>
-                <div class="reponsi">             
-                    <p>
-                        {% for data in comments %}
-                        <div class="reponsi">
-                            <div class="echangi">
-                                <div class="echangi3">
-                                    {% if data.user.gender == 0 %}
-                                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}"/>
-                                    {% else %}
-                                        <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}"/>
-                                    {% endif%}
-                                </div>
-                                <div class="echangi4">
-                                    <div class="echangi1">
-                                        <p><a href="#">{{ data.user.secondename }}</a>{{ data.comment }}</p>
+    {% set nbrc = "" %}{% for data in nbr %}{% set nbrc = data.nbr %}{% endfor %}
+    
+    {% if nbrc > 0 %}
+        <div class="detailono">
+            <div class="publiy">
+                <div class="comail">
+                    <h3>{{ nbrc }} Commentaires</h3>
+                    <div class="reponsi">             
+                        <p>
+                            {% for data in comments %}
+                            <div class="reponsi">
+                                <div class="echangi">
+                                    <div class="echangi3">
+                                        {% if data.user.gender == 0 %}
+                                            <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}"/>
+                                        {% else %}
+                                            <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}"/>
+                                        {% endif%}
                                     </div>
-                                    <div class="echangi2">
-                                        <p>Le {{ data.depot|date('d/m/Y à h:i') }}</p>
+                                    <div class="echangi4">
+                                        <div class="echangi1">
+                                            <p><a href="#">{{ data.user.secondename }}</a>{{ data.comment }}</p>
+                                        </div>
+                                        <div class="echangi2">
+                                            <p>Le {{ data.depot|date('d/m/Y à h:i') }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {% endfor %}
-                    </p>
+                            {% endfor %}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>	
-    </div>
+            </div>	
+        </div>
+    {% endif %}
     <!-- fin des commentaires -->
         
     <form method="post" {{ form_enctype(form) }}>	
@@ -176,8 +180,8 @@
             </div>
         </div>
     </form>
-</div>	
-<!--	La balise aside pour les messages privés -->
+</div>
+<!--	La balise aside pour reserver des places -->
 <aside id="example" class="modal">
     <div>
         <form class="envm" method="post" {{ form_enctype(formD) }}>
