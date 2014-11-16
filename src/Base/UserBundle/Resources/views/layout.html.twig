@@ -21,13 +21,18 @@
                     <a href="{{ url('nroho_base_default') }}"><img src="{{ asset('bundles/basenroho/img/logo-nroho_44.png') }}" alt="logo de nroho.com" id="logoo"/></a>
                 </div>
                 <div class="bloc_page_entete_2">
-                    <nav class="entete3"> 
-                        <a href="#">Accueil</a>
-                        <a href="#">Cherchez des places</a>  
-                        <a href="#">Nouveau trajet</a>
-                        <a href="#">Mes trajet</a>
-                        <a href="#">Aide</a>
-                        <a href="#">Déconnexion</a>
+                    <nav class="entete3">
+                        {% if is_granted("ROLE_USER") %}
+                            <a href="{{ path('nroho_base_profil', { 'id': app.user.id }) }}">{{ app.user.secondename|title }}</a>
+                            <a href="{{ path('nroho_base_add') }}">Ajouter un trajet</a>
+                            <a href="{{ path('nroho_base_annonce') }}">Mes trajets</a>
+                            <a href="{{ path('nroho_base_message') }}">Messages</a>
+                            <a href="{{ path('nroho_base_demande') }}">Demandes</a>
+                            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        {% else %}
+                            <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                        {% endif %}
+                        <a href="{{ path('nroho_base_aide') }}">Aide</a>
                     </nav>
                 </div>
             </div>

@@ -50,6 +50,8 @@ class DefaultController extends Controller
                    ->createQueryBuilder('a')
                    ->addSelect('b')
                    ->leftJoin('a.user', 'b')
+                   ->where('a.valid = :valid')
+                   ->setParameter('valid', '1')
                    ->orderBy('a.id','DESC')
                    //->setFirstResult(2) //offset
                    ->setMaxResults(2)  //limit
@@ -492,8 +494,10 @@ class DefaultController extends Controller
     {
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
-                   //->addSelect('b')
-                   //->leftJoin('a.user', 'b')
+                   ->addSelect('b')
+                   ->leftJoin('a.user', 'b')
+                   ->where('a.valid = :valid')
+                   ->setParameter('valid', '1')
                    ->orderBy('a.id','DESC')
                    ->setFirstResult($page) //offset
                    ->setMaxResults(2)  //limit

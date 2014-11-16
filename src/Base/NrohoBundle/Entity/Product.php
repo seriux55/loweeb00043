@@ -186,7 +186,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="valid", type="string", columnDefinition="ENUM('0', '1')")
+     * @ORM\Column(name="valid", type="string", columnDefinition="ENUM('0', '1')", nullable=false)
      */
     private $valid;
     
