@@ -31,7 +31,7 @@
                     <p class="prixnuit">
                         {% if data.user.gender == 1 %} Passager {% else %} Passagère {% endif %}
                         <br/>
-                        <strong>{{ data.user.secondename }}</strong>
+                        <strong><a href="{{ path('nroho_base_profil',  { 'id': data.user.id }) }}">{{ data.user.secondename }}</a></strong>
                     </p>
                 </div>
                 <div class="choirc">

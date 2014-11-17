@@ -16,7 +16,11 @@
     <div class="detail1i1">
         <div class="detailima">
             <div class="detail3">
-                <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}" alt="covoiturage algerie nroho"/>							<!-- <img src="../images/moustache_nroho_covoiturage_algerie.png"/> -->
+                {% if data.user.gender == 1 %}
+                    <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}" alt="covoiturage algerie nroho"/>
+                {% elseif data.user.gender == 0 %}
+                    <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}" alt="covoiturage algerie nroho"/>
+                {% endif %}
             </div>
             <div class="detaizinfo">
                 <p class="detailnom">

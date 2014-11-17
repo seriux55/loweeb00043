@@ -23,9 +23,9 @@ class Product
     private $user;
     
     /**
-     * @ORM\Column(name="update", type="datetime", nullable=true)
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
      */
-    private $update;
+    private $updated;
     
     /**
      * Le constructeur
@@ -34,7 +34,7 @@ class Product
     {
         //$this->maj = '0';
         //$this->type = false;
-        $this->valid = '0';
+        $this->valid = '3';
         $this->saa = 0;
         $this->deposit = new \DateTime();
         $this->ip = $_SERVER['REMOTE_ADDR'];
@@ -186,7 +186,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="valid", type="string", columnDefinition="ENUM('0', '1')", nullable=false)
+     * @ORM\Column(name="valid", type="string", columnDefinition="ENUM('0', '1', '2', '3')", nullable=false)
      */
     private $valid;
     
@@ -743,12 +743,35 @@ class Product
     {
         return $this->valid;
     }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Product
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime 
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
     
     /**
      * @ORM\PreUpdate
      */
-    public function update()
+    public function updateProduct()
     {
-      $this->setUpdate(new \Datetime());
+      $this->setUpdated(new \Datetime());
     }
 }

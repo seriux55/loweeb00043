@@ -380,6 +380,7 @@ $(document).ready(function(){
             cache: false,
             success: function(json){
                 var jsonn = JSON.parse( json );
+                var lid = "";
                 console.log(jsonn);
                 if (jsonn !== null){
                     lili = "";
@@ -391,7 +392,7 @@ $(document).ready(function(){
                         <div class="sectionn">\
                             <div class="caseoi">\
                                 <div class="choirc1">\
-                                    <a href="">\
+                                    <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
                                         <div class="detrc">\
                                             <div class="nouvie3">\
                                                 <img src="'; if(jsonn[i].user.gender==1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender==0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
@@ -416,7 +417,7 @@ $(document).ready(function(){
                                      </a>\
                                  </div>\
                                  <div class="rc">\
-                                     <a href="">\
+                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
                                          <div class="nouveau1">\
                                              <div class="nouvie1">\
                                                  <p>'+ jsonn[i].depart +' ('+ jsonn[i].villea +')</p>\
@@ -431,7 +432,7 @@ $(document).ready(function(){
                                      </a>\
                                      <div class="nouveau2">\
                                          <article>\
-                                             <a href=""><h1>'+ jsonn[i].date +' - '+ jsonn[i].heure +'</h1></a>\
+                                             <a href="{{ path('nroho_base_product', { 'id': '100' }) }}"><h1>'+ jsonn[i].date +' - '+ jsonn[i].heure +'</h1></a>\
                                              <p>'+ jsonn[i].message +'</p>\
                                          </article>\
                                      </div>\
@@ -456,12 +457,15 @@ $(document).ready(function(){
                         <div class="interi" style="display:none">\
                              <div class="interi2">\
                                  <div class="boutin2">\
-                                     <a href="">Voir</a>\
+                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">Voir</a>\
                                  </div>\
                              </div>\
                         </div>';
                         
-                        
+                        resultt = result.replace("100", jsonn[i].id);
+                        result  = resultt.replace("100", jsonn[i].id);
+                        resultt = result.replace("100", jsonn[i].id);
+                        result  = resultt.replace("100", jsonn[i].id);
                         
                     }
                     $("#resultatsuite").append(result);
