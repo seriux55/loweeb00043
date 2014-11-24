@@ -11,6 +11,66 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser
 {
+    //@ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\ImageProfil", cascade={"persist"})
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\ImageProfil", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $imageProfil;
+    
+    /**
+     * Set imageProfil
+     *
+     * @param \Base\NrohoBundle\Entity\ImageProfil $imageProfil
+     * @return User
+     */
+    public function setImageProfil(\Base\NrohoBundle\Entity\ImageProfil $imageProfil)
+    {
+        $this->imageProfil = $imageProfil;
+
+        return $this;
+    }
+
+    /**
+     * Get imageProfil
+     *
+     * @return \Base\NrohoBundle\Entity\ImageProfil 
+     */
+    public function getImageProfil()
+    {
+        return $this->imageProfil;
+    }
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\ImageVoiture", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $imageVoiture;
+    
+    /**
+     * Set imageVoiture
+     *
+     * @param \Base\NrohoBundle\Entity\ImageVoiture $imageVoiture
+     * @return User
+     */
+    public function setImageVoiture(\Base\NrohoBundle\Entity\ImageProfil $imageVoiture)
+    {
+        $this->imageVoiture = $imageVoiture;
+
+        return $this;
+    }
+
+    /**
+     * Get imageVoiture
+     *
+     * @return \Base\NrohoBundle\Entity\ImageVoiture
+     */
+    public function getImageVoiture()
+    {
+        return $this->imageVoiture;
+    }
+    
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
