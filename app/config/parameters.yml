@@ -7,8 +7,10 @@ parameters:
     database_user: nadir
     database_password: null
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_auth_mode: login
+    mailer_host: smtp.nroho.com
+    mailer_port: 587
+    mailer_user: contact@nroho.com
+    mailer_password: Chalgrin16
     locale: fr
     secret: 24b6fcf1d1992c1731bcf33023857f9c

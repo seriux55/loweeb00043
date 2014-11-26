@@ -42,6 +42,12 @@ nroho_base_message:
     pattern: /message
     defaults: { _controller: BaseNrohoBundle:Default:message }
     
+nroho_base_message_lecture:
+    pattern: /message/{id}
+    defaults: { _controller: BaseNrohoBundle:Default:messageid }
+    requirements:
+        id:  \d+
+    
 nroho_base_recherche:
     pattern: /recherche
     defaults: { _controller: BaseNrohoBundle:Default:recherche }

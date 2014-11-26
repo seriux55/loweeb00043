@@ -21,8 +21,9 @@
                                 <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}">
                             {% endif %}
                         </div>
-                        <a href="#">
+                        <a href="#" id="{{ data.user_id }}" class="recup_id" onclick="return false;">
                             {{ data.secondename }}
+                            {# dump(data) #}
                         </a>
                             {{ data.depot|date('d/m/Y') }}
                     </li>
@@ -31,7 +32,6 @@
                 </ul>
             </nav>
         </div>
-        <!--
         <div class="contenu2">
             <h2>
                 Karim
@@ -50,38 +50,6 @@
                             30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
                             à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
                             Et de tous ceux que vous ne connaissiez pas encore.
-                        </p>
-                    </div>
-                </li>              
-                <li>
-                    <div class="echangi3">
-                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
-                    </div>
-                        <div class="echangi3r"> 
-                            <a href="#">Karim</a>
-                                4 Juin
-                        </div>
-                        <div class="echangi3r"> 
-                        <p>	
-                            30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
-                            à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
-                            Et de tous ceux que vous ne connaissiez pas encore.
-                        </p>
-                    </div>
-                </li>              
-                <li>
-                    <div class="echangi3">
-                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
-                    </div>
-                    <div class="echangi3r"> 
-                        <a href="#">Karim</a>
-                        4 Juin
-                    </div>
-                    <div class="echangi3r"> 
-                        <p>	
-                           30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
-                           à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
-                           Et de tous ceux que vous ne connaissiez pas encore.
                         </p>
                     </div>
                 </li>
@@ -104,7 +72,29 @@
                 </div>
             </form>
         </div>
-        -->
     </div>
 </div>
-{% endblock %}		
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('bundles/basenroho/js/jquery-1.11.1.min.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".recup_id").on("click", function(){
+        var id = this.id;
+        alert(id);
+        {#
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: 'application/json',
+            cache: false,
+            success: function(json){
+                
+            }
+        });
+        #}
+    });
+});
+</script>
+{% endblock %}

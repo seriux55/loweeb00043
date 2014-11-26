@@ -12,10 +12,6 @@ use Base\NrohoBundle\Entity\Demande;
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\AvisType;
 use Symfony\Component\HttpFoundation\Request;
-//use Base\NrohoBundle\Entity\ImageProfil;
-//use Base\NrohoBundle\Form\ImageProfil;
-//use Base\NrohoBundle\Entity\ImageVoiture;
-//use Base\NrohoBundle\Form\ImageVoiture;
 //use Doctrine\ORM\Query\Expr;
 //use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -381,7 +377,7 @@ class DefaultController extends Controller
     public function messageAction()
     {     
         $db  = $this->get('database_connection');
-        $row = $db->query("SELECT User.secondename, User.gender, Message.depot, Message.user_id
+        $row = $db->query("SELECT User.secondename, User.gender, Message.depot, Message.user_id AS user_id
                            FROM Message LEFT JOIN Product ON Message.product_id = Product.id 
                            LEFT JOIN User ON Message.user_id = User.id 
                            WHERE Product.user_id = '".$this->get('security.context')->getToken()->getUser()->getId()."'");
@@ -400,6 +396,25 @@ class DefaultController extends Controller
         return $this->render('BaseNrohoBundle:Default:message.html.twig', array(
             'product' => $message,
         ));
+    }
+    
+    public function messageidAction($id)
+    {
+        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
+                   ->createQueryBuilder('a')
+                   ->addSelect('b')
+                   ->leftJoin('a.user', 'b')
+                   ->where('a.valid = :valid')
+                   ->setParameter('valid', '1')
+                   ->orderBy('a.id','DESC')
+                   ->setFirstResult($page) //offset
+                   ->setMaxResults(7)  //limit
+                ;
+        $message = $qb->getQuery()->getResult();
+        
+        $serializer = $this->container->get('serializer');
+        $reports = $serializer->serialize($message, 'json');
+        return new Response($reports);
     }
     
     public function rechercheAction()
@@ -511,6 +526,5 @@ class DefaultController extends Controller
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($product, 'json');
         return new Response($reports);
-        
     }
 }
