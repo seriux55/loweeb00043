@@ -376,12 +376,11 @@ class DefaultController extends Controller
     
     public function messageAction()
     {     
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
         $db  = $this->get('database_connection');
         $row = $db->query("SELECT User.secondename, User.gender, Message.depot, Message.user_id AS user_id
                            FROM Message LEFT JOIN Product ON Message.product_id = Product.id 
                            LEFT JOIN User ON Message.user_id = User.id 
-                           WHERE Product.user_id = '".$id."' AND Message.user_id != '".$id."'");
+                           WHERE Product.user_id = '".$this->get('security.context')->getToken()->getUser()->getId()."'");
         $d = array();
         while ($data = $row->fetch()) {
             if(!in_array($data['user_id'],$d)){	
@@ -401,19 +400,14 @@ class DefaultController extends Controller
     
     public function messageidAction($id)
     {
-        $idc = $this->get('security.context')->getToken()->getUser()->getId();
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
                    ->createQueryBuilder('a')
                    ->addSelect('b')
                    ->leftJoin('a.user', 'b')
-                   ->addSelect('c')
-                   ->leftJoin('a.product', 'c')
-                   ->where('c.user = :user')
-                   ->setParameter('user', $idc)
-                   ->andwhere('a.user = :id OR (a.user = :user AND a.distId = :id)')
-                   ->setParameter('id', $id)
-                   ->orderBy('a.id','ASC')
-                   //->setFirstResult($page) //offset
+                   ->where('a.valid = :valid')
+                   ->setParameter('valid', '1')
+                   ->orderBy('a.id','DESC')
+                   ->setFirstResult($page) //offset
                    ->setMaxResults(7)  //limit
                 ;
         $message = $qb->getQuery()->getResult();

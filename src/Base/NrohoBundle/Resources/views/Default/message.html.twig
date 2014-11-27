@@ -1,7 +1,7 @@
 {% extends "::Base.html.twig" %}
 
 {% block body %}
-<div class="n10load">
+<div class="bloc_page_bodyg">
     {#
     <div class="blocgau">
         {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
@@ -33,10 +33,10 @@
             </nav>
         </div>
         <div class="contenu2">
-            <h2 id="msgway">
-                Messagerie
+            <h2>
+                Karim
             </h2>
-            <nav class="menuinf2" id="msglist">
+            <nav class="menuinf2">
                 <li>
                     <div class="echangi3">
                         <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
@@ -54,7 +54,7 @@
                     </div>
                 </li>
             </nav>
-            <form class="contenu4" method="post" action="#" id="msgsub">	
+            <form class="contenu4" method="post" action="#">	
                 <div class="detaily">
                     <div class="publiyo">
                         <div class="commesg">
@@ -82,64 +82,18 @@
 $(document).ready(function(){
     $(".recup_id").on("click", function(){
         var id = this.id;
-        //alert(id);
-        var result = "";
-        var route = "{{ path('nroho_base_message_lecture', { 'id': "111" }) }}";
-        var url = route.replace("111", id);
-        var idd, ways;
+        alert(id);
+        {#
         $.ajax({
             type: "POST",
             url: url,
             contentType: 'application/json',
             cache: false,
             success: function(json){
-                var jsonn = JSON.parse( json );
-                var lid = "";
-                console.log(jsonn);
-                if (jsonn !== null){
-                    lili = "";
-                    for (var i = 0; i < jsonn.length; i++){
-                        result += '\
-                            <li>\
-                                <div class="echangi3">\
-                                    <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">\
-                                </div>\
-                                <div class="echangi3r">\
-                                    <a href="#">'+ jsonn[i].user.secondename +'</a>\
-                                        '+ jsonn[i].depot.substr(0,10) +'\
-                                </div>\
-                                <div class="echangi3r">\
-                                    <p>\
-                                        '+ jsonn[i].message +'\
-                                    </p>\
-                                </div>\
-                            </li>';
-                        ways = jsonn[i].product.depart.substr(5)+' -> '+jsonn[i].product.arrivee.substr(5);
-                        if(jsonn[i].user.id === jsonn[i].product.user) idd = jsonn[i].distId; else idd = jsonn[i].product.user;
-                    }
-                    var bouton = '\
-                    <div class="detaily">\
-                        <div class="publiyo">\
-                            <div class="commesg">\
-                                <div class="textary">\
-                                    <textarea class="textaro" name="message" placeholder="Votre réponse...">Votre réponse...</textarea>\
-                                </div>\
-                                <input class="ccabirati" name="mail" type="text" size="35" value=""/>\
-                            </div>\
-                            <div class="publio">\
-                                <div class="boutina">\
-                                    <input name="idd" type="hidden" value="'+ idd +'">\
-                                    <input class="publiera" name="valider" type="submit" value="Répondre"/>\
-                                </div>\
-                            </div>\
-                        </div>\
-                    </div>';
-                    $("#msgway").html(ways);
-                    $("#msglist").html(result);
-                    $("#msgsub").html(bouton);
-                }
+                
             }
         });
+        #}
     });
 });
 </script>
