@@ -29,6 +29,14 @@ class Message
     /**
      * @var integer
      *
+     * @ORM\Column(name="distId", type="integer")
+     */
+    private $distId;
+    
+    
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -74,6 +82,30 @@ class Message
         return $this->id;
     }
 
+    /**
+     * Set distId
+     *
+     * @param integer $distId
+     * @return Message
+     */
+    public function setDistId($distId)
+    {
+        $this->distId = $distId;
+
+        return $this;
+    }
+
+    /**
+     * Get distId
+     *
+     * @return integer 
+     */
+    public function getDistId()
+    {
+        return $this->distId;
+    }
+    
+    
     /**
      * Set message
      *
