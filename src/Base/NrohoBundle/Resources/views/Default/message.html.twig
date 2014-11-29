@@ -11,7 +11,6 @@
         <div class="menucompte2">
             <nav class="menuinf1">
                 <ul>
-                    
                     {% for data in product %}
                     <li>
                         <div class="echangi3">
@@ -28,7 +27,6 @@
                             {{ data.depot|date('d/m/Y') }}
                     </li>
                     {% endfor %}
-                    
                 </ul>
             </nav>
         </div>
@@ -74,6 +72,7 @@
         </div>
     </div>
 </div>
+{% set id = app.user.id %}
 {% endblock %}
 
 {% block javascripts %}
@@ -82,27 +81,29 @@
 $(document).ready(function(){
     $(".recup_id").on("click", function(){
         var id = this.id;
-        //alert(id);
         var result = "";
-        var route = "{{ path('nroho_base_message_lecture', { 'id': "111" }) }}";
-        var url = route.replace("111", id);
-        var idd, ways;
+        var route1 = "{{ path('nroho_base_message_lecture', { 'id': "111" }) }}";
+        var url1 = route1.replace("111", id);
+        var idd, ways, url2;
+        //alert({{ app.user.id }});
         $.ajax({
             type: "POST",
-            url: url,
+            url: url1,
             contentType: 'application/json',
             cache: false,
             success: function(json){
                 var jsonn = JSON.parse( json );
-                var lid = "";
                 console.log(jsonn);
                 if (jsonn !== null){
-                    lili = "";
                     for (var i = 0; i < jsonn.length; i++){
+                        if(jsonn[i].user.gender === 1) 
+                            url2 = "{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}";
+                        else
+                            url2 = "{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}";
                         result += '\
                             <li>\
                                 <div class="echangi3">\
-                                    <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">\
+                                    <img src="'+ url2 +'">\
                                 </div>\
                                 <div class="echangi3r">\
                                     <a href="#">'+ jsonn[i].user.secondename +'</a>\
@@ -115,7 +116,8 @@ $(document).ready(function(){
                                 </div>\
                             </li>';
                         ways = jsonn[i].product.depart.substr(5)+' -> '+jsonn[i].product.arrivee.substr(5);
-                        if(jsonn[i].user.id === jsonn[i].product.user) idd = jsonn[i].distId; else idd = jsonn[i].product.user;
+                        if(jsonn[i].user.id === {{ app.user.id }}) idd = jsonn[i].dist_id; else idd = jsonn[i].user.id;
+                        //alert(jsonn[i].dist_id);
                     }
                     var bouton = '\
                     <div class="detaily">\

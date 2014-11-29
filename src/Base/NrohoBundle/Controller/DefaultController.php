@@ -383,6 +383,7 @@ class DefaultController extends Controller
                            LEFT JOIN User ON Message.user_id = User.id 
                            WHERE Product.user_id = '".$id."' AND Message.user_id != '".$id."'");
         $d = array();
+        $message = array();
         while ($data = $row->fetch()) {
             if(!in_array($data['user_id'],$d)){	
 		$message[] = array(
@@ -474,6 +475,24 @@ class DefaultController extends Controller
                    ->setMaxResults(1)
                 ;
         $user = $qb->getQuery()->getResult();
+        
+        $idc = $this->get('security.context')->getToken()->getUser()->getId();
+        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
+                   ->createQueryBuilder('a')
+                   ->addSelect('b')
+                   ->leftJoin('a.user', 'b')
+                   ->addSelect('c')
+                   ->leftJoin('a.product', 'c')
+                   ->where('c.user = :user')
+                   ->setParameter('user', $idc)
+                   ->andwhere('a.user = :id OR (a.user = :user AND a.distId = :id)')
+                   ->setParameter('id', $id)
+                   ->orderBy('a.id','ASC')
+                   //->setFirstResult($page) //offset
+                   ->setMaxResults(7)  //limit
+                ;
+        $message = $qb->getQuery()->getResult();
+        
         
         /*
         $user = array(

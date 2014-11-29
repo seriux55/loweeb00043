@@ -1325,7 +1325,7 @@ $obStatus = ob_get_status(1);
 while (($level = ob_get_level()) > 0 && $level !== $previous) {
 $previous = $level;
 if ($obStatus[$level - 1]) {
-if (version_compare(PHP_VERSION,'5.4','>=')) {
+if (PHP_VERSION_ID >= 50400) {
 if (isset($obStatus[$level - 1]['flags']) && ($obStatus[$level - 1]['flags'] & PHP_OUTPUT_HANDLER_REMOVABLE)) {
 ob_end_flush();
 }
@@ -2199,11 +2199,11 @@ protected $booted;
 protected $name;
 protected $startTime;
 protected $loadClassCache;
-const VERSION ='2.3.21';
-const VERSION_ID ='20321';
+const VERSION ='2.3.22';
+const VERSION_ID ='20322';
 const MAJOR_VERSION ='2';
 const MINOR_VERSION ='3';
-const RELEASE_VERSION ='21';
+const RELEASE_VERSION ='22';
 const EXTRA_VERSION ='';
 public function __construct($environment, $debug)
 {

@@ -55,5 +55,11 @@
         "branch-alias": {
             "dev-master": "2.3-dev"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-0": {"": "src"}
     }
 }
