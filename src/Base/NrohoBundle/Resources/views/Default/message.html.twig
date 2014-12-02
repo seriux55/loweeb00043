@@ -51,13 +51,29 @@
                         </p>
                     </div>
                 </li>
+                <li>
+                    <div>
+                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
+                    </div>
+                    <div> 
+                        <a href="#" style="text-align: right;">Karim</a>
+                            4 Juin
+                    </div>
+                    <div>
+                        <p>	
+                            30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
+                            à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
+                            Et de tous ceux que vous ne connaissiez pas encore.
+                        </p>
+                    </div>
+                </li>
             </nav>
             <form class="contenu4" method="post" action="#" id="msgsub">	
                 <div class="detaily">
                     <div class="publiyo">
                         <div class="commesg">
                             <div class="textary">
-                                <textarea onFocus="if (this.value=='Votre réponse...') this.value=''"class="textaro" name="message" id="ville" placeholder="Votre réponse...">Votre réponse...</textarea>
+                                <textarea onFocus="if (this.value=='Votre réponse...') this.value=''" class="textaro" name="message" id="msg" placeholder="Votre réponse..."></textarea>
                             </div>
                             <input class="ccabirati" name="mail" type="text" size="35" value=""/>
                         </div>
@@ -85,7 +101,6 @@ $(document).ready(function(){
         var route1 = "{{ path('nroho_base_message_lecture', { 'id': "111" }) }}";
         var url1 = route1.replace("111", id);
         var idd, ways, url2;
-        //alert({{ app.user.id }});
         $.ajax({
             type: "POST",
             url: url1,
@@ -93,7 +108,7 @@ $(document).ready(function(){
             cache: false,
             success: function(json){
                 var jsonn = JSON.parse( json );
-                console.log(jsonn);
+                //console.log(jsonn);
                 if (jsonn !== null){
                     for (var i = 0; i < jsonn.length; i++){
                         if(jsonn[i].user.gender === 1) 
@@ -111,27 +126,26 @@ $(document).ready(function(){
                                 </div>\
                                 <div class="echangi3r">\
                                     <p>\
-                                        '+ jsonn[i].message +'\
+                                        '+ nl2br(jsonn[i].message, true) +'\
                                     </p>\
                                 </div>\
                             </li>';
-                        ways = jsonn[i].product.depart.substr(5)+' -> '+jsonn[i].product.arrivee.substr(5);
-                        if(jsonn[i].user.id === {{ app.user.id }}) idd = jsonn[i].dist_id; else idd = jsonn[i].user.id;
-                        //alert(jsonn[i].dist_id);
+                        ways = jsonn[i].product.depart.substr(5)+' --> '+jsonn[i].product.arrivee.substr(5);
+                        if(jsonn[i].user.id === {{ app.user.id }}) idd = jsonn[i].user_dist.id; else idd = jsonn[i].user.id;
+                        var product_id = jsonn[i].product.id;
                     }
                     var bouton = '\
                     <div class="detaily">\
                         <div class="publiyo">\
                             <div class="commesg">\
                                 <div class="textary">\
-                                    <textarea class="textaro" name="message" placeholder="Votre réponse...">Votre réponse...</textarea>\
+                                    <textarea class="textaro" name="message" id="msg" placeholder="Votre réponse..."></textarea>\
                                 </div>\
                                 <input class="ccabirati" name="mail" type="text" size="35" value=""/>\
                             </div>\
                             <div class="publio">\
                                 <div class="boutina">\
-                                    <input name="idd" type="hidden" value="'+ idd +'">\
-                                    <input class="publiera" name="valider" type="submit" value="Répondre"/>\
+                                    <input class="publiera" onclick="return false;" name="valider" type="submit" value="Répondre"/>\
                                 </div>\
                             </div>\
                         </div>\
@@ -140,9 +154,39 @@ $(document).ready(function(){
                     $("#msglist").html(result);
                     $("#msgsub").html(bouton);
                 }
+                $(".publiera").on("click", function(){
+                    var msg  = nl2br($("#msg").val());
+                    var route3 = "{{ path('nroho_base_message_submit', { 'id': "111", 'product': "222", 'msg': "333" }) }}";
+                    var url3 = route3.replace("111", idd);
+                    var url4 = url3.replace("222", product_id);
+                    var url5 = url4.replace("333", msg);
+                    $.ajax({
+                        type: "POST",
+                        url: url5,
+                        contentType: 'application/json',
+                        cache: false,
+                        success: function(json){
+                            alert(json);
+                        }
+                    });
+                });
             }
         });
-    });
+    }); 
 });
+
+function nl2br(str, is_xhtml) {
+  //   example 1: nl2br('Kevin\nvan\nZonneveld');
+  //   returns 1: 'Kevin<br />\nvan<br />\nZonneveld'
+  //   example 2: nl2br("\nOne\nTwo\n\nThree\n", false);
+  //   returns 2: '<br>\nOne<br>\nTwo<br>\n<br>\nThree<br>\n'
+  //   example 3: nl2br("\nOne\nTwo\n\nThree\n", true);
+  //   returns 3: '<br />\nOne<br />\nTwo<br />\n<br />\nThree<br />\n'
+
+  var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+
+  return (str + '')
+    .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+}
 </script>
 {% endblock %}

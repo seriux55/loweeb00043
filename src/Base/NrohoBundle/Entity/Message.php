@@ -12,6 +12,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Message
 {
+    /**
+     * Le constructeur
+     */
+    public function __construct()
+    {
+        $this->depot = new \DateTime();
+        $this->ip = $_SERVER['REMOTE_ADDR'];
+        $this->etat = 0;
+    }
     
     /**
      * @ORM\ManyToOne(targetEntity="Base\NrohoBundle\Entity\Product")
@@ -25,14 +34,11 @@ class Message
      */
     private $user;
     
-    
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="distId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Base\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $distId;
-    
+    private $userDist;
     
     /**
      * @var integer
@@ -80,31 +86,7 @@ class Message
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set distId
-     *
-     * @param integer $distId
-     * @return Message
-     */
-    public function setDistId($distId)
-    {
-        $this->distId = $distId;
-
-        return $this;
-    }
-
-    /**
-     * Get distId
-     *
-     * @return integer 
-     */
-    public function getDistId()
-    {
-        return $this->distId;
-    }
-    
+    } 
     
     /**
      * Set message
@@ -222,29 +204,6 @@ class Message
     }
 
     /**
-     * Set client
-     *
-     * @param \Base\NrohoBundle\Entity\Client $client
-     * @return Message
-     */
-    public function setClient(\Base\NrohoBundle\Entity\Client $client)
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    /**
-     * Get client
-     *
-     * @return \Base\NrohoBundle\Entity\Client 
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
      * Set user
      *
      * @param \Base\UserBundle\Entity\User $user
@@ -265,5 +224,28 @@ class Message
     public function getUser()
     {
         return $this->user;
+    }
+    
+    /**
+     * Set userDist
+     *
+     * @param \Base\UserBundle\Entity\User $userDist
+     * @return Message
+     */
+    public function setUserDist(\Base\UserBundle\Entity\User $userDist)
+    {
+        $this->userDist = $userDist;
+
+        return $this;
+    }
+
+    /**
+     * Get userDist
+     *
+     * @return \Base\UserBundle\Entity\User 
+     */
+    public function getUserDist()
+    {
+        return $this->userDist;
     }
 }

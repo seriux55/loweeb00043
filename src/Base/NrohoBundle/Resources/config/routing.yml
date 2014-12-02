@@ -47,7 +47,14 @@ nroho_base_message_lecture:
     defaults: { _controller: BaseNrohoBundle:Default:messageid }
     requirements:
         id:  \d+
-    
+
+nroho_base_message_submit:
+    pattern: /message/submit/{id}/{product}/{msg}
+    defaults: { _controller: BaseNrohoBundle:Default:messagesubmit }
+    requirements:
+        id:  \d+
+        product: \d+
+
 nroho_base_recherche:
     pattern: /recherche
     defaults: { _controller: BaseNrohoBundle:Default:recherche }

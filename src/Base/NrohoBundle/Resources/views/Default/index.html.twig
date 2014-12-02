@@ -358,6 +358,13 @@
 {% endblock %} 
 
 {% block javascripts %}
+{% javascripts filter='?yui_js'
+    '@BaseNrohoBundle/Resources/public/js/date.js'
+    '@BaseNrohoBundle/Resources/public/js/date2.js'
+    '@BaseNrohoBundle/Resources/public/js/scroll.js'
+    '@BaseNrohoBundle/Resources/public/js/search.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/date.js') }}"></script>
 <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/date2.js') }}"></script>

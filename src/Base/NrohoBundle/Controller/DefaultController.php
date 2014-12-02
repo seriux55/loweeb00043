@@ -11,6 +11,7 @@ use Base\NrohoBundle\Form\CommentType;
 use Base\NrohoBundle\Entity\Demande;
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\AvisType;
+use Base\NrohoBundle\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
 //use Doctrine\ORM\Query\Expr;
 //use Symfony\Component\HttpFoundation\JsonResponse;
@@ -387,10 +388,10 @@ class DefaultController extends Controller
         while ($data = $row->fetch()) {
             if(!in_array($data['user_id'],$d)){	
 		$message[] = array(
-			'user_id'	=> $data['user_id'],
-			'gender' 	=> $data['gender'],
-			'secondename'   => $data['secondename'],
-			'depot'		=> $data['depot'],
+                    'user_id'       => $data['user_id'],
+                    'gender'        => $data['gender'],
+                    'secondename'   => $data['secondename'],
+                    'depot'         => $data['depot'],
 		);
 		$d[] = $data['user_id'];
             }
@@ -411,7 +412,7 @@ class DefaultController extends Controller
                    ->leftJoin('a.product', 'c')
                    ->where('c.user = :user')
                    ->setParameter('user', $idc)
-                   ->andwhere('a.user = :id OR (a.user = :user AND a.distId = :id)')
+                   ->andwhere('a.user = :id OR (a.user = :user AND a.userDist = :id)')
                    ->setParameter('id', $id)
                    ->orderBy('a.id','ASC')
                    //->setFirstResult($page) //offset
@@ -422,6 +423,26 @@ class DefaultController extends Controller
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($message, 'json');
         return new Response($reports);
+    }
+    
+    public function messagesubmitAction($msg, $id, $product)
+    {
+        $idc = $this->get('security.context')->getToken()->getUser()->getId();
+        $message    = new Message();
+        
+        $user       = $this->getDoctrine()->getRepository('BaseUserBundle:User')->find($idc);
+        $userDist   = $this->getDoctrine()->getRepository('BaseUserBundle:User')->find($id);
+        $productId  = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')->find($product);
+           
+        $message->setUser($user);
+        $message->setProduct($productId);
+        $message->setMessage($msg);
+        $message->setUserDist($userDist);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($message);
+        $em->flush();
+        return new Response('ok'); 
     }
     
     public function rechercheAction()
@@ -485,8 +506,8 @@ class DefaultController extends Controller
                    ->leftJoin('a.product', 'c')
                    ->where('c.user = :user')
                    ->setParameter('user', $idc)
-                   ->andwhere('a.user = :id OR (a.user = :user AND a.distId = :id)')
-                   ->setParameter('id', $id)
+                   ->andwhere('a.user = :id OR (a.user = :user AND a.userDist = :id)')
+                   ->setParameter('id', 2)
                    ->orderBy('a.id','ASC')
                    //->setFirstResult($page) //offset
                    ->setMaxResults(7)  //limit
