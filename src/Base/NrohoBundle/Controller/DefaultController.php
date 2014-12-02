@@ -22,18 +22,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        //$em = $this->getDoctrine()->getManager();
-
-        /*
-        $product = $em->getRepository('BaseNrohoBundle:Product')->findBy(
-                   array(),     // $where 
-                   array(),     // $orderBy
-                   3,           // $limit
-                   0            // $offset
-        );
-        */
-        
-        
         $wilaya = array(
                     "01 - Adrar", "02 - Chlef", "03 - Laghouat", "04 - Oum El Bouaghi", "05 - Batna",
                     "06 - Bejaia", "07 - Biskra", "08 - Bechar", "09 - Blida", "10 - Bouira", "11 - Tamanrasset",
@@ -54,8 +42,7 @@ class DefaultController extends Controller
                    ->where('a.valid = :valid')
                    ->setParameter('valid', '1')
                    ->orderBy('a.id','DESC')
-                   //->setFirstResult(2) //offset
-                   ->setMaxResults(2)  //limit
+                   ->setMaxResults(2)
                 ;
         $product = $qb->getQuery()->getResult();
         
@@ -70,25 +57,8 @@ class DefaultController extends Controller
         
         $product = new Product();
         $product->setIp($this->getRequest()->getClientIp());
-        //$user = $this->get('security.context')->getToken()->getUser(); 
-        //$userId = $user->getId();
-        
-        /*
-        $form = $this->get('form.factory')->create(
-            new ProductType(
-                $this->get('security.context')->getToken()->getUser()
-            )
-        );
-        */
         
         $form = $this->createForm(new ProductType(), $product);
-        
-        /*
-        $form = $this->createForm(new ProductType(array( 'user' => $userId)), $product, array(
-            'action' => $this->generateUrl('nroho_base_default'),
-            'method' => 'POST'
-        ));
-        */
         
         if ($form->handleRequest($request)->isValid()) {
             $product->setUser($this->get('security.context')->getToken()->getUser());
@@ -104,50 +74,6 @@ class DefaultController extends Controller
             'form' => $form->createView(),
         ));
     }
-    
-    /*
-    public function addAction()
-    {
-        $session = $request->getSession();
-
-        // store an attribute for reuse during a later user request
-        $session->set('foo', 'bar');
-
-        // get the attribute set by another controller in another request
-        $foobar = $session->get('foobar');
-
-        // use a default value if the attribute doesn't exist
-        $filters = $session->get('filters', array());
-    
-        // création de l'objet
-        $user = new User();
-        $user->setGender('Mr');
-        $user->setFirstname('Karim');
-        $user->setSecondename('Mansoura');
-        $user->setBorn('1984');
-        $user->setPhone('0606060606');
-        $user->setMail('a@a.fr');
-        $user->setPwd('aaaaaa');
-        
-        // Création de l'entité manager
-        $em  = $this->getDoctrine()->getManager();
-        //$rep = $em->getRepository("BlogBundle:User");
-        
-        // Remplisage de la base de données
-        $em->persist($user);
-        $em->flush();
-        
-        // Vérification si c'est la méthode POST
-        if ($this->getRequest()->getMethod() == 'POST') {
-            // Variable session
-            $this->get('session')->getFlashBag()->add('info', 'Article bien enregistré');
-            // redirection
-            return $this->redirect( $this->generateUrl('nroho_base_product', array('id' => $user->getId())) );
-        }
-        
-        return $this->render('NrohoBaseBundle:Default:add.html.twig');
-    }
-    */
     
     public function addddAction() 
     {
@@ -259,13 +185,11 @@ class DefaultController extends Controller
         // formulaire de reservation
         $reservation = new Demande();
         $reservation->setIp($this->getRequest()->getClientIp());
-        //$formD = $this->createForm(new DemandeType(), $reservation);
         $formD = $this->createFormBuilder($reservation)->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' => $nbrPlace)))->getForm();
         
         // --- Gestion du commentaire ---
         $comment = new Comment();
         $comment->setIp($this->getRequest()->getClientIp());
-        //$comment->setComment('Un avis, une question,...');
         $form = $this->createForm(new CommentType, $comment);
         
         $request = $this->get('request');
@@ -304,7 +228,6 @@ class DefaultController extends Controller
                    ->where('a.product = :id')
                    ->setParameter('id', $id)
                 ;
-        //$nbr = $qb->count();
         $comments = $qb->getQuery()->getResult();
         
         // Le nombre de commentaires
@@ -350,8 +273,7 @@ class DefaultController extends Controller
                    ->setMaxResults(2)  //limit
                 ;
         $product = $qb->getQuery()->getResult();
-        //$request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-        //return $this->redirect($this->generateUrl('nroho_base_default', array('id' => $product->getId())));
+        // afficher en session $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
         return $this->render('BaseNrohoBundle:Default:annonce.html.twig', array(
             'product' => $product
         ));
@@ -367,8 +289,6 @@ class DefaultController extends Controller
                    ->setParameter('id', $this->get('security.context')->getToken()->getUser())
                    ->orderBy('a.depot', 'DESC')
                    ->orderBy('a.etat', 'DESC')
-                   //->setFirstResult(0) //offset
-                   //->setMaxResults(0)  //limit
                 ;
         
         $demande = $qb->getQuery()->getResult();
@@ -421,7 +341,6 @@ class DefaultController extends Controller
                    ->andwhere('a.user = :id OR (a.user = :user AND a.userDist = :id)')
                    ->setParameter('id', $id)
                    ->orderBy('a.id','ASC')
-                   //->setFirstResult($page) //offset
                    ->setMaxResults(7)  //limit
                 ;
         $message = $qb->getQuery()->getResult();
@@ -454,7 +373,6 @@ class DefaultController extends Controller
     
     public function rechercheAction()
     {
-        //$em = $this->getDoctrine()->getManager();
 
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
@@ -478,7 +396,6 @@ class DefaultController extends Controller
         $request = $this->get('request');
         if ($form->handleRequest($request)->isValid()) {
             $avis->setUser($this->get('security.context')->getToken()->getUser());
-            //$avis->setIp($this->getRequest()->getClientIp());
             $avis->setUserAvis($this->getDoctrine()->getRepository('BaseUserBundle:User')->find($id));
             $em = $this->getDoctrine()->getManager();
             $em->persist($avis);
@@ -490,7 +407,6 @@ class DefaultController extends Controller
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Avis')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
-                   //->leftJoin('a.user_avis', 'c')->addSelect('c')
                    ->orderBy('a.id','ASC')
                    ->where('a.user_avis = :id')
                    ->setParameter('id', $id)
@@ -517,22 +433,9 @@ class DefaultController extends Controller
                    ->andwhere('a.user = :id OR (a.user = :user AND a.userDist = :id)')
                    ->setParameter('id', 2)
                    ->orderBy('a.id','ASC')
-                   //->setFirstResult($page) //offset
-                   ->setMaxResults(7)  //limit
+                   ->setMaxResults(7)
                 ;
         $message = $qb->getQuery()->getResult();
-        
-        
-        /*
-        $user = array(
-            'secondename' => $this->get('security.context')->getToken()->getUser()->getSecondename(),
-            'born' => $this->get('security.context')->getToken()->getUser()->getBorn(),
-            'phone' => $this->get('security.context')->getToken()->getUser()->getPhone(),
-            'gender' => $this->get('security.context')->getToken()->getUser()->getGender(),
-        );
-        
-        $user = $this->get('security.context')->getToken()->getUser();
-        */
         
         return $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form' => $form->createView(),
@@ -572,8 +475,8 @@ class DefaultController extends Controller
                    ->where('a.valid = :valid')
                    ->setParameter('valid', '1')
                    ->orderBy('a.id','DESC')
-                   ->setFirstResult($page) //offset
-                   ->setMaxResults(2)  //limit
+                   ->setFirstResult($page)
+                   ->setMaxResults(2)
                 ;
         $product = $qb->getQuery()->getResult();
         
