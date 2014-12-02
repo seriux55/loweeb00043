@@ -1,12 +1,12 @@
 <?php
 
-namespace Base\NrohoBundle\Form;
+namespace Base\NrohoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CommentType extends AbstractType
+class ImageProfilType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,17 +15,8 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('comment', 'textarea', array(
-                'attr' => array(
-                    'class' => 'textaro',
-                    //'empty_value' => 'Choose your gender',
-                ),
-                
-            ))
-            //->add('ip')
-            //->add('depot')
-            //->add('product')
-            //->add('user')
+            ->add('file', 'file')
+            //->add('Valider', 'submit')
         ;
     }
     
@@ -35,7 +26,7 @@ class CommentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Base\NrohoBundle\Entity\Comment'
+            'data_class' => 'Base\NrohoBundle\Entity\ImageProfil'
         ));
     }
 
@@ -44,6 +35,6 @@ class CommentType extends AbstractType
      */
     public function getName()
     {
-        return 'base_nrohobundle_comment';
+        return 'base_nrohobundle_imageprofil';
     }
 }

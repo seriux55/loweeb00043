@@ -37,7 +37,7 @@ class Product
         $this->valid = '3';
         $this->saa = 0;
         $this->deposit = new \DateTime();
-        $this->ip = $_SERVER['REMOTE_ADDR'];
+        //$this->ip = $_SERVER['REMOTE_ADDR'];
         $this->vue = 0;
     }
     

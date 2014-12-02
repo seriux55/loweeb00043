@@ -18,7 +18,7 @@ class Message
     public function __construct()
     {
         $this->depot = new \DateTime();
-        $this->ip = $_SERVER['REMOTE_ADDR'];
+        //$this->ip = $_SERVER['REMOTE_ADDR'];
         $this->etat = 0;
     }
     

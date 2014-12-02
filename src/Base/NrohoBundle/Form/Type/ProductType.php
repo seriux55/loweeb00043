@@ -1,6 +1,6 @@
 <?php
 
-namespace Base\NrohoBundle\Form;
+namespace Base\NrohoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -178,7 +178,7 @@ class ProductType extends AbstractType
             */
             //->add('saa')
             //->add('vue')
-            //->add('ip')
+            //->add('ip', 'hidden')
             //->add('deposit')
             //->add('user')
         ;

@@ -1,28 +1,22 @@
 <?php
 
-namespace Base\NrohoBundle\Form;
+namespace Base\NrohoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AvisType extends AbstractType
+class DemandeType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('avis', 'textarea', array(
-                'attr' => array('cols' => '92', 'rows' => '5'),
-            ))
-            ->add('emo', 'hidden')
-            //->add('ip')
-            //->add('depot')
-            //->add('user')
-            //->add('user_avis')
+            ->add('nombre')
+            //->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' =>5)))
         ;
     }
     
@@ -32,7 +26,7 @@ class AvisType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Base\NrohoBundle\Entity\Avis'
+            'data_class' => 'Base\NrohoBundle\Entity\Demande'
         ));
     }
 
@@ -41,6 +35,6 @@ class AvisType extends AbstractType
      */
     public function getName()
     {
-        return 'base_nrohobundle_avis';
+        return 'base_nrohobundle_demande';
     }
 }

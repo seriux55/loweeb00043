@@ -68,7 +68,7 @@ class Demande
     {
         $this->nombre = 1;
         $this->depot = new \DateTime();
-        $this->ip = $_SERVER['REMOTE_ADDR'];
+        //$this->ip = $_SERVER['REMOTE_ADDR'];
         $this->etat = '2';
     }
     

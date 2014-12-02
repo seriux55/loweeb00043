@@ -29,7 +29,7 @@ class RegistrationFormType extends BaseType
             ->add('secondename', 'text')
             ->add('born', 'text')
             ->add('phone', 'text')
-            
+            //->add('ip', 'hidden')
             //->add('imageProfil', new ImageProfilType())
             //->add('imageVoiture', new ImageVoitureType())
         ;

@@ -5,12 +5,12 @@ namespace Base\NrohoBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Base\NrohoBundle\Entity\Product;
-use Base\NrohoBundle\Form\ProductType;
+use Base\NrohoBundle\Form\Type\ProductType;
 use Base\NrohoBundle\Entity\Comment;
-use Base\NrohoBundle\Form\CommentType;
+use Base\NrohoBundle\Form\Type\CommentType;
 use Base\NrohoBundle\Entity\Demande;
 use Base\NrohoBundle\Entity\Avis;
-use Base\NrohoBundle\Form\AvisType;
+use Base\NrohoBundle\Form\Type\AvisType;
 use Base\NrohoBundle\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
 //use Doctrine\ORM\Query\Expr;
@@ -69,7 +69,7 @@ class DefaultController extends Controller
     {
         
         $product = new Product();
-        
+        $product->setIp($this->getRequest()->getClientIp());
         //$user = $this->get('security.context')->getToken()->getUser(); 
         //$userId = $user->getId();
         
@@ -160,6 +160,7 @@ class DefaultController extends Controller
         */
         // On crée un objet User
         $user = new User();
+        $user->setIp($this->getRequest()->getClientIp());
         
         // On crée le formulaire depuis Form UserType
         $form = $this->createForm(new UserType, $user);
@@ -256,12 +257,14 @@ class DefaultController extends Controller
         }
         
         // formulaire de reservation
-        $reservation = new Demande;
+        $reservation = new Demande();
+        $reservation->setIp($this->getRequest()->getClientIp());
         //$formD = $this->createForm(new DemandeType(), $reservation);
         $formD = $this->createFormBuilder($reservation)->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' => $nbrPlace)))->getForm();
         
         // --- Gestion du commentaire ---
         $comment = new Comment();
+        $comment->setIp($this->getRequest()->getClientIp());
         //$comment->setComment('Un avis, une question,...');
         $form = $this->createForm(new CommentType, $comment);
         
@@ -441,6 +444,7 @@ class DefaultController extends Controller
         $message->setProduct($productId);
         $message->setMessage($msg);
         $message->setUserDist($userDist);
+        $message->setIp($this->getRequest()->getClientIp());
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($message);
@@ -468,6 +472,7 @@ class DefaultController extends Controller
     public function profilAction($id)
     {
         $avis = new Avis;
+        $avis->setIp($this->getRequest()->getClientIp());
         $form = $this->createForm(new AvisType(), $avis);
         
         $request = $this->get('request');

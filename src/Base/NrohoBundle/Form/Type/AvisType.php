@@ -1,22 +1,28 @@
 <?php
 
-namespace Base\NrohoBundle\Form;
+namespace Base\NrohoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ImageProfilType extends AbstractType
+class AvisType extends AbstractType
 {
-    /**
+        /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file')
-            //->add('Valider', 'submit')
+            ->add('avis', 'textarea', array(
+                'attr' => array('cols' => '92', 'rows' => '5'),
+            ))
+            ->add('emo', 'hidden')
+            ->add('ip', 'hidden')
+            //->add('depot')
+            //->add('user')
+            //->add('user_avis')
         ;
     }
     
@@ -26,7 +32,7 @@ class ImageProfilType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Base\NrohoBundle\Entity\ImageProfil'
+            'data_class' => 'Base\NrohoBundle\Entity\Avis'
         ));
     }
 
@@ -35,6 +41,6 @@ class ImageProfilType extends AbstractType
      */
     public function getName()
     {
-        return 'base_nrohobundle_imageprofil';
+        return 'base_nrohobundle_avis';
     }
 }

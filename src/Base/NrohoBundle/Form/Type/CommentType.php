@@ -1,12 +1,12 @@
 <?php
 
-namespace Base\NrohoBundle\Form;
+namespace Base\NrohoBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DemandeType extends AbstractType
+class CommentType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,17 @@ class DemandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            //->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' =>5)))
+            ->add('comment', 'textarea', array(
+                'attr' => array(
+                    'class' => 'textaro',
+                    //'empty_value' => 'Choose your gender',
+                ),
+                
+            ))
+            //->add('ip')
+            //->add('depot')
+            //->add('product')
+            //->add('user')
         ;
     }
     
@@ -26,7 +35,7 @@ class DemandeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Base\NrohoBundle\Entity\Demande'
+            'data_class' => 'Base\NrohoBundle\Entity\Comment'
         ));
     }
 
@@ -35,6 +44,6 @@ class DemandeType extends AbstractType
      */
     public function getName()
     {
-        return 'base_nrohobundle_demande';
+        return 'base_nrohobundle_comment';
     }
 }
