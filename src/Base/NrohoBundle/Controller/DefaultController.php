@@ -379,10 +379,13 @@ class DefaultController extends Controller
     {     
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $db  = $this->get('database_connection');
-        $row = $db->query("SELECT User.secondename, User.gender, Message.depot, Message.user_id AS user_id
+        $row = $db->prepare("SELECT User.secondename, User.gender, Message.depot, Message.user_id AS user_id
                            FROM Message LEFT JOIN Product ON Message.product_id = Product.id 
                            LEFT JOIN User ON Message.user_id = User.id 
-                           WHERE Product.user_id = '".$id."' AND Message.user_id != '".$id."'");
+                           WHERE Product.user_id = ? AND Message.user_id != ?");
+        $row->bindValue(1, $id);
+        $row->bindValue(2, $id);
+        $row->execute();
         $d = array();
         $message = array();
         while ($data = $row->fetch()) {
