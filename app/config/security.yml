@@ -14,11 +14,11 @@ security:
             id: s4a_user.my_provider
         
         
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        #in_memory:
+            #memory:
+                #users:
+                    #user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+                    #admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
         main:
