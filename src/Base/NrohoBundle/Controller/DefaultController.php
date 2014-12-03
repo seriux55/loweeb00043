@@ -11,12 +11,8 @@ use Base\NrohoBundle\Form\Type\CommentType;
 use Base\NrohoBundle\Entity\Demande;
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\Type\AvisType;
-//use Base\NrohoBundle\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
-//use Doctrine\ORM\Query\Expr;
-//use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-//use JMS\SerializerBundle\JMSSerializerBundle;
 
 class DefaultController extends Controller
 {

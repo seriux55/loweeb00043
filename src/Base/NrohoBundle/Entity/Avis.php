@@ -69,7 +69,6 @@ class Avis
     public function __construct()
     {
         $this->depot = new \DateTime();
-        //$this->ip = $_SERVER['REMOTE_ADDR'];
         $this->emo = 1;
     }
     

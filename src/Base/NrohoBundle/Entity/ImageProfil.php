@@ -201,7 +201,6 @@ class ImageProfil
                 return false;
         }
         
-        //$source              = imagecreatefrompng($this->file);
         $largeur_source      = imagesx($source);
         $hauteur_source      = imagesy($source);
         $largeur_destination = imagesx($destination);
@@ -211,13 +210,6 @@ class ImageProfil
         imagecopyresampled($destination, $source, 0, 0, 0, 0, $largeur_destination, $hauteur_destination, $largeur_source, $hauteur_source);
         imagejpeg($destination, $chemin);
         
-        /*
-        // On déplace le fichier envoyé dans le répertoire de notre choix
-        $this->file->move(
-            $this->getUploadRootDir(), // Le répertoire de destination
-            $this->id.'.'.$this->url   // Le nom du fichier à créer, ici « id.extension »
-        );
-        */
         unset($this->file);
     }
 

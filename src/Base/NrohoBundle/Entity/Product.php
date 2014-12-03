@@ -13,9 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
-    
-    //@ORM\JoinColumn(referencedColumnName="id", nullable=true)
-    
     /**
      * @ORM\ManyToOne(targetEntity="Base\UserBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
@@ -32,12 +29,9 @@ class Product
      */
     public function __construct()
     {
-        //$this->maj = '0';
-        //$this->type = false;
         $this->valid = '3';
         $this->saa = 0;
         $this->deposit = new \DateTime();
-        //$this->ip = $_SERVER['REMOTE_ADDR'];
         $this->vue = 0;
     }
     
