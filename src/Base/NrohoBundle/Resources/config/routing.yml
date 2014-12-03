@@ -36,21 +36,33 @@ nroho_base_annonce:
     
 nroho_base_demande:
     pattern: /demande
-    defaults: { _controller: BaseNrohoBundle:Default:demande }
+    defaults: { _controller: BaseNrohoBundle:Demande:demande }
     
+nroho_base_demande_yes:
+    pattern: /demande/yes/{id}
+    defaults: { _controller: BaseNrohoBundle:Demande:yes_demande }
+    requirements:
+        id:  \d+
+    
+nroho_base_demande_no:
+    pattern: /demande/no/{id}
+    defaults: { _controller: BaseNrohoBundle:Demande:no_demande }
+    requirements:
+        id:  \d+
+   
 nroho_base_message:
     pattern: /message
-    defaults: { _controller: BaseNrohoBundle:Default:message }
+    defaults: { _controller: BaseNrohoBundle:Message:message }
     
 nroho_base_message_lecture:
     pattern: /message/{id}
-    defaults: { _controller: BaseNrohoBundle:Default:messageid }
+    defaults: { _controller: BaseNrohoBundle:Message:messageid }
     requirements:
         id:  \d+
 
 nroho_base_message_submit:
     pattern: /message/submit/{id}/{product}/{msg}
-    defaults: { _controller: BaseNrohoBundle:Default:messagesubmit }
+    defaults: { _controller: BaseNrohoBundle:Message:messagesubmit }
     requirements:
         id:  \d+
         product: \d+
@@ -68,18 +80,6 @@ nroho_base_profil:
 nroho_base_aide:
     pattern: /aide
     defaults: { _controller: BaseNrohoBundle:Default:aide }
-    
-nroho_base_demande_yes:
-    pattern: /demande/yes/{id}
-    defaults: { _controller: BaseNrohoBundle:Default:yes_demande }
-    requirements:
-        id:  \d+
-    
-nroho_base_demande_no:
-    pattern: /demande/no/{id}
-    defaults: { _controller: BaseNrohoBundle:Default:no_demande }
-    requirements:
-        id:  \d+
 
 nroho_base_top:
     pattern: /top/{page}

@@ -11,12 +11,12 @@ use Base\NrohoBundle\Form\Type\CommentType;
 use Base\NrohoBundle\Entity\Demande;
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\Type\AvisType;
-use Base\NrohoBundle\Entity\Message;
+//use Base\NrohoBundle\Entity\Message;
 use Symfony\Component\HttpFoundation\Request;
 //use Doctrine\ORM\Query\Expr;
 //use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use JMS\SerializerBundle\JMSSerializerBundle;
+//use JMS\SerializerBundle\JMSSerializerBundle;
 
 class DefaultController extends Controller
 {
@@ -118,11 +118,6 @@ class DefaultController extends Controller
         return $this->render('BaseNrohoBundle:Default:add.html.twig', array(
            'form' => $form->createView(),
         ));
-    }
-    
-    public function addAction()
-    {
-        return $this->render('BaseNrohoBundle:Default:add.html.twig');
     }
     
     public function editAction($id)
@@ -247,21 +242,6 @@ class DefaultController extends Controller
         ));
     }
     
-    public function deleteAction($id)
-    {
-        return $this->render('BaseNrohoBundle:Default:delete.html.twig', array($id));
-    }
-    
-    public function compteAction()
-    {
-        return $this->render('BaseNrohoBundle:Default:compte.html.twig');
-    }
-    
-    public function ajoutAction()
-    {
-        return $this->render('BaseNrohoBundle:Default:ajout.html.twig');
-    }
-    
     public function annonceAction()
     {
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
@@ -277,98 +257,6 @@ class DefaultController extends Controller
         return $this->render('BaseNrohoBundle:Default:annonce.html.twig', array(
             'product' => $product
         ));
-    }
-    
-    public function demandeAction()
-    {
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Demande')
-                   ->createQueryBuilder('a')
-                   ->leftJoin('a.product', 'b')->addSelect('b')
-                   ->leftJoin('a.user', 'c')->addSelect('c')
-                   ->where('b.user = :id')
-                   ->setParameter('id', $this->get('security.context')->getToken()->getUser())
-                   ->orderBy('a.depot', 'DESC')
-                   ->orderBy('a.etat', 'DESC')
-                ;
-        
-        $demande = $qb->getQuery()->getResult();
-        
-        return $this->render('BaseNrohoBundle:Default:demande.html.twig', array(
-            'product' => $demande,
-        ));
-    }
-    
-    public function messageAction()
-    {     
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
-        $db  = $this->get('database_connection');
-        $row = $db->prepare("SELECT User.secondename, User.gender, Message.depot, Message.user_id AS user_id
-                           FROM Message LEFT JOIN Product ON Message.product_id = Product.id 
-                           LEFT JOIN User ON Message.user_id = User.id 
-                           WHERE Product.user_id = ? AND Message.user_id != ?");
-        $row->bindValue(1, $id);
-        $row->bindValue(2, $id);
-        $row->execute();
-        $d = array();
-        $message = array();
-        while ($data = $row->fetch()) {
-            if(!in_array($data['user_id'],$d)){	
-		$message[] = array(
-                    'user_id'       => $data['user_id'],
-                    'gender'        => $data['gender'],
-                    'secondename'   => $data['secondename'],
-                    'depot'         => $data['depot'],
-		);
-		$d[] = $data['user_id'];
-            }
-        }
-        return $this->render('BaseNrohoBundle:Default:message.html.twig', array(
-            'product' => $message,
-        ));
-    }
-    
-    public function messageidAction($id)
-    {
-        $idc = $this->get('security.context')->getToken()->getUser()->getId();
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
-                   ->createQueryBuilder('a')
-                   ->addSelect('b')
-                   ->leftJoin('a.user', 'b')
-                   ->addSelect('c')
-                   ->leftJoin('a.product', 'c')
-                   ->where('c.user = :user')
-                   ->setParameter('user', $idc)
-                   ->andwhere('a.user = :id OR (a.user = :user AND a.userDist = :id)')
-                   ->setParameter('id', $id)
-                   ->orderBy('a.id','ASC')
-                   ->setMaxResults(7)  //limit
-                ;
-        $message = $qb->getQuery()->getResult();
-        
-        $serializer = $this->container->get('serializer');
-        $reports = $serializer->serialize($message, 'json');
-        return new Response($reports);
-    }
-    
-    public function messagesubmitAction($msg, $id, $product)
-    {
-        $idc = $this->get('security.context')->getToken()->getUser()->getId();
-        $message    = new Message();
-        
-        $user       = $this->getDoctrine()->getRepository('BaseUserBundle:User')->find($idc);
-        $userDist   = $this->getDoctrine()->getRepository('BaseUserBundle:User')->find($id);
-        $productId  = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')->find($product);
-           
-        $message->setUser($user);
-        $message->setProduct($productId);
-        $message->setMessage($msg);
-        $message->setUserDist($userDist);
-        $message->setIp($this->getRequest()->getClientIp());
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($message);
-        $em->flush();
-        return new Response('ok'); 
     }
     
     public function rechercheAction()
@@ -448,22 +336,6 @@ class DefaultController extends Controller
     public function aideAction()
     {
         return $this->render('BaseNrohoBundle:Default:aide.html.twig');
-    }
-    
-    public function yes_demandeAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->find('BaseNrohoBundle:Demande', $id)->setEtat('1');
-        $em->flush();
-        return $this->forward('BaseNrohoBundle:Default:demande');
-    }
-    
-    public function no_demandeAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->find('BaseNrohoBundle:Demande', $id)->setEtat('0');
-        $em->flush();
-        return $this->forward('BaseNrohoBundle:Default:demande');
     }
     
     public function topAction($page = 8)
