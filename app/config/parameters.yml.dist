@@ -1,15 +1,15 @@
 parameters:
     database_driver:   pdo_mysql
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_host:     localhost
+    database_port:     8888
+    database_name:     SF_User
+    database_user:     nadir
+    database_password: null
 
     mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
+    mailer_host:       smtp.nroho.com
+    mailer_user:       contact@nroho.com
+    mailer_password:   Chalgrin16
 
-    locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    locale:            fr
+    secret:            24b6fcf1d1992c1731bcf33023857f9c
