@@ -167,25 +167,20 @@ class DefaultController extends Controller
                    ->setParameter('id', $id)
                 ;
         $product = $qb->getQuery()->getResult();
-        
         // nombre de places max
         foreach($product as $value) {
             $nbrPlace = $value->getPlace();
         }
-        
         // formulaire de reservation
         $reservation = new Demande();
         $reservation->setIp($this->getRequest()->getClientIp());
         $formD = $this->createFormBuilder($reservation)->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' => $nbrPlace)))->getForm();
-        
         // --- Gestion du commentaire ---
         $comment = new Comment();
         $comment->setIp($this->getRequest()->getClientIp());
         $form = $this->createForm(new CommentType, $comment);
-        
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
-        
             $form->bind($request);
             if ($form->isValid()) {
                 $comment->setProduct($this->getDoctrine()->getManager()->getRepository('BaseNrohoBundle:Product')->find($id));
@@ -193,10 +188,8 @@ class DefaultController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($comment);
                 $em->flush();
-
                 return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $comment->getId())));
             }
-            
             $formD->bind($request);
             if ($formD->isValid()){
                 $reservation->setUser($this->get('security.context')->getToken()->getUser());
@@ -204,13 +197,10 @@ class DefaultController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($reservation);
                 $em->flush();
-
                 return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $id)));
             }
-            
         }
         // --- Fin de la gestion du commentaire ---
-        
         // Affichage des commentaires
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
                    ->createQueryBuilder('a')
@@ -220,7 +210,6 @@ class DefaultController extends Controller
                    ->setParameter('id', $id)
                 ;
         $comments = $qb->getQuery()->getResult();
-        
         // Le nombre de commentaires
         $nbr = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
                     ->createQueryBuilder('a')
@@ -228,7 +217,6 @@ class DefaultController extends Controller
                     ->where('a.product = :id')
                     ->setParameter('id', $id)
                     ->getQuery()->getResult();
-        
         return $this->render('BaseNrohoBundle:Default:product.html.twig', array(
             'product'  => $product,
             'comments' => $comments,
@@ -276,7 +264,6 @@ class DefaultController extends Controller
         $avis = new Avis;
         $avis->setIp($this->getRequest()->getClientIp());
         $form = $this->createForm(new AvisType(), $avis);
-        
         $request = $this->get('request');
         if ($form->handleRequest($request)->isValid()) {
             $avis->setUser($this->get('security.context')->getToken()->getUser());
@@ -287,7 +274,6 @@ class DefaultController extends Controller
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
             return $this->redirect($this->generateUrl('nroho_base_profil', array('id' => $id)));
         }
-        
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Avis')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
@@ -296,7 +282,6 @@ class DefaultController extends Controller
                    ->setParameter('id', $id)
                 ;
         $tout_avis = $qb->getQuery()->getResult();
-        
         $qb = $this->getDoctrine()->getRepository('BaseUserBundle:User')
                    ->createQueryBuilder('a')
                    ->where('a.id = :id')
@@ -304,7 +289,6 @@ class DefaultController extends Controller
                    ->setMaxResults(1)
                 ;
         $user = $qb->getQuery()->getResult();
-        
         $idc = $this->get('security.context')->getToken()->getUser()->getId();
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
                    ->createQueryBuilder('a')
@@ -320,7 +304,6 @@ class DefaultController extends Controller
                    ->setMaxResults(7)
                 ;
         $message = $qb->getQuery()->getResult();
-        
         return $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form' => $form->createView(),
             'avis' => $tout_avis,
