@@ -25,18 +25,18 @@ class DemandeController extends Controller
         ));
     }
     
-    public function yes_demandeAction($id)
+    public function yesDemandeAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->find('BaseNrohoBundle:Demande', $id)->setEtat('1');
+        $em->find('BaseNrohoBundle:Demande', $id)->setEtat('1');
         $em->flush();
         return $this->forward('BaseNrohoBundle:Demande:demande');
     }
     
-    public function no_demandeAction($id)
+    public function noDemandeAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $product = $em->find('BaseNrohoBundle:Demande', $id)->setEtat('0');
+        $em->find('BaseNrohoBundle:Demande', $id)->setEtat('0');
         $em->flush();
         return $this->forward('BaseNrohoBundle:Demande:demande');
     }

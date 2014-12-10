@@ -289,23 +289,6 @@ class DefaultController extends Controller
                    ->setMaxResults(1)
                 ;
         $user = $qb->getQuery()->getResult();
-        /*
-        $idc = $this->get('security.context')->getToken()->getUser()->getId();
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
-                   ->createQueryBuilder('a')
-                   ->addSelect('b')
-                   ->leftJoin('a.user', 'b')
-                   ->addSelect('c')
-                   ->leftJoin('a.product', 'c')
-                   ->where('c.user = :user')
-                   ->setParameter('user', $idc)
-                   ->andwhere('a.user = :id OR (a.user = :user AND a.userDist = :id)')
-                   ->setParameter('id', 2)
-                   ->orderBy('a.id','ASC')
-                   ->setMaxResults(7)
-                ;
-        $message = $qb->getQuery()->getResult();
-        */
         return $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form' => $form->createView(),
             'avis' => $tout_avis,

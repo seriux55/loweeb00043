@@ -40,13 +40,13 @@ nroho_base_demande:
     
 nroho_base_demande_yes:
     pattern: /demande/yes/{id}
-    defaults: { _controller: BaseNrohoBundle:Demande:yes_demande }
+    defaults: { _controller: BaseNrohoBundle:Demande:yesDemande }
     requirements:
         id:  \d+
     
 nroho_base_demande_no:
     pattern: /demande/no/{id}
-    defaults: { _controller: BaseNrohoBundle:Demande:no_demande }
+    defaults: { _controller: BaseNrohoBundle:Demande:noDemande }
     requirements:
         id:  \d+
    

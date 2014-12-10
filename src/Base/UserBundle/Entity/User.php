@@ -37,7 +37,6 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->deposit = new \Datetime();
-        //$this->ip = $_SERVER['REMOTE_ADDR'];
     }
     
     /**
