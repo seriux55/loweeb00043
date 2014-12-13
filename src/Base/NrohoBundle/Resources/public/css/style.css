@@ -104,7 +104,7 @@ a {
 body
 {
 
-	background: url("../images/gradient_texture.png") repeat scroll 0 0 #E6E6E6;
+	background: url("../img/gradient_texture.png") repeat scroll 0 0 #E6E6E6;
 	font-family : "Helvetica",Arial,Verdana,sans-serif;
 	color : #181818;
 	text-shadow: 0 1px 1px #FFFFFF;
@@ -175,7 +175,7 @@ body
 #bloc_page_body
 {	
 	background-color : #ffffff;
-	/*background: url("images/bg.jpg") repeat scroll 0 0 #EBEBEB;*/
+	/*background: url("img/bg.jpg") repeat scroll 0 0 #EBEBEB;*/
 	width : 900px;
 	margin : auto;
 	height: auto;
@@ -1999,7 +1999,7 @@ placeholder
 	text-align: center;
 	width : 100px;
 	height : 100px;
-	background-image: url(../images/facebook_bledvoyage_130_1.png);
+	background-image: url(../img/facebook_bledvoyage_130_1.png);
 	/*padding: 4px 23px 12px;
 	border-right: 1px solid #E1E1E1;
     margin-left: 0px;*/
@@ -2007,7 +2007,7 @@ placeholder
 
 .social_body1:hover
 {
-	background-image: url(../images/facebook_bledvoyage_130.png);
+	background-image: url(../img/facebook_bledvoyage_130.png);
 }
 
 .social_body2
@@ -2016,7 +2016,7 @@ placeholder
 	text-align: center;
 	width : 100px;
 	height : 100px;
-	background-image: url(../images/twitter_bledvoyage_130_1.png) ;
+	background-image: url(../img/twitter_bledvoyage_130_1.png) ;
 	/*padding: 4px 23px 12px;
 	border-right: 1px solid #E1E1E1;
     margin-left: 0px;*/
@@ -2025,7 +2025,7 @@ placeholder
 
 .social_body2:hover
 {
-	background-image: url(../images/twitter_bledvoyage_130.png);
+	background-image: url(../img/twitter_bledvoyage_130.png);
 	
 }
 
@@ -2035,13 +2035,13 @@ placeholder
 	text-align: center;
 	width : 100px;
 	height : 100px;
-	background-image: url(../images/youtube_bledvoyage_130_1.png);
+	background-image: url(../img/youtube_bledvoyage_130_1.png);
 	
 
 }
 .social_body3:hover
 {
-	background-image: url(../images/youtube_bledvoyage_130.png);
+	background-image: url(../img/youtube_bledvoyage_130.png);
 }
 
 .desccc6
@@ -2050,13 +2050,13 @@ placeholder
 	width : 142px;
 	height : 95px;
 	text-align: center;
-	/*background-image: url(../images/voiture.png);*/
+	/*background-image: url(../img/voiture.png);*/
 
 }
 /*
 .desccc6:hover
 {
-	background-image: url(../images/voiture_hover.png);
+	background-image: url(../img/voiture_hover.png);
 }*/
 
 
@@ -2132,7 +2132,7 @@ placeholder
 /*
 .desccc4:hover
 {
-	background-image: url(../images/recherche_hover.png);
+	background-image: url(../img/recherche_hover.png);
 }*/
 
 /**************/
@@ -2156,7 +2156,7 @@ hr
 
 .bloc_page_footer33
 {
-	/*background : url("../images/body2.png") repeat scroll 0 0 #EBEBEB;*/
+	/*background : url("../img/body2.png") repeat scroll 0 0 #EBEBEB;*/
 	background-color : #ffffff;
 	box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
     display: block;
@@ -2826,7 +2826,7 @@ footer
 .bloc_page_entete_22
 {
 	background-color: #f5f6f7;
-	/*background: url("../images/bkg_info.png") repeat scroll left top transparent;*/
+	/*background: url("../img/bkg_info.png") repeat scroll left top transparent;*/
 	/*background: none repeat scroll 0 0 #f1f1f1;*/
 	border : 1px #ffffff solid;
     padding: 3px;
@@ -3157,8 +3157,8 @@ nav
 .backimag
 {
 	
-	background: url("../images/back_grou_1.png") no-repeat scroll center top / cover #000000;
-	background: url("../images/nrohoo.jpg") no-repeat scroll center center rgba(0, 0, 0, 0);
+	background: url("../img/back_grou_1.png") no-repeat scroll center top / cover #000000;
+	background: url("../img/nrohoo.jpg") no-repeat scroll center center rgba(0, 0, 0, 0);
     border-bottom: 4px solid #00AFF0;
     height: 300px;
     margin-bottom: 15px;
@@ -6237,7 +6237,7 @@ input:focus {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 4px rgba(237, 29, 137, 0.8), 0 0 0 #000000;
 }
 .flecche {
-    background-image: url("../images/flleche.png");
+    background-image: url("../img/flleche.png");
     background-position: -163px -103px;
     background-repeat: no-repeat;
     background-size: auto auto;
@@ -6362,7 +6362,7 @@ input:focus {
 
 .backphoto
 {
-    background: url("../images/hero-video.jpg") no-repeat center top / cover black;
+    background: url("../img/hero-video.jpg") no-repeat center top / cover black;
     border-bottom: 4px solid #00AFF0;
     padding-top : 50px;
     height: 573px;
