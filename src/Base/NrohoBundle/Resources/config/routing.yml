@@ -55,10 +55,11 @@ nroho_base_message:
     defaults: { _controller: BaseNrohoBundle:Message:message }
     
 nroho_base_message_lecture:
-    pattern: /message/{id}
+    pattern: /message/{id}/{product}
     defaults: { _controller: BaseNrohoBundle:Message:messageid }
     requirements:
         id:  \d+
+        product:  \d+
 
 nroho_base_message_submit:
     pattern: /message/submit/{id}/{product}/{msg}

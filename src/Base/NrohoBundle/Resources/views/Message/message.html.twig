@@ -20,7 +20,7 @@
                                 <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}">
                             {% endif %}
                         </div>
-                        <a href="#" id="{{ data.user_id }}" class="recup_id" onclick="return false;">
+                        <a href="#" id="{{ data.user_id }}/{{ data.product_id }}" class="recup_id" onclick="return false;">
                             {{ data.secondename }}
                             {# dump(data) #}
                         </a>
@@ -88,7 +88,6 @@
         </div>
     </div>
 </div>
-{% set id = app.user.id %}
 {% endblock %}
 
 {% block javascripts %}
@@ -96,14 +95,22 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $(".recup_id").on("click", function(){
-        var id = this.id;
+        var idt = this.id;
+        var idd, ways, url2, idp;
+        var reg=new RegExp("[ ,;/]+", "g");
+        var tableau=idt.split(reg);
+        for (var i=0; i<tableau.length; i++) {
+            if(i===0) id = tableau['0']; else if(i===1) idp = tableau['1'];
+        }
         var result = "";
-        var route1 = "{{ path('nroho_base_message_lecture', { 'id': "111" }) }}";
+        var route1 = "{{ path('nroho_base_message_lecture', { 'id': "111", 'product': "222" }) }}"; // ajouter id du produit
         var url1 = route1.replace("111", id);
-        var idd, ways, url2;
+        var url2 = url1.replace("222", idp);
+        
+
         $.ajax({
             type: "POST",
-            url: url1,
+            url: url2,
             contentType: 'application/json',
             cache: false,
             success: function(json){
