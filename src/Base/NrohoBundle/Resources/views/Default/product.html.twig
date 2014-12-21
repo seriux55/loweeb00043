@@ -34,8 +34,13 @@
         <div class="detailimo"> 
             <div class="dezaili1">
                 <div class="misa1">
-                    <a href="#example" class="openModal">
+                    <a href="#buy" class="openModal">
                         Réserver
+                    </a>
+                </div>
+                <div class="misa1">
+                    <a href="#msg" class="openModal">
+                        Message
                     </a>
                 </div>
                 <div class="misa">
@@ -186,7 +191,7 @@
     </form>
 </div>
 <!--	La balise aside pour reserver des places -->
-<aside id="example" class="modal">
+<aside id="buy" class="modal">
     <div>
         <form class="envm" method="post" {{ form_enctype(formD) }}>
             <div>
@@ -201,6 +206,35 @@
                     {{ form_widget(formD.nombre) }}
                 </div>
                 {{ form_rest(formD) }}
+                {#`
+                {% for data in nbrPlace %}
+                    {{ data.nbrPlace }}
+                {% endfor %}
+                #}
+                <div class="publio">
+                    <div class="boutin">
+                        <input class="publier" type="submit" value="Envoyez"/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</aside>
+<aside id="msg" class="modal">
+    <div>
+        <form class="envm" method="post" {{ form_enctype(formM) }}>
+            <div>
+                <div class="modhead"> 
+                    <a href="#close" class="close" title="Fermer">x</a>
+                    <h2>Envoyer un message</h2>
+                </div>
+                {{ form_errors(formM) }}
+                <div class="modfooter">
+                    {{ form_label(formM.message, " ") }}
+                    {{ form_errors(formM.message) }}
+                    {{ form_widget(formM.message) }}
+                </div>
+                {{ form_rest(formM) }}
                 {#`
                 {% for data in nbrPlace %}
                     {{ data.nbrPlace }}

@@ -15,28 +15,37 @@
         </div>
     </div>
     -->
+    {% for data in user %}
     <div class="detail1r1">
         <h3>
-            Conducteur				
+            {% if data.user.gender == 1 %}
+                Conducteur
+            {% elseif data.user.gender == 0 %}
+                Conductrice
+            {% endif %}				
         </h3>
     </div>
     <div class="detail1i1">
         <div class="detailima">
             <div class="detail3">
-                <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}" alt="covoiturage algerie nroho"/>							<!-- <img src="../images/moustache_nroho_covoiturage_algerie.png"/> -->
+                {% if data.user.gender == 1 %}
+                    <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}" alt="covoiturage Moustache"/>
+                {% elseif data.user.gender == 0 %}
+                    <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}" alt="covoiturage Rose"/>
+                {% endif %}
             </div>
             <div class="detaizinfo">
-                {% for data in user %}
                 <p class="detailnom">
-                    <strong>{{ data.secondename }}</strong>
+                    <strong>{{ data.user.secondename }}</strong>
                 </p>
                 <div class="detailop">
-                    <p>{{ data.born }} ans - 206 (a revoir)<br />{{ data.phone }}</p>
+                    <p>{{ "now"|date('Y') - data.user.born }} ans - {{ data.vehicule }}<br />{{ data.user.phone }}</p>
                 </div>
-                {% endfor %}
             </div>
         </div>
     </div>
+    {% endfor %}
+    <!--
     <div class="blocde">
         <h6>Ma voiture</h6>
         <center>
@@ -44,8 +53,22 @@
             <img src="{{ asset('bundles/basenroho/img/petite-voiture.png') }}" alt="covoiturage algerie nroho" style="max-width: 200px;" />
         </center>
     </div>
+    -->
     <div class="blocde">
         <h6>Mes trajets</h6>
+        {% for data in ways %}
+            <div class="nouveau1">
+                <div class="nouvie1">
+                    <p>{{ data.depart|striptags|slice(5) }} {% if data.villea != "" %} ({{ data.villea }}) {% endif %}</p>
+                </div>
+                <div class="nouvie2">
+                    <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>
+                </div>
+                <div class="nouvie1">
+                    <p>{{ data.arrivee|striptags|slice(5) }} {% if data.villeb != "" %} ({{ data.villeb }}) {% endif %}</p>
+                </div>
+            </div>
+        {% endfor %}
     </div>
     
     <!--

@@ -63,6 +63,7 @@ security:
         - { path: ^/compte, role: ROLE_USER }
         - { path: ^/aide, role: ROLE_USER }
         - { path: ^/product, role: ROLE_USER }
+        - { path: ^/admin/annonce, role: ROLE_ADMIN }
         #- { path: ^/, role: ROLE_ADMIN }
         #- { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 

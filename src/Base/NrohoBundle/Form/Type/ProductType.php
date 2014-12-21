@@ -23,7 +23,7 @@ class ProductType extends AbstractType
                     'multiple' => false
             ))
             */
-            ->add('maj', 'checkbox', array('required' => false))
+            ->add('maj', 'hidden', array('required' => false))
             ->add('type', 'choice', array(
                     'choices' => array('1' => 'offre','0' => 'demande'),
                     'expanded' => true,

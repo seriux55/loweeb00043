@@ -3,11 +3,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    
-    {% if error %}
-        <div>{{ error|trans({}, 'BaseUserBundle') }}</div>
-        <div>{{ error|trans }}</div>
-    {% endif %}
 
     <div class="bloc_page_bodyg">
         <div class="nouveau1r1">
@@ -43,6 +38,13 @@
                         <div class="mr2">
                             <div class="mr6">
                                 <input class="trouvezzz" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                            </div>
+                        </div>
+                        <div class="mr2">
+                            <div class="mr6">
+                                {% if error %}
+                                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
                             </div>
                         </div>
                     </form>

@@ -76,7 +76,7 @@
                 </div>
                 <div class="nouveau2">
                     <article>
-                        <h1>Le {{ data.date|date("m/d/Y") }} - {{ data.heure }}</h1>
+                        <h1>Le {{ data.date|date("d/m/Y") }} - {{ data.heure }}</h1>
                         <p>{{ data.message }}</p>
                     </article>
                 </div>
@@ -98,7 +98,7 @@
             </div>
         </div>
         <div class="supprimer">
-            <p><a href="#" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Supprimer</a></p>
+            <p><a href="{{ path('nroho_base_remove', { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Supprimer</a></p>
             <p><a href="{{ path('nroho_base_edit', { 'id': data.id }) }}">Modifier</a></p>
         </div>
         {% endfor %}

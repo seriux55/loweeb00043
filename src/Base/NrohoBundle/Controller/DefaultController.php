@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Base\NrohoBundle\Entity\Product;
 use Base\NrohoBundle\Form\Type\ProductType;
+use Base\NrohoBundle\Entity\Message;
+use Base\NrohoBundle\Form\Type\MessageType;
 use Base\NrohoBundle\Entity\Comment;
 use Base\NrohoBundle\Form\Type\CommentType;
 use Base\NrohoBundle\Entity\Demande;
@@ -19,17 +21,27 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $wilaya = array(
-                    "01 - Adrar", "02 - Chlef", "03 - Laghouat", "04 - Oum El Bouaghi", "05 - Batna",
-                    "06 - Bejaia", "07 - Biskra", "08 - Bechar", "09 - Blida", "10 - Bouira", "11 - Tamanrasset",
-                    "12 - Tebessa", "13 - Tlemcen", "14 - Tiaret", "15 - Tizi Ouzou", "16 - Alger",
-                    "17 - Djelfa", "18 - Jijel", "19 - Setif", "20 - Saida", "21 - Skikda",
-                    "22 - Sidi Bel Abbes", "23 - Annaba", "24 - Guelma", "25 - Constantine", "26 - Medea",
-                    "27 - Mostaganem", "28 - MSila", "29 - Mascara", "30 - Ouargla", "31 - Oran",
-                    "32 - Bayadh", "33 - Illizi", "34 - Bordj Bou Arreridj", "35 - Boumerdes",
-                    "36 - El Tarf", "37 - Tindouf", "38 - Tissemsilt", "39 - El Oued", "40 - Khenchela",
-                    "41 - Souk Ahras", "42 - Tipaza", "43 - Mila", "44 - Ain Defla", "45 - Naama",
-                    "46 - Ain Temouchent", "47 - Ghardaia", "48 - Relizane");
+            "01 - Adrar", "02 - Chlef", "03 - Laghouat", "04 - Oum El Bouaghi", "05 - Batna",
+            "06 - Bejaia", "07 - Biskra", "08 - Bechar", "09 - Blida", "10 - Bouira", "11 - Tamanrasset",
+            "12 - Tebessa", "13 - Tlemcen", "14 - Tiaret", "15 - Tizi Ouzou", "16 - Alger",
+            "17 - Djelfa", "18 - Jijel", "19 - Setif", "20 - Saida", "21 - Skikda",
+            "22 - Sidi Bel Abbes", "23 - Annaba", "24 - Guelma", "25 - Constantine", "26 - Medea",
+            "27 - Mostaganem", "28 - MSila", "29 - Mascara", "30 - Ouargla", "31 - Oran",
+            "32 - Bayadh", "33 - Illizi", "34 - Bordj Bou Arreridj", "35 - Boumerdes",
+            "36 - El Tarf", "37 - Tindouf", "38 - Tissemsilt", "39 - El Oued", "40 - Khenchela",
+            "41 - Souk Ahras", "42 - Tipaza", "43 - Mila", "44 - Ain Defla", "45 - Naama",
+            "46 - Ain Temouchent", "47 - Ghardaia", "48 - Relizane"
+        );
         
+        $row = $this->get('database_connection')->prepare("SELECT depart FROM product");
+        $row->execute();
+        $ville = array();
+        while ($data = $row->fetch()) {
+            if(!in_array($data['depart'], $ville)){
+		$ville[] = $data['depart'];
+            }
+        }
+        asort($ville);
         
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
@@ -38,14 +50,23 @@ class DefaultController extends Controller
                    ->where('a.valid = :valid')
                    ->setParameter('valid', '1')
                    ->orderBy('a.id','DESC')
-                   ->setMaxResults(2)
+                   ->setMaxResults(10)
                 ;
         $product = $qb->getQuery()->getResult();
         
         return $this->render('BaseNrohoBundle:Default:index.html.twig', array(
             'product' => $product,
             'wilaya'  => $wilaya,
+            'ville'   => $ville,
         ));
+    }
+    
+    public function removeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->find('BaseNrohoBundle:Product', $id)->setValid('2');
+        $em->flush();
+        return $this->forward('BaseNrohoBundle:Default:annonce');
     }
     
     public function inscriptionAction(Request $request)
@@ -71,48 +92,47 @@ class DefaultController extends Controller
         ));
     }
     
-    public function addddAction() 
+    public function addSelectAction(Request $request, $first, $seconde)
     {
-        /*
-        // On teste que l'utilisateur dispose bien du rôle ROLE_AUTEUR
-        if (!$this->get('security.context')->isGranted('ROLE_AUTEUR')) {
-            // Sinon on déclenche une exception « Accès interdit »
-            throw new AccessDeniedHttpException('Accès limité aux auteurs');
-        }
-        */
-        // On crée un objet User
-        $user = new User();
-        $user->setIp($this->getRequest()->getClientIp());
+        $wilaya = array(
+                    "01 - Adrar", "02 - Chlef", "03 - Laghouat", "04 - Oum El Bouaghi", "05 - Batna",
+                    "06 - Bejaia", "07 - Biskra", "08 - Bechar", "09 - Blida", "10 - Bouira", "11 - Tamanrasset",
+                    "12 - Tebessa", "13 - Tlemcen", "14 - Tiaret", "15 - Tizi Ouzou", "16 - Alger",
+                    "17 - Djelfa", "18 - Jijel", "19 - Setif", "20 - Saida", "21 - Skikda",
+                    "22 - Sidi Bel Abbes", "23 - Annaba", "24 - Guelma", "25 - Constantine", "26 - Medea",
+                    "27 - Mostaganem", "28 - MSila", "29 - Mascara", "30 - Ouargla", "31 - Oran",
+                    "32 - Bayadh", "33 - Illizi", "34 - Bordj Bou Arreridj", "35 - Boumerdes",
+                    "36 - El Tarf", "37 - Tindouf", "38 - Tissemsilt", "39 - El Oued", "40 - Khenchela",
+                    "41 - Souk Ahras", "42 - Tipaza", "43 - Mila", "44 - Ain Defla", "45 - Naama",
+                    "46 - Ain Temouchent", "47 - Ghardaia", "48 - Relizane");
         
-        // On crée le formulaire depuis Form UserType
-        $form = $this->createForm(new UserType, $user);
-        
-        // On récupère la requête
-        $request = $this->get('request');
-        // On vérifie qu'elle est de type POST
-        if ($request->getMethod() == 'POST') {
-        
-            // On fait le lien Requête <-> Formulaire
-            // À partir de maintenant, la variable $article contient les valeurs entrées dans le formulaire par le visiteur
-            $form->bind($request);
-            
-            // On vérifie que les valeurs entrées sont correctes
-            // (Nous verrons la validation des objets en détail dans le prochain chapitre)
-            if ($form->isValid()) {
-                // On l'enregistre notre objet $article dans la base de données
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-
-                // On redirige vers la page de visualisation de l'article nouvellement créé
-                return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $user->getId())));
-
+        foreach ($wilaya as $key => $value) {
+            if(substr($value, 0, 2) == substr($first, 1, 3)){
+                $depart = $value;  
+            }
+            if(substr($value, 0, 2) == substr($seconde, 1, 3)){
+                $arrivee = $value;  
             }
         }
+        $product = new Product();
+        $product->setIp($this->getRequest()->getClientIp());
+        $product->setDepart($depart);
+        $product->setArrivee($arrivee);
         
-        // On passe la méthode createView() du formulaire à la vue afin qu'elle puisse afficher le formulaire toute seule
+        $form = $this->createForm(new ProductType(), $product);
+        
+        if ($form->handleRequest($request)->isValid()) {
+            $product->setUser($this->get('security.context')->getToken()->getUser());
+            $product->setIp($this->getRequest()->getClientIp());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+            return $this->redirect($this->generateUrl('nroho_base_default', array('id' => $product->getId())));
+        }
+            
         return $this->render('BaseNrohoBundle:Default:add.html.twig', array(
-           'form' => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
     
@@ -163,18 +183,22 @@ class DefaultController extends Controller
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
-                   ->where('a.id = :id')
+                   ->where("a.id = :id AND a.valid = '1'")
                    ->setParameter('id', $id)
                 ;
         $product = $qb->getQuery()->getResult();
         // nombre de places max
         foreach($product as $value) {
             $nbrPlace = $value->getPlace();
+            $userDist = $value->getUser();
         }
         // formulaire de reservation
         $reservation = new Demande();
         $reservation->setIp($this->getRequest()->getClientIp());
-        $formD = $this->createFormBuilder($reservation)->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' => $nbrPlace)))->getForm();
+        $formD = $this->createFormBuilder($reservation)->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' => $nbrPlace)))->getForm();  
+        // formulaire de message
+        $message = new Message();
+        $formM = $this->createForm(new MessageType, $message);
         // --- Gestion du commentaire ---
         $comment = new Comment();
         $comment->setIp($this->getRequest()->getClientIp());
@@ -199,17 +223,28 @@ class DefaultController extends Controller
                 $em->flush();
                 return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $id)));
             }
+            $formM->bind($request);
+            if ($formM->isValid()){
+                $message->setUser($this->get('security.context')->getToken()->getUser());
+                $message->setProduct($this->getDoctrine()->getManager()->getRepository('BaseNrohoBundle:Product')->find($id));
+                $message->setUserDist($userDist);
+                $message->setIp($this->getRequest()->getClientIp());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($message);
+                $em->flush();
+                return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $id)));
+            }
         }
         // --- Fin de la gestion du commentaire ---
         // Affichage des commentaires
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
+        $qbb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.product', 'b')->addSelect('b')
                    ->leftJoin('a.user', 'c')->addSelect('c')
                    ->where('a.product = :id')
                    ->setParameter('id', $id)
                 ;
-        $comments = $qb->getQuery()->getResult();
+        $comments = $qbb->getQuery()->getResult();
         // Le nombre de commentaires
         $nbr = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
                     ->createQueryBuilder('a')
@@ -223,6 +258,7 @@ class DefaultController extends Controller
             'nbr'      => $nbr,
             'form'     => $form->createView(),
             'formD'    => $formD->createView(),
+            'formM'    => $formM->createView(),
         ));
     }
     
@@ -249,6 +285,7 @@ class DefaultController extends Controller
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
+                   ->where('a.valid = "1"')
                    ->setFirstResult(0) //offset
                    ->setMaxResults(5)  //limit
                 ;
@@ -282,18 +319,28 @@ class DefaultController extends Controller
                    ->setParameter('id', $id)
                 ;
         $tout_avis = $qb->getQuery()->getResult();
-        $qb = $this->getDoctrine()->getRepository('BaseUserBundle:User')
-                   ->createQueryBuilder('a')
-                   ->where('a.id = :id')
-                   ->setParameter('id', $id)
-                   ->setMaxResults(1)
+        $qbb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+                    ->createQueryBuilder('a')
+                    ->leftJoin('a.user', 'b')->addSelect('b')
+                    ->where('b.id = :id')
+                    ->setParameter('id', $id)
+                    ->setMaxResults(1)
                 ;
-        $user = $qb->getQuery()->getResult();
+        $user = $qbb->getQuery()->getResult();
+        $qbbb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+                     ->createQueryBuilder('a')
+                     ->where('a.user = :id')
+                     ->orderBy('a.id','DESC')
+                     ->setParameter('id', $id)
+                     ->setMaxResults(5)
+                ;
+        $ways = $qbbb->getQuery()->getResult();
         return $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form' => $form->createView(),
             'avis' => $tout_avis,
             'user' => $user,
             'id'   => $id,
+            'ways' => $ways,
         ));
     }
     
@@ -302,7 +349,7 @@ class DefaultController extends Controller
         return $this->render('BaseNrohoBundle:Default:aide.html.twig');
     }
     
-    public function topAction($page = 8)
+    public function topAction($page = 10)
     {
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
@@ -312,10 +359,42 @@ class DefaultController extends Controller
                    ->setParameter('valid', '1')
                    ->orderBy('a.id','DESC')
                    ->setFirstResult($page)
-                   ->setMaxResults(2)
+                   ->setMaxResults(10)
                 ;
         $product = $qb->getQuery()->getResult();
         
+        $serializer = $this->container->get('serializer');
+        $reports = $serializer->serialize($product, 'json');
+        return new Response($reports);
+    }
+    
+    public function searchAction($first, $seconde)
+    {
+        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+                   ->createQueryBuilder('a')
+                   ->leftJoin('a.user', 'b')->addSelect('b')
+                   ->where("a.depart LIKE :depart AND a.arrivee LIKE :arrivee AND a.valid = '1'")
+                   ->setParameter('depart', $first.'%')->setParameter('arrivee', $seconde.'%')
+                ;
+        $product = $qb->getQuery()->getResult();
+        $serializer = $this->container->get('serializer');
+        $reports = $serializer->serialize($product, 'json');
+        return new Response($reports);
+    }
+    
+    public function destinationAction($start)
+    {
+        $db  = $this->get('database_connection');
+        $row = $db->prepare("SELECT arrivee FROM product WHERE depart LIKE ? AND valid = '1'");
+        $row->bindValue(1, $start.'%');
+        $row->execute();
+        $product = array();
+        while ($data = $row->fetch()) {
+            if(!in_array($data['arrivee'], $product) && $data['arrivee'] !== ""){
+                $product[] = $data['arrivee'];
+            }
+        }
+        sort($product);
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($product, 'json');
         return new Response($reports);

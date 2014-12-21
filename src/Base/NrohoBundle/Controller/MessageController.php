@@ -15,8 +15,8 @@ class MessageController extends Controller
         $row = $db->prepare(
                             "SELECT u1.id AS u1_id, u1.secondename AS u1_secondename, u1.gender AS u1_gender, u2.id AS u2_id, u2.secondename AS u2_secondename, u2.gender AS u2_gender, Message.depot, Message.user_id AS M_user_id, Product.user_id AS P_user_id, Message.userDist_id, Product.id AS P_id
                              FROM Message
-                             LEFT JOIN Product ON Message.product_id = Product.id
-                             LEFT JOIN User u1 ON Message.user_id = u1.id
+                             LEFT  JOIN Product ON Message.product_id = Product.id
+                             LEFT  JOIN User u1 ON Message.user_id = u1.id
                              RIGHT JOIN User u2 ON Message.userDist_id = u2.id
                              WHERE 
                                 ( Product.user_id  = ? AND Message.user_id != ? )

@@ -12,6 +12,12 @@ nroho_base_edit:
     requirements:
         id:  \d+
 
+nroho_base_remove:
+    pattern: /remove/{id}
+    defaults: { _controller: BaseNrohoBundle:Default:remove }
+    requirements:
+        id:  \d+
+
 nroho_base_product:
     pattern: /product/{id}
     defaults: { _controller: BaseNrohoBundle:Default:product }
@@ -49,7 +55,7 @@ nroho_base_demande_no:
     defaults: { _controller: BaseNrohoBundle:Demande:noDemande }
     requirements:
         id:  \d+
-   
+
 nroho_base_message:
     pattern: /message
     defaults: { _controller: BaseNrohoBundle:Message:message }
@@ -81,7 +87,43 @@ nroho_base_profil:
 nroho_base_aide:
     pattern: /aide
     defaults: { _controller: BaseNrohoBundle:Default:aide }
+    
+nroho_base_add_select:
+    pattern: /add/{first}/{seconde}
+    defaults: { _controller: BaseNrohoBundle:Default:addSelect }
+    requirements:
+        first:   \d+
+        seconde: \d+
 
 nroho_base_top:
     pattern: /top/{page}
     defaults: { _controller: BaseNrohoBundle:Default:top, page: 8 }
+
+nroho_base_search:
+    pattern: /search/{first}/{seconde}
+    defaults: { _controller: BaseNrohoBundle:Default:search }
+    requirements:
+        first:   \d+
+        seconde: \d+
+        
+nroho_base_search_destination:
+    pattern: /search/{start}
+    defaults: { _controller: BaseNrohoBundle:Default:destination }
+    requirements:
+        start: \d+
+
+nroho_admin_annonce:
+    pattern: /admin/annonce/
+    defaults: { _controller: BaseNrohoBundle:Admin:Annonce }
+
+nroho_admin_annonce_yes:
+    pattern: /admin/annonce/yes/{id}
+    defaults: { _controller: BaseNrohoBundle:Admin:yesAnnonce }
+    requirements:
+        id:  \d+
+    
+nroho_admin_annonce_no:
+    pattern: /admin/annonce/no/{id}
+    defaults: { _controller: BaseNrohoBundle:Admin:noAnnonce }
+    requirements:
+        id:  \d+

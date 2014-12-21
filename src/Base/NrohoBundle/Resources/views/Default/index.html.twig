@@ -16,7 +16,7 @@
             <div class="nouveau11">
                 <div class="ssection">
                     <div class="mrr1">
-                        <form class="formmo" method="post" action="#">
+                        <form class="formmo" id="formAdd" method="post" action="{{ path('nroho_base_add_select', { 'first': "116", 'seconde': "206" }) }}">
                             <div class="mr74">
                                 <div class="loadlm">
                                     <div class="mrr44d">
@@ -24,7 +24,7 @@
                                             <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" alt="" />
                                             <label>De</label>
                                         </div>
-                                        <select class="ouardepi" name="select3">
+                                        <select class="ouardepi" name="dep" id="dep">
                                             {% for data in wilaya %}
                                                 <option value='{{ data }}' {% if data == '16 - Alger' %}selected{% endif %}>{{ data }}</option>
                                             {% endfor %}
@@ -35,7 +35,7 @@
                                             <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" alt="" />
                                             <label>À</label>
                                         </div>
-                                        <select class="ouardepi" name="select4">
+                                        <select class="ouardepi" name="ari" id="ari">
                                             {% for data in wilaya %}
                                                 <option value='{{ data }}' {% if data == '06 - Bejaia' %}selected{% endif %}>{{ data }}</option>
                                             {% endfor %}
@@ -77,7 +77,9 @@
                                             </div>
                                             <select class="ouardepi" name="departsearch" id="departsearch">
                                                 <option value="">Ville de départ</option>
-                                                <option value="16 - Alger">16 - Alger</option>
+                                                {% for data in ville %}
+                                                    <option value="{{ data }}">{{ data }}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
                                         <div class="mrr44">
@@ -104,108 +106,114 @@
         </div>
     <div id="filtre" style="display:none"></div>
         <div id="normal">
-            <!-- Début -->
-            {% for data in product %}
-            <div class="sectionn">
-                <div class="caseoi">
-                    <div class="choirc1">
-                        <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
-                            <div class="detrc">
-                                <div class="nouvie3">
-                                    {% if data.user.gender == 1 %}
-                                        <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}" alt="covoiturage Moustache"/>
-                                    {% elseif data.user.gender == 0 %}
-                                        <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}" alt="covoiturage Rose"/>
+            <div id="resultat">
+                <!-- Début -->
+                {% for data in product %}
+                <div class="sectionn">
+                    <div class="caseoi">
+                        <div class="choirc1">
+                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                                <div class="detrc">
+                                    <div class="nouvie3">
+                                        {% if data.user.gender == 1 %}
+                                            <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}" alt="covoiturage Moustache"/>
+                                        {% elseif data.user.gender == 0 %}
+                                            <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}" alt="covoiturage Rose"/>
+                                        {% endif %}
+                                    </div>
+                                    <p class="prixnuit">
+                                        {% if data.user.gender == 1 %}
+                                            Conducteur
+                                        {% elseif data.user.gender == 0 %}
+                                            Conductrice
+                                        {% endif %}
+                                        <br/><strong>{{ data.user.secondename|title }}</strong>
+                                    </p>
+                                </div>
+                                <div class="destrcco">
+                                    <div class="detrc">
+                                        <p>{{ "now"|date('Y') - data.user.born }} ans</p>
+                                    </div>
+                                    <div class="detrc">
+                                    </div>
+                                    <div class="detrc">
+                                            <p>{{ data.vehicule|title }}</p>
+                                    </div>
+                                </div>
+                                <div class="opicon">
+                                    {% if data.fumer==1 %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumeur.png') }}" alt="covoiturage non fumeur"/></div>
+                                    {% else %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage non fumeur"/></div>                               
+                                    {% endif %}
+
+                                    {% if data.musique==1 %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_musique.png') }}" alt="covoiturage pas de musique"/></div>
+                                    {% else %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage pas de musique"/></div>
+                                    {% endif %}
+
+                                    {% if data.animal==1 %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_animaux.png') }}" alt="covoiturage sans animaux"/></div>
+                                    {% else %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage sans animaux"/></div>
+                                    {% endif %}
+
+                                    {% if data.blabla==1 %}
+                                        <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/gosra.png') }}" alt="covoiturage sans animaux"/></div>
                                     {% endif %}
                                 </div>
-                                <p class="prixnuit">
-                                    Conductrice
-                                    <br/><strong>{{ data.user.secondename }}</strong>
+                            </a>
+                        </div>
+                        <div class="rc">
+                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                                <div class="nouveau1">
+                                    <div class="nouvie1">
+                                        <p>{{ data.depart|striptags|slice(5) }} {% if data.villea != "" %} ({{ data.villea }}) {% endif %}</p>
+                                    </div>
+                                    <div class="nouvie2">
+                                        <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>
+                                    </div>
+                                    <div class="nouvie1">
+                                        <p>{{ data.arrivee|striptags|slice(5) }} {% if data.villeb != "" %} ({{ data.villeb }}) {% endif %}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="nouveau2">
+                                <article>
+                                    <a href="{{ path('nroho_base_product', { 'id': data.id }) }}"><h1>Le {{ data.date|date("m/d/Y") }} {% if data.heure != "" %}à {{ data.heure }}  {% endif %}</h1></a>
+                                    <p>{{ data.message }}</p>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="choirc">
+                            <div class="detrc">
+                                <p class="prixnuito">
+                                    <strong>{{ data.prix }}</strong> Dinars
                                 </p>
                             </div>
-                            <div class="destrcco">
-                                <div class="detrc">
-                                    <p>{{ "now"|date('Y') - data.user.born }}</p>
-                                </div>
-                                <div class="detrc">
-                                </div>
-                                <div class="detrc">
-                                        <p>{{ data.vehicule }}</p>
-                                </div>
+                            <div class="detrc1">
+                                <p><strong>{{ data.place }}</strong> places<br/></p>
                             </div>
-                            <div class="opicon">
-                                {% if data.fumer==1 %}
-                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumeur.png') }}" alt="covoiturage non fumeur"/></div>
-                                {% else %}
-                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage non fumeur"/></div>                               
-                                {% endif %}
-                                
-                                {% if data.musique==1 %}
-                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_musique.png') }}" alt="covoiturage pas de musique"/></div>
-                                {% else %}
-                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage pas de musique"/></div>
-                                {% endif %}
-                                
-                                {% if data.animal==1 %}
-                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_animaux.png') }}" alt="covoiturage sans animaux"/></div>
-                                {% else %}
-                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage sans animaux"/></div>
-                                {% endif %}
-                                
-                                {% if data.blabla==1 %}
-                                    <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/gosra.png') }}" alt="covoiturage sans animaux"/></div>
-                                {% endif %}
+                            {% if data.filles==1 %}
+                            <div class="detrc1p">
+                                <p>Entre Elles</p>
                             </div>
-                        </a>
-                    </div>
-                    <div class="rc">
-                        <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
-                            <div class="nouveau1">
-                                <div class="nouvie1">
-                                    <p>{{ data.depart }} ({{ data.villea }})</p>
-                                </div>
-                                <div class="nouvie2">
-                                    <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>
-                                </div>
-                                <div class="nouvie1">
-                                    <p>{{ data.arrivee }} ({{ data.villeb }})</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="nouveau2">
-                            <article>
-                                <a href="{{ path('nroho_base_product', { 'id': data.id }) }}"><h1>{{ data.date|date("m/d/Y") }} - {{ data.heure }}</h1></a>
-                                <p>{{ data.message }}</p>
-                            </article>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="choirc">
-                        <div class="detrc">
-                            <p class="prixnuito">
-                                <strong>{{ data.prix }}</strong> Dinars
-                            </p>
-                        </div>
-                        <div class="detrc1">
-                            <p><strong>{{ data.place }}</strong> places<br/></p>
-                        </div>
-                        {% if data.filles==1 %}
-                        <div class="detrc1p">
-                            <p>Entre Elles</p>
-                        </div>
-                        {% endif %}
+                    <div class="caseoa">
                     </div>
                 </div>
-                <div class="caseoa">
+                <div class="interi" style="display:none">
+                    <div class="interi2">
+                        <div class="boutin2">
+                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">Voir</a>
+                        </div>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            <div class="interi" style="display:none">
-                <div class="interi2">
-                    <div class="boutin2">
-                        <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">Voir</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
             <div id="resultatsuite">
             </div>
             <!-- Fin -->
@@ -277,7 +285,7 @@
             <img src="{{ asset('bundles/basenroho/img/proposer.jpg') }}" alt="nroho.com coiturage en Algérie"/>
         </div>
         <div class="desccc5">
-            <a href="#" target="_blank" >Déposez votre trajet</a> 
+            <a href="{{ path('nroho_base_add') }}" target="_blank" >Déposez votre trajet</a> 
         </div>
     </div>
     <div class="desccc3">
@@ -294,7 +302,7 @@
             <img src="{{ asset('bundles/basenroho/img/annonces.jpg') }}" alt="nroho.com coiturage en Algérie"/>
         </div>
         <div class="desccc5">
-            <a href="index.php#ancre_offre" target="_blank" >Trouvez des places</a>
+            <a href="#ancre_offre" target="_blank" >Trouvez des places</a>
         </div>
     </div>
     <div class="desccc3">
@@ -314,7 +322,7 @@
             <img src="{{ asset('bundles/basenroho/img/partez.jpg') }}" alt="nroho.com coiturage en Algérie"/>
         </div>
         <div class="desccc5">
-            <a href="index.php#ancre_offre" target="_blank" rel="nofollow">Cherchez un trajet</a>
+            <a href="#ancre_offre" target="_blank" rel="nofollow">Cherchez un trajet</a>
         </div>
     </div>
 </div>
@@ -326,7 +334,7 @@
     <h3>Suivez-nous!</h3>
 </div>
 <div class="bloc_page_body2">
-    <a href="https://www.facebook.com/pages/nrohocom/483641018368349" target="_blank">
+    <a href="https://www.facebook.com/pages/nrohocom/" target="_blank">
         <div class="social_body1">
         </div>
     </a>
@@ -358,28 +366,25 @@
 {% endblock %} 
 
 {% block javascripts %}
+{#
 {% javascripts filter='?yui_js'
-    '@BaseNrohoBundle/Resources/public/js/date.js'
-    '@BaseNrohoBundle/Resources/public/js/date2.js'
-    '@BaseNrohoBundle/Resources/public/js/scroll.js'
-    '@BaseNrohoBundle/Resources/public/js/search.js' %}
+    '@BaseNrohoBundle/Resources/public/js/search.js'
+    '@BaseNrohoBundle/Resources/public/js/scroll.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+#}
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/date.js') }}"></script>
-<script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/date2.js') }}"></script>
-<!-- <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/classdate.js') }}"></script> -->
 <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
-<script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/search.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-    first = 2;
+    var first = 15;
     $("#mm").on("click", function(){
         $("#plus").hide();
         $("#loadersearching").show();
-        var result = "";
-        var route = "{{ path('nroho_base_top', { 'page': "text" }) }}";
-        var url = route.replace("text", first);
+        var result  = "";
+        var resultt = "";
+        var route   = "{{ path('nroho_base_top', { 'page': "text" }) }}";
+        var url     = route.replace("text", first);
         $.ajax({
             type: "POST",
             url: url,
@@ -387,14 +392,8 @@ $(document).ready(function(){
             cache: false,
             success: function(json){
                 var jsonn = JSON.parse( json );
-                var lid = "";
-                console.log(jsonn);
                 if (jsonn !== null){
-                    lili = "";
                     for (var i = 0; i < jsonn.length; i++){
-                        //options += '<option value="' + json[i].wilaya + '">' + json[i].wilaya + '</option>';
-                        
-                        
                         result += '\
                         <div class="sectionn">\
                             <div class="caseoi">\
@@ -402,7 +401,7 @@ $(document).ready(function(){
                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
                                         <div class="detrc">\
                                             <div class="nouvie3">\
-                                                <img src="'; if(jsonn[i].user.gender==1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender==0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
+                                                <img src="'; if(jsonn[i].user.gender===1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender===0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
                                             </div>\
                                             <p class="prixnuit">\
                                                 Conductrice\
@@ -473,16 +472,173 @@ $(document).ready(function(){
                         result  = resultt.replace("100", jsonn[i].id);
                         resultt = result.replace("100", jsonn[i].id);
                         result  = resultt.replace("100", jsonn[i].id);
-                        
                     }
                     $("#resultatsuite").append(result);
                 }
-                //alert(lili);
                 $("#loadersearching").hide();
                 $("#plus").show();
             }
         });
-        first = first + 2;
+        first = first + 10;
+    });
+    
+    $('#departsearch').on('change', function () {
+        $("#loadersearch").show();
+        var id_wilaya = this.value.substr(0, 2);
+        var route = "{{ path('nroho_base_search_destination', { 'start': "123" }) }}";
+        var url  = route.replace("123", id_wilaya);
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: 'application/json',
+            cache: false,
+            success: function(json){
+                $('#arriversearch').html('<option value="">Ville d\'arrivée</option>');
+                var jsonn = JSON.parse( json );
+                if (jsonn !== null){
+                    for (var i = 0; i < jsonn.length; i++){
+                        $('#arriversearch').append('<option value="'+jsonn[i]+'">'+jsonn[i]+'</option>');
+                    }
+                }
+                $('#arriversearch').prop('disabled', false);
+            }
+        });
+        $("#loadersearch").hide();
+    });
+    
+    $("#dep").on("change", function(){
+        var i = 1;
+        var memoire2 = "2" + $("#ari").val().substr(0,2);
+        var first    = "1" + $("#dep").val().substr(0,2);
+        var route = "";
+        var url, url2, memoire1;
+        if(i === 1) memoire1 = 116;
+        if(route === "") route = "{{ path('nroho_base_add_select', { 'first': "116", 'seconde': "206" }) }}";
+        url  = route.replace(memoire1, first);
+        url2 = url.replace("206", memoire2);
+        $("#formAdd").attr("action", url2);
+        route = url2;
+        memoire1 = first;
+        i++;
+    });
+    
+    $("#ari").on("change", function(){
+        var i = 1;
+        var memoire1 = "1" + $("#dep").val().substr(0,2);
+        var seconde  = "2" + $("#ari").val().substr(0,2);
+        var route = "";
+        var url, url2, memoire2;
+        if(i === 1) memoire2 = 206;
+        if(route === "") route = "{{ path('nroho_base_add_select', { 'first': "116", 'seconde': "206" }) }}";
+        url  = route.replace(memoire2, seconde);
+        url2 = url.replace("116", memoire1);
+        $("#formAdd").attr("action", url2);
+        route = url2;
+        memoire2 = seconde;
+        i++;
+    });
+    
+    $("#search").on("click", function(){
+        var result = ""; var resultt;
+        var first   = $("#departsearch").val().substr(0,2);
+        var seconde = $("#arriversearch").val().substr(0,2);
+        var route = "{{ path('nroho_base_search', { 'first': "111", 'seconde': "222" }) }}";
+        var url1  = route.replace("111", first);
+        var url   = url1.replace("222", seconde);
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: 'application/json',
+            cache: false,
+            success: function(json){
+                var jsonn = JSON.parse( json );
+                if (jsonn !== null){
+                    for (var i = 0; i < jsonn.length; i++){
+                        result += '\
+                        <div class="sectionn">\
+                            <div class="caseoi">\
+                                <div class="choirc1">\
+                                    <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
+                                        <div class="detrc">\
+                                            <div class="nouvie3">\
+                                                <img src="'; if(jsonn[i].user.gender===1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender===0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
+                                            </div>\
+                                            <p class="prixnuit">\
+                                                Conductrice\
+                                                <br/><strong>'+ jsonn[i].user.secondename +'</strong>\
+                                            </p>\
+                                         </div>\
+                                         <div class="destrcco">\
+                                             <div class="detrc">\
+                                                 <p></p>\
+                                             </div>\
+                                             <div class="detrc">\
+                                             </div>\
+                                             <div class="detrc">\
+                                                     <p>'+ jsonn[i].vehicule +'</p>\
+                                             </div>\
+                                         </div>\
+                                         <div class="opicon">\
+                                         </div>\
+                                     </a>\
+                                 </div>\
+                                 <div class="rc">\
+                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
+                                         <div class="nouveau1">\
+                                             <div class="nouvie1">\
+                                                 <p>'+ jsonn[i].depart +' ('+ jsonn[i].villea +')</p>\
+                                             </div>\
+                                             <div class="nouvie2">\
+                                                 <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>\
+                                             </div>\
+                                             <div class="nouvie1">\
+                                                 <p>'+ jsonn[i].arrivee +' ('+ jsonn[i].villeb +')</p>\
+                                             </div>\
+                                         </div>\
+                                     </a>\
+                                     <div class="nouveau2">\
+                                         <article>\
+                                             <a href="{{ path('nroho_base_product', { 'id': '100' }) }}"><h1>'+ jsonn[i].date +' - '+ jsonn[i].heure +'</h1></a>\
+                                             <p>'+ jsonn[i].message +'</p>\
+                                         </article>\
+                                     </div>\
+                                 </div>\
+                                 <div class="choirc">\
+                                     <div class="detrc">\
+                                         <p class="prixnuito">\
+                                             <strong>'+ jsonn[i].prix +'</strong> Dinars\
+                                         </p>\
+                                     </div>\
+                                     <div class="detrc1">\
+                                         <p><strong>'+ jsonn[i].place +'</strong> places<br/></p>\
+                                     </div>\
+                                     <div class="detrc1p">\
+                                         <p>'; if(jsonn[i].filles===1) result += 'Entre Elles'; result += '</p>\
+                                     </div>\
+                                 </div>\
+                             </div>\
+                             <div class="caseoa">\
+                             </div>\
+                        </div>\
+                        <div class="interi" style="display:none">\
+                             <div class="interi2">\
+                                 <div class="boutin2">\
+                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">Voir</a>\
+                                 </div>\
+                             </div>\
+                        </div>';
+                        
+                        resultt = result.replace("100", jsonn[i].id);
+                        result  = resultt.replace("100", jsonn[i].id);
+                        resultt = result.replace("100", jsonn[i].id);
+                        result  = resultt.replace("100", jsonn[i].id);
+                    }
+                    $("#resultat").hide();
+                    $("#resultatsuite").html(result);
+                    $("#plus").hide();
+                }
+            }
+        });
     });
 });
 </script>

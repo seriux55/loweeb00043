@@ -33,6 +33,7 @@ class Product
         $this->saa = 0;
         $this->deposit = new \DateTime();
         $this->vue = 0;
+        $this->maj = 0;
     }
     
     /**
