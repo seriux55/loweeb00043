@@ -33,7 +33,7 @@ class DefaultController extends Controller
             "46 - Ain Temouchent", "47 - Ghardaia", "48 - Relizane"
         );
         
-        $row = $this->get('database_connection')->prepare("SELECT depart FROM product");
+        $row = $this->get('database_connection')->prepare("SELECT depart FROM Product");
         $row->execute();
         $ville = array();
         while ($data = $row->fetch()) {
@@ -385,7 +385,7 @@ class DefaultController extends Controller
     public function destinationAction($start)
     {
         $db  = $this->get('database_connection');
-        $row = $db->prepare("SELECT arrivee FROM product WHERE depart LIKE ? AND valid = '1'");
+        $row = $db->prepare("SELECT arrivee FROM Product WHERE depart LIKE ? AND valid = '1'");
         $row->bindValue(1, $start.'%');
         $row->execute();
         $product = array();
