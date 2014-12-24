@@ -106,8 +106,6 @@ $(document).ready(function(){
         var route1 = "{{ path('nroho_base_message_lecture', { 'id': "111", 'product': "222" }) }}"; // ajouter id du produit
         var url1 = route1.replace("111", id);
         var url2 = url1.replace("222", idp);
-        
-
         $.ajax({
             type: "POST",
             url: url2,

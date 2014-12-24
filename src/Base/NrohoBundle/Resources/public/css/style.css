@@ -4116,6 +4116,7 @@ article a:hover
 	margin : 5px;
 	margin-top:15px;
 	margin-bottom :5px;
+	text-align : center;
 }
 .casedeto a
 {
@@ -4131,17 +4132,17 @@ article a:hover
 .casedeto a:hover
 {
 	text-decoration : underline;
-	 background-image: linear-gradient(to bottom, #F8F8F8 0px, #EEEEEE 100%);
-    border-color: #C6C6C6;
+	background-image: linear-gradient(to bottom, #F8F8F8 0px, #EEEEEE 100%);
+        border-color: #C6C6C6;
 }
 
 .casedeto a:active
 {
 	background-color: #E9E9E9;
-    background-image: none;
-    border-color: #C6C6C6;
+        background-image: none;
+        border-color: #C6C6C6;
 	color : #333333;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
 }
 /*
 .casedeto a:focus

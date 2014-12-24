@@ -58,7 +58,7 @@
 </div>
 <div id="ancre_offre"></div><br/>
 <div class="nouveau101">
-    <h3 >Il y'a  <span>10</span> covoiturages actuellement!</h3>
+    <h3 >Il y'a  <span>{{ nbr }}</span> covoiturages actuellement!</h3>
 </div>		
 <div class="nouveau11">
     <div class="bloc_page_bodyy">
@@ -219,7 +219,7 @@
             <!-- Fin -->
         </div>
         <div id="plus" class="casedeto">
-            <center><a id="mm" href="#" onclick="return false">Voir la suite</a></center>
+            <a id="mm" href="#" onclick="return false">Voir la suite</a>
         </div>
         <div id="loadersearching" style="display:none" class="centi">
             <img src="{{ asset('bundles/basenroho/img/loading.gif') }}" alt="Chargement"/>

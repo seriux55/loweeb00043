@@ -53,7 +53,8 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/aide, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin$, role: ROLE_ADMIN }
         - { path: ^/add, role: ROLE_USER }
         - { path: ^/message, role: ROLE_USER }
         - { path: ^/demande, role: ROLE_USER }
@@ -61,7 +62,6 @@ security:
         - { path: ^/ajout, role: ROLE_USER }
         - { path: ^/recherche, role: ROLE_USER }
         - { path: ^/compte, role: ROLE_USER }
-        - { path: ^/aide, role: ROLE_USER }
         - { path: ^/product, role: ROLE_USER }
         #- { path: ^/, role: ROLE_ADMIN }
         #- { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

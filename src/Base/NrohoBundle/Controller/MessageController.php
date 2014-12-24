@@ -51,7 +51,7 @@ class MessageController extends Controller
     public function messageidAction($id, $product)
     {
         $idc = $this->get('security.context')->getToken()->getUser()->getId();
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
+        $message = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
                    ->createQueryBuilder('a')
                    ->addSelect('b')->leftJoin('a.user', 'b')
                    ->addSelect('c')->leftJoin('a.product', 'c')
@@ -60,8 +60,8 @@ class MessageController extends Controller
                    ->setParameter('idc', $idc)->setParameter('id', $id)->setParameter('product', $product)
                    ->orderBy('a.id','ASC')
                    ->setMaxResults(7)
-                ;
-        $message = $qb->getQuery()->getResult();
+                   ->getQuery()->getResult();
+        //$message = $qb->getQuery()->getResult();
         
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($message, 'json');

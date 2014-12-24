@@ -31,19 +31,19 @@ class DefaultController extends Controller
             "36 - El Tarf", "37 - Tindouf", "38 - Tissemsilt", "39 - El Oued", "40 - Khenchela",
             "41 - Souk Ahras", "42 - Tipaza", "43 - Mila", "44 - Ain Defla", "45 - Naama",
             "46 - Ain Temouchent", "47 - Ghardaia", "48 - Relizane"
-        );
-        
+        );      
         $row = $this->get('database_connection')->prepare("SELECT depart FROM Product");
         $row->execute();
         $ville = array();
+        $i = 0;
         while ($data = $row->fetch()) {
             if(!in_array($data['depart'], $ville)){
 		$ville[] = $data['depart'];
             }
+            $i++;
         }
         asort($ville);
-        
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+        $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->addSelect('b')
                    ->leftJoin('a.user', 'b')
@@ -51,13 +51,13 @@ class DefaultController extends Controller
                    ->setParameter('valid', '1')
                    ->orderBy('a.id','DESC')
                    ->setMaxResults(10)
-                ;
-        $product = $qb->getQuery()->getResult();
-        
+                   ->getQuery()
+                   ->getResult();
         return $this->render('BaseNrohoBundle:Default:index.html.twig', array(
             'product' => $product,
             'wilaya'  => $wilaya,
             'ville'   => $ville,
+            'nbr'     => $i,
         ));
     }
     
@@ -71,12 +71,9 @@ class DefaultController extends Controller
     
     public function inscriptionAction(Request $request)
     {
-        
         $product = new Product();
         $product->setIp($this->getRequest()->getClientIp());
-        
         $form = $this->createForm(new ProductType(), $product);
-        
         if ($form->handleRequest($request)->isValid()) {
             $product->setUser($this->get('security.context')->getToken()->getUser());
             $product->setIp($this->getRequest()->getClientIp());
@@ -85,8 +82,7 @@ class DefaultController extends Controller
             $em->flush();
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
             return $this->redirect($this->generateUrl('nroho_base_default', array('id' => $product->getId())));
-        }
-            
+        }  
         return $this->render('BaseNrohoBundle:Default:add.html.twig', array(
             'form' => $form->createView(),
         ));
@@ -105,7 +101,6 @@ class DefaultController extends Controller
                     "36 - El Tarf", "37 - Tindouf", "38 - Tissemsilt", "39 - El Oued", "40 - Khenchela",
                     "41 - Souk Ahras", "42 - Tipaza", "43 - Mila", "44 - Ain Defla", "45 - Naama",
                     "46 - Ain Temouchent", "47 - Ghardaia", "48 - Relizane");
-        
         foreach ($wilaya as $key => $value) {
             if(substr($value, 0, 2) == substr($first, 1, 3)){
                 $depart = $value;  
@@ -118,9 +113,7 @@ class DefaultController extends Controller
         $product->setIp($this->getRequest()->getClientIp());
         $product->setDepart($depart);
         $product->setArrivee($arrivee);
-        
         $form = $this->createForm(new ProductType(), $product);
-        
         if ($form->handleRequest($request)->isValid()) {
             $product->setUser($this->get('security.context')->getToken()->getUser());
             $product->setIp($this->getRequest()->getClientIp());
@@ -130,7 +123,6 @@ class DefaultController extends Controller
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
             return $this->redirect($this->generateUrl('nroho_base_default', array('id' => $product->getId())));
         }
-            
         return $this->render('BaseNrohoBundle:Default:add.html.twig', array(
             'form' => $form->createView(),
         ));
@@ -139,25 +131,19 @@ class DefaultController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         // On récupère l'annonce $id
         $product = $em->getRepository('BaseNrohoBundle:Product')->find($id);
-
         if (null === $product) {
           throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
         }
-        
         $form = $this->createForm(new productType(), $product);
-        
         // On récupère la requête
         $request = $this->get('request');
         // On vérifie qu'elle est de type POST
         if ($request->getMethod() == 'POST') {
-        
             // On fait le lien Requête <-> Formulaire
             // À partir de maintenant, la variable $article contient les valeurs entrées dans le formulaire par le visiteur
             $form->bind($request);
-            
             // On vérifie que les valeurs entrées sont correctes
             // (Nous verrons la validation des objets en détail dans le prochain chapitre)
             if ($form->isValid()) {
@@ -165,13 +151,10 @@ class DefaultController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($product);
                 $em->flush();
-
                 // On redirige vers la page de visualisation de l'article nouvellement créé
                 return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $product->getId())));
-
             }
         }
-        
         return $this->render('BaseNrohoBundle:Default:edit.html.twig', array(
            'form' => $form->createView(),
         ));
@@ -180,13 +163,12 @@ class DefaultController extends Controller
     public function productAction($id)
     {
         // detail du covoiturage
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+        $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
                    ->where("a.id = :id AND a.valid = '1'")
                    ->setParameter('id', $id)
-                ;
-        $product = $qb->getQuery()->getResult();
+                   ->getQuery()->getResult();
         // nombre de places max
         foreach($product as $value) {
             $nbrPlace = $value->getPlace();
@@ -237,14 +219,13 @@ class DefaultController extends Controller
         }
         // --- Fin de la gestion du commentaire ---
         // Affichage des commentaires
-        $qbb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
+        $comments = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.product', 'b')->addSelect('b')
                    ->leftJoin('a.user', 'c')->addSelect('c')
                    ->where('a.product = :id')
                    ->setParameter('id', $id)
-                ;
-        $comments = $qbb->getQuery()->getResult();
+                   ->getQuery()->getResult();
         // Le nombre de commentaires
         $nbr = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
                     ->createQueryBuilder('a')
@@ -264,15 +245,14 @@ class DefaultController extends Controller
     
     public function annonceAction()
     {
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+        $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
                    ->where('a.user = :id')
                    ->setParameter('id', $this->get('security.context')->getToken()->getUser())
                    ->setFirstResult(0) //offset
                    ->setMaxResults(2)  //limit
-                ;
-        $product = $qb->getQuery()->getResult();
+                   ->getQuery()->getResult();
         // afficher en session $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
         return $this->render('BaseNrohoBundle:Default:annonce.html.twig', array(
             'product' => $product
@@ -282,14 +262,13 @@ class DefaultController extends Controller
     public function rechercheAction()
     {
 
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+        $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
                    ->where('a.valid = "1"')
                    ->setFirstResult(0) //offset
                    ->setMaxResults(5)  //limit
-                ;
-        $product = $qb->getQuery()->getResult();
+                   ->getQuery()->getResult();
         
         return $this->render('BaseNrohoBundle:Default:recherche.html.twig', array(
             'product' => $product,
@@ -311,30 +290,27 @@ class DefaultController extends Controller
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
             return $this->redirect($this->generateUrl('nroho_base_profil', array('id' => $id)));
         }
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Avis')
-                   ->createQueryBuilder('a')
-                   ->leftJoin('a.user', 'b')->addSelect('b')
-                   ->orderBy('a.id','ASC')
-                   ->where('a.user_avis = :id')
-                   ->setParameter('id', $id)
-                ;
-        $tout_avis = $qb->getQuery()->getResult();
-        $qbb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
-                    ->createQueryBuilder('a')
-                    ->leftJoin('a.user', 'b')->addSelect('b')
-                    ->where('b.id = :id')
-                    ->setParameter('id', $id)
-                    ->setMaxResults(1)
-                ;
-        $user = $qbb->getQuery()->getResult();
-        $qbbb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+        $tout_avis = $this->getDoctrine()->getRepository('BaseNrohoBundle:Avis')
+                          ->createQueryBuilder('a')
+                          ->leftJoin('a.user', 'b')->addSelect('b')
+                          ->orderBy('a.id','ASC')
+                          ->where('a.user_avis = :id')
+                          ->setParameter('id', $id)
+                          ->getQuery()->getResult();
+        $user = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+                     ->createQueryBuilder('a')
+                     ->leftJoin('a.user', 'b')->addSelect('b')
+                     ->where('b.id = :id')
+                     ->setParameter('id', $id)
+                     ->setMaxResults(1)
+                     ->getQuery()->getResult();
+        $ways = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                      ->createQueryBuilder('a')
                      ->where('a.user = :id')
                      ->orderBy('a.id','DESC')
                      ->setParameter('id', $id)
                      ->setMaxResults(5)
-                ;
-        $ways = $qbbb->getQuery()->getResult();
+                     ->getQuery()->getResult();
         return $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form' => $form->createView(),
             'avis' => $tout_avis,
@@ -351,18 +327,16 @@ class DefaultController extends Controller
     
     public function topAction($page = 10)
     {
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
-                   ->createQueryBuilder('a')
-                   ->addSelect('b')
-                   ->leftJoin('a.user', 'b')
-                   ->where('a.valid = :valid')
-                   ->setParameter('valid', '1')
-                   ->orderBy('a.id','DESC')
-                   ->setFirstResult($page)
-                   ->setMaxResults(10)
-                ;
-        $product = $qb->getQuery()->getResult();
-        
+        $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+                        ->createQueryBuilder('a')
+                        ->addSelect('b')
+                        ->leftJoin('a.user', 'b')
+                        ->where('a.valid = :valid')
+                        ->setParameter('valid', '1')
+                        ->orderBy('a.id','DESC')
+                        ->setFirstResult($page)
+                        ->setMaxResults(10)
+                        ->getQuery()->getResult();
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($product, 'json');
         return new Response($reports);
@@ -370,13 +344,12 @@ class DefaultController extends Controller
     
     public function searchAction($first, $seconde)
     {
-        $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
-                   ->createQueryBuilder('a')
-                   ->leftJoin('a.user', 'b')->addSelect('b')
-                   ->where("a.depart LIKE :depart AND a.arrivee LIKE :arrivee AND a.valid = '1'")
-                   ->setParameter('depart', $first.'%')->setParameter('arrivee', $seconde.'%')
-                ;
-        $product = $qb->getQuery()->getResult();
+        $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+                        ->createQueryBuilder('a')
+                        ->leftJoin('a.user', 'b')->addSelect('b')
+                        ->where("a.depart LIKE :depart AND a.arrivee LIKE :arrivee AND a.valid = '1'")
+                        ->setParameter('depart', $first.'%')->setParameter('arrivee', $seconde.'%')
+                        ->getQuery()->getResult();
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($product, 'json');
         return new Response($reports);
