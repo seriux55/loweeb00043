@@ -133,9 +133,6 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         // On récupère l'annonce $id
         $product = $em->getRepository('BaseNrohoBundle:Product')->find($id);
-        if (null === $product) {
-          throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
-        }
         $form = $this->createForm(new productType(), $product);
         // On récupère la requête
         $request = $this->get('request');
