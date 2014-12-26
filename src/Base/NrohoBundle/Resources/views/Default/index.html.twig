@@ -6,7 +6,8 @@
     <link rel="stylesheet" media="screen and (max-width:900px)" href="{{ asset('bundles/basenroho/css/style_small.css') }}"/>
 {% endblock %}
 
-{% block body %}		
+{% block body %}
+{% if not is_granted('ROLE_USER') %}
 <div class="backimag">
     <div class="nouveau101r">
         <h3>Partagez votre trajet ici!</h3>
@@ -56,6 +57,7 @@
         <a href="#ancre_offre">Trouvez des places</a>
     </div>		
 </div>
+{% endif %}
 <div id="ancre_offre"></div><br/>
 <div class="nouveau101">
     <h3 >Il y'a  <span>{{ nbr }}</span> covoiturages actuellement!</h3>
@@ -84,13 +86,13 @@
                                         </div>
                                         <div class="mrr44">
                                             <div class="mrch">
-                                                <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" />
+                                                <img src="{{ asset('bundles/basenroho/img/mapa.png') }}" alt=""/>
                                                 <label>Arrivée</label>
                                             </div>
                                             <div class="load" id="loadersearch" style="display:none">
                                                 <img src="{{ asset('bundles/basenroho/img/loading.gif') }}" alt="Chargement"/>
                                             </div>
-                                            <select class="ouardepi" name="arriversearch" id="arriversearch" disabled="true">
+                                            <select class="ouardepi" name="arriversearch" id="arriversearch" disabled>
                                             </select>
                                         </div>
                                     </div>
@@ -231,7 +233,6 @@
         </div>
     </div>		
 </div>
-<div id="ancre_marche"></div><br/> 
 <hr>
 <br/>
 <br/>
@@ -327,7 +328,7 @@
     </div>
 </div>
 <div class="youtu">
-    <iframe width="560" height="315" src="//www.youtube.com/embed/Wqpx66bYvIw" frameborder="0" allowfullscreen></iframe>
+    <iframe style="border:0;" width="560" height="315" src="//www.youtube.com/embed/Wqpx66bYvIw" allowfullscreen></iframe>
 </div>
 <hr>
 <div class="nouveau101">
