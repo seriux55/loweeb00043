@@ -4,7 +4,7 @@ nroho_base_default:
 
 nroho_base_add:
     pattern: /add
-    defaults: { _controller: BaseNrohoBundle:Default:inscription }
+    defaults: { _controller: BaseNrohoBundle:Default:add }
 
 nroho_base_edit:
     pattern: /edit/{id}
@@ -23,10 +23,6 @@ nroho_base_product:
     defaults: { _controller: BaseNrohoBundle:Default:product }
     requirements:
         id:  \d+
-
-nroho_base_inscription:
-    pattern: /inscription
-    defaults: { _controller: BaseNrohoBundle:Default:inscription }
     
 nroho_base_compte:
     pattern: /compte
@@ -76,7 +72,7 @@ nroho_base_message_submit:
 
 nroho_base_recherche:
     pattern: /recherche
-    defaults: { _controller: BaseNrohoBundle:Default:recherche }
+    defaults: { _controller: BaseNrohoBundle:Search:recherche }
     
 nroho_base_profil:
     pattern: /profil/{id}
@@ -90,25 +86,25 @@ nroho_base_aide:
     
 nroho_base_add_select:
     pattern: /add/{first}/{seconde}
-    defaults: { _controller: BaseNrohoBundle:Default:addSelect }
+    defaults: { _controller: BaseNrohoBundle:Search:addSelect }
     requirements:
         first:   \d+
         seconde: \d+
 
 nroho_base_top:
     pattern: /top/{page}
-    defaults: { _controller: BaseNrohoBundle:Default:top, page: 8 }
+    defaults: { _controller: BaseNrohoBundle:Search:top, page: 8 }
 
 nroho_base_search:
     pattern: /search/{first}/{seconde}
-    defaults: { _controller: BaseNrohoBundle:Default:search }
+    defaults: { _controller: BaseNrohoBundle:Search:search }
     requirements:
         first:   \d+
         seconde: \d+
         
 nroho_base_search_destination:
     pattern: /search/{start}
-    defaults: { _controller: BaseNrohoBundle:Default:destination }
+    defaults: { _controller: BaseNrohoBundle:Search:destination }
     requirements:
         start: \d+
 
