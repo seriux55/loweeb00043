@@ -243,7 +243,6 @@ class ImageProfil
     protected function getUploadRootDir()
     {
         // On retourne le chemin relatif vers l'image pour notre code PHP
-        // return dirname(__FILE__).'/../../../../web/'.$this->getUploadDir();
         return $this->get('kernel')->getRootDir().'/../../../../web/'.$this->getUploadDir();
     }
 

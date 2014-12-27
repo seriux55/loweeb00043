@@ -14,7 +14,6 @@ use Base\NrohoBundle\Entity\Demande;
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\Type\AvisType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {

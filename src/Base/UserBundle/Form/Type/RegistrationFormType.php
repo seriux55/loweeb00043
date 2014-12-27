@@ -5,9 +5,6 @@ namespace Base\UserBundle\Form\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 
-use \Base\NrohoBundle\Form\ImageProfilType;
-use Base\NrohoBundle\Form\ImageVoitureType;
-
 class RegistrationFormType extends BaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
