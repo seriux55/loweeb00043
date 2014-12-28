@@ -376,7 +376,7 @@
 #}
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
-<script type="text/javascript">
+<script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
     var first = 15;
     $("#mm").on("click", function(){
@@ -384,7 +384,7 @@ $(document).ready(function(){
         $("#loadersearching").show();
         var result  = "";
         var resultt = "";
-        var route   = "{{ path('nroho_base_top', { 'page': "text" }) }}";
+        var route   = "{{ path('nroho_base_top', { 'page': 'text' }) }}";
         var url     = route.replace("text", first);
         $.ajax({
             type: "POST",
@@ -486,7 +486,7 @@ $(document).ready(function(){
     $('#departsearch').on('change', function () {
         $("#loadersearch").show();
         var id_wilaya = this.value.substr(0, 2);
-        var route = "{{ path('nroho_base_search_destination', { 'start': "123" }) }}";
+        var route = "{{ path('nroho_base_search_destination', { 'start': '123' }) }}";
         var url  = route.replace("123", id_wilaya);
         $.ajax({
             type: "POST",
@@ -514,7 +514,7 @@ $(document).ready(function(){
         var route = "";
         var url, url2, memoire1;
         if(i === 1) memoire1 = 116;
-        if(route === "") route = "{{ path('nroho_base_add_select', { 'first': "116", 'seconde': "206" }) }}";
+        if(route === "") route = "{{ path('nroho_base_add_select', { 'first': '116', 'seconde': '206' }) }}";
         url  = route.replace(memoire1, first);
         url2 = url.replace("206", memoire2);
         $("#formAdd").attr("action", url2);
@@ -530,7 +530,7 @@ $(document).ready(function(){
         var route = "";
         var url, url2, memoire2;
         if(i === 1) memoire2 = 206;
-        if(route === "") route = "{{ path('nroho_base_add_select', { 'first': "116", 'seconde': "206" }) }}";
+        if(route === "") route = "{{ path('nroho_base_add_select', { 'first': '116', 'seconde': '206' }) }}";
         url  = route.replace(memoire2, seconde);
         url2 = url.replace("116", memoire1);
         $("#formAdd").attr("action", url2);
@@ -543,7 +543,7 @@ $(document).ready(function(){
         var result = ""; var resultt;
         var first   = $("#departsearch").val().substr(0,2);
         var seconde = $("#arriversearch").val().substr(0,2);
-        var route = "{{ path('nroho_base_search', { 'first': "111", 'seconde': "222" }) }}";
+        var route = "{{ path('nroho_base_search', { 'first': '111', 'seconde': '222' }) }}";
         var url1  = route.replace("111", first);
         var url   = url1.replace("222", seconde);
         $.ajax({
@@ -643,4 +643,5 @@ $(document).ready(function(){
     });
 });
 </script>
+
 {% endblock %}
