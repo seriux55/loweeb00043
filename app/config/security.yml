@@ -54,6 +54,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/aide, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/produit, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin$, role: ROLE_ADMIN }
         - { path: ^/add, role: ROLE_USER }
         - { path: ^/message, role: ROLE_USER }

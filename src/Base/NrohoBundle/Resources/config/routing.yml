@@ -19,8 +19,14 @@ nroho_base_remove:
         id:  \d+
 
 nroho_base_product:
-    pattern: /product/{id}
+    pattern: /product/{id}/
     defaults: { _controller: BaseNrohoBundle:Default:product }
+    requirements:
+        id:  \d+
+      
+nroho_base_produit:
+    pattern: /produit/{id}/
+    defaults: { _controller: BaseNrohoBundle:Default:produit }
     requirements:
         id:  \d+
     
