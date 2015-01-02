@@ -11,41 +11,41 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
 
-#monolog:
-#    handlers:
-#        main:
-#            type:         fingers_crossed
-#            action_level: error
-#            handler:      nested
-#        nested:
-#            type:  stream
-#            path:  "%kernel.logs_dir%/%kernel.environment%.log"
-#            level: debug
-
 monolog:
     handlers:
         main:
-            type:               fingers_crossed
-            action_level:       error
-            handler:            grouped
-        grouped:
-            type:               group
-            members:            [streamed, swift]
-        streamed:
-            type:               stream
-            path:               "%kernel.logs_dir%/%kernel.environment%.log"
-            level:              debug
-        swift:
-            type:               swift_mailer
-            from_email:         logs@nroho.com
-            to_email:           validation@nroho.com
-            subject:            "Logs Symfony project nroho.com"
-            level:              debug
-        login:
-            type:               stream
-            path:               "%kernel.logs_dir%/auth.log"
-            level:              info
-            channels:           security
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+
+#monolog:
+#    handlers:
+#        main:
+#            type:               fingers_crossed
+#            action_level:       error
+#            handler:            grouped
+#        grouped:
+#            type:               group
+#            members:            [streamed, swift]
+#        streamed:
+#            type:               stream
+#            path:               "%kernel.logs_dir%/%kernel.environment%.log"
+#            level:              debug
+#        swift:
+#            type:               swift_mailer
+#            from_email:         log@nroho.com
+#            to_email:           validation@nroho.com
+#            subject:            "Logs Symfony project nroho.com"
+#            level:              debug
+#        login:
+#            type:               stream
+#            path:               "%kernel.logs_dir%/auth.log"
+#            level:              info
+#            channels:           security
 
 #doctrine:
 #    orm:
