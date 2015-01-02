@@ -1,0 +1,9 @@
+{% extends "::layout_error.html.twig" %}
+
+{% block content %}
+<h1>Oops! </h1>
+<h2>Le serveur a renvoyé une "{{ status_code }} {{ status_text }}".</h2>
+<div>
+    Une erreur serveur est survenue. Nous travaillons pour y remédier.
+</div>
+{% endblock %}
