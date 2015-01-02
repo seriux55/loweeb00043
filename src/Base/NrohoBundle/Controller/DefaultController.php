@@ -14,6 +14,7 @@ use Base\NrohoBundle\Entity\Demande;
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\Type\AvisType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -129,6 +130,9 @@ class DefaultController extends Controller
         foreach($product as $value) {
             $nbrPlace = $value->getPlace();
             $userDist = $value->getUser();
+        }
+        if (!isset($nbrPlace)) {
+            throw new NotFoundHttpException("L'annonce n'existe pas :-( ");
         }
         // formulaire de reservation
         $reservation = new Demande();

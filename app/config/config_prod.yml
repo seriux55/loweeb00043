@@ -47,8 +47,8 @@ monolog:
             level:              info
             channels:           security
 
-doctrine:
-    orm:
-        auto_mapping: true
-        query_cache_driver:    apc
-        metadata_cache_driver: apc
+#doctrine:
+#    orm:
+#        auto_mapping: true
+#        query_cache_driver:    apc
+#        metadata_cache_driver: apc
