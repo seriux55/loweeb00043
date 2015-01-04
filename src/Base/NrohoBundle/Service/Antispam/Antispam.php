@@ -3,6 +3,7 @@
 namespace Base\NrohoBundle\Service\Antispam;
 
 class Antispam {
+    
     private $mailer;
     private $locale;
     private $minLength;

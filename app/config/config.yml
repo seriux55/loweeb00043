@@ -41,9 +41,13 @@ assetic:
         # mes modis pour compresser css et js
         yui_css:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"
+            #apply_to: "\.css$"
         yui_js:
             jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"
-
+            #apply_to: "\.js$"
+        cssembed:
+            jar: "%kernel.root_dir%/Resources/java/cssembed-0.4.5.jar"
+            #apply_to: "\.css$"
 
 # Doctrine Configuration
 doctrine:
