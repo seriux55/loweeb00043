@@ -26,7 +26,8 @@ class ImageProfilType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Base\NrohoBundle\Entity\ImageProfil'
+            'data_class' => 'Base\NrohoBundle\Entity\ImageProfil',
+            'intention'  => 'task_form',
         ));
     }
 

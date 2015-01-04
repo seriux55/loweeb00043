@@ -26,7 +26,8 @@ class DemandeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Base\NrohoBundle\Entity\Demande'
+            'data_class' => 'Base\NrohoBundle\Entity\Demande',
+            'intention'  => 'task_form',
         ));
     }
 

@@ -1,5 +1,20 @@
 {% extends "::base.html.twig" %}
 
+{% block head %}
+<div class="bloc_page_entete_22">
+    <div id="bloc_page_entete">
+        <div class="bloc_page_entete_1">
+            <a href="{{ url('nroho_base_default') }}"><img src="{{ asset('bundles/basenroho/img/logo-nroho_44.png') }}" alt="logo de nroho.com" id="logoo"/></a>
+        </div>
+        <div class="bloc_page_entete_2">
+            <nav class="entete3">
+                <a href="{{ path('nroho_base_aide') }}">Aide</a>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 {% block body %}
 <br />
 <br />

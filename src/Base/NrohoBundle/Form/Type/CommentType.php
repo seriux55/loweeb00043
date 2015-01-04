@@ -35,7 +35,8 @@ class CommentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Base\NrohoBundle\Entity\Comment'
+            'data_class' => 'Base\NrohoBundle\Entity\Comment',
+            'intention'  => 'task_form',
         ));
     }
 

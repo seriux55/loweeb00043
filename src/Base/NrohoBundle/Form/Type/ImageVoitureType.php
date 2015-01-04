@@ -26,7 +26,8 @@ class ImageVoitureType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Base\NrohoBundle\Entity\ImageVoiture'
+            'data_class' => 'Base\NrohoBundle\Entity\ImageVoiture',
+            'intention'  => 'task_form',
         ));
     }
 
