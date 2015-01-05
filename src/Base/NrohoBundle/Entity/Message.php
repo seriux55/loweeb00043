@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Message
  *
- * @ORM\Table()
+ * @ORM\Table(indexes={@ORM\Index(name="my_idx",columns={"etat"})})
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\MessageRepository")
  */
 class Message
