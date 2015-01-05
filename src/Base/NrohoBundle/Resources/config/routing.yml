@@ -46,33 +46,25 @@ nroho_base_product:
     requirements:
         id:  \d+
 
-nroho_base_ajout:
-    pattern: /ajout
-    defaults: { _controller: BaseNrohoBundle:Default:ajout }
-
 nroho_base_add:
     pattern: /add
-    defaults: { _controller: BaseNrohoBundle:Default:add }
+    defaults: { _controller: BaseNrohoBundle:User:add }
 
 nroho_base_edit:
     pattern: /edit/{id}
-    defaults: { _controller: BaseNrohoBundle:Default:edit }
+    defaults: { _controller: BaseNrohoBundle:User:edit }
     requirements:
         id:  \d+
 
 nroho_base_remove:
     pattern: /remove/{id}
-    defaults: { _controller: BaseNrohoBundle:Default:remove }
+    defaults: { _controller: BaseNrohoBundle:User:remove }
     requirements:
         id:  \d+
 
-nroho_base_compte:
-    pattern: /compte
-    defaults: { _controller: BaseNrohoBundle:Default:compte }
-
 nroho_base_annonce:
     pattern: /annonce
-    defaults: { _controller: BaseNrohoBundle:Default:annonce }
+    defaults: { _controller: BaseNrohoBundle:User:annonce }
 
 nroho_base_demande:
     pattern: /demande
@@ -110,7 +102,7 @@ nroho_base_message_submit:
 
 nroho_base_profil:
     pattern: /profil/{id}
-    defaults: { _controller: BaseNrohoBundle:Default:profil }
+    defaults: { _controller: BaseNrohoBundle:User:profil }
     requirements:
         id:  \d+
 
