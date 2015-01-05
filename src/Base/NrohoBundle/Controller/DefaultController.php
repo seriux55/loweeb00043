@@ -66,7 +66,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->find('BaseNrohoBundle:Product', $id)->setValid('2');
         $em->flush();
-        return $this->forward('BaseNrohoBundle:Default:annonce');
+        return $this->forward('BaseNrohoBundle:Default:confirmationRemove');
     }
     
     public function addAction(Request $request)
@@ -81,7 +81,7 @@ class DefaultController extends Controller
             $em->persist($product);
             $em->flush();
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-            return $this->redirect($this->generateUrl('nroho_base_default', array('id' => $product->getId())));
+            return $this->forward('BaseNrohoBundle:Default:confirmationAdd');
         }  
         return $this->render('BaseNrohoBundle:Default:add.html.twig', array(
             'form' => $form->createView(),
@@ -109,7 +109,7 @@ class DefaultController extends Controller
                 $em->persist($product);
                 $em->flush();
                 // On redirige vers la page de visualisation de l'article nouvellement créé
-                return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $product->getId())));
+                return $this->forward('BaseNrohoBundle:Default:confirmationEdit');
             }
         }
         return $this->render('BaseNrohoBundle:Default:edit.html.twig', array(
@@ -193,25 +193,38 @@ class DefaultController extends Controller
                     ->where('a.product = :id')
                     ->setParameter('id', $id)
                     ->getQuery()->getResult();
-        return $this->render('BaseNrohoBundle:Default:product.html.twig', array(
-            'product'  => $product,
-            'comments' => $comments,
-            'nbr'      => $nbr,
-            'form'     => $form->createView(),
-            'formD'    => $formD->createView(),
-            'formM'    => $formM->createView(),
-        ));
+        
+        if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
+          
+            return $this->render('BaseNrohoBundle:Default:produit.html.twig', array(
+                'product'  => $product,
+                'comments' => $comments,
+                'nbr'      => $nbr,
+                'form'     => $form->createView(),
+                'formD'    => $formD->createView(),
+                'formM'    => $formM->createView(),
+            ));
+        }else{
+            return $this->render('BaseNrohoBundle:Default:product.html.twig', array(
+                'product'  => $product,
+                'comments' => $comments,
+                'nbr'      => $nbr,
+                'form'     => $form->createView(),
+                'formD'    => $formD->createView(),
+                'formM'    => $formM->createView(),
+            ));
+        }
     }
     
     public function annonceAction()
     {
+        $id = $this->get('security.context')->getToken()->getUser();
         $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
                    ->where('a.user = :id')
-                   ->setParameter('id', $this->get('security.context')->getToken()->getUser())
-                   ->setFirstResult(0) //offset
-                   ->setMaxResults(2)  //limit
+                   ->andWhere("a.valid = '1' OR a.valid= '3'")
+                   ->setParameter('id', $id)
                    ->getQuery()->getResult();
         // afficher en session $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
         return $this->render('BaseNrohoBundle:Default:annonce.html.twig', array(
@@ -267,5 +280,20 @@ class DefaultController extends Controller
     public function aideAction()
     {
         return $this->render('BaseNrohoBundle:Default:aide.html.twig');
+    }
+    
+    public function confirmationAddAction()
+    {
+        return $this->render('BaseNrohoBundle:Confirmation:add.html.twig');
+    }
+    
+    public function confirmationEditAction()
+    {
+        return $this->render('BaseNrohoBundle:Confirmation:edit.html.twig');
+    }
+    
+    public function confirmationRemoveAction()
+    {
+        return $this->render('BaseNrohoBundle:Confirmation:remove.html.twig');
     }
 }

@@ -114,7 +114,11 @@
                 <div class="sectionn">
                     <div class="caseoi">
                         <div class="choirc1">
-                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                            {% else %}
+                                <a href="{{ path('nroho_base_produit', { 'id': data.id }) }}">
+                            {% endif %}
                                 <div class="detrc">
                                     <div class="nouvie3">
                                         {% if data.user.gender == 1 %}
@@ -168,7 +172,11 @@
                             </a>
                         </div>
                         <div class="rc">
-                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                            {% else %}
+                                <a href="{{ path('nroho_base_produit', { 'id': data.id }) }}">
+                            {% endif %}
                                 <div class="nouveau1">
                                     <div class="nouvie1">
                                         <p>{{ data.depart|striptags|slice(5) }} {% if data.villea != "" %} ({{ data.villea }}) {% endif %}</p>
@@ -183,7 +191,13 @@
                             </a>
                             <div class="nouveau2">
                                 <article>
-                                    <a href="{{ path('nroho_base_product', { 'id': data.id }) }}"><h1>Le {{ data.date|date("m/d/Y") }} {% if data.heure != "" %}à {{ data.heure }}  {% endif %}</h1></a>
+                                    {% if is_granted('ROLE_USER') %}
+                                        <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">
+                                    {% else %}
+                                        <a href="{{ path('nroho_base_produit', { 'id': data.id }) }}">
+                                    {% endif %}
+                                        <h1>Le {{ data.date|date("m/d/Y") }} {% if data.heure != "" %}à {{ data.heure }}  {% endif %}</h1>
+                                    </a>
                                     <p>{{ data.message }}</p>
                                 </article>
                             </div>
@@ -210,7 +224,11 @@
                 <div class="interi" style="display:none">
                     <div class="interi2">
                         <div class="boutin2">
-                            <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">Voir</a>
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('nroho_base_product', { 'id': data.id }) }}">Voir</a>
+                            {% else %}
+                                <a href="{{ path('nroho_base_produit', { 'id': data.id }) }}">Voir</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

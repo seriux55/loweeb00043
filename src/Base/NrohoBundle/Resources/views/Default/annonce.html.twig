@@ -100,6 +100,9 @@
         <div class="supprimer">
             <p><a href="{{ path('nroho_base_remove', { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Supprimer</a></p>
             <p><a href="{{ path('nroho_base_edit', { 'id': data.id }) }}">Modifier</a></p>
+            {% if data.valid==3 %}
+                <p>En attente de validation</p>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

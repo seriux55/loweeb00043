@@ -1,11 +1,11 @@
 nroho_base_default:
     pattern:  /
     defaults: { _controller: BaseNrohoBundle:Default:index }
-    
+
 nroho_base_aide:
     pattern: /aide
     defaults: { _controller: BaseNrohoBundle:Default:aide }
-    
+
 nroho_base_add_select:
     pattern: /add/{first}/{seconde}
     defaults: { _controller: BaseNrohoBundle:Search:addSelect }
@@ -23,7 +23,7 @@ nroho_base_search:
     requirements:
         first:   \d+
         seconde: \d+
-        
+
 nroho_base_search_destination:
     pattern: /search/{start}
     defaults: { _controller: BaseNrohoBundle:Search:destination }
@@ -33,10 +33,10 @@ nroho_base_search_destination:
 nroho_base_recherche:
     pattern: /recherche
     defaults: { _controller: BaseNrohoBundle:Search:recherche }
-      
+
 nroho_base_produit:
     pattern: /produit/{id}/
-    defaults: { _controller: BaseNrohoBundle:Default:produit }
+    defaults: { _controller: BaseNrohoBundle:Default:product }
     requirements:
         id:  \d+
 
@@ -45,7 +45,7 @@ nroho_base_product:
     defaults: { _controller: BaseNrohoBundle:Default:product }
     requirements:
         id:  \d+
-    
+
 nroho_base_ajout:
     pattern: /ajout
     defaults: { _controller: BaseNrohoBundle:Default:ajout }
@@ -65,25 +65,25 @@ nroho_base_remove:
     defaults: { _controller: BaseNrohoBundle:Default:remove }
     requirements:
         id:  \d+
-    
+
 nroho_base_compte:
     pattern: /compte
     defaults: { _controller: BaseNrohoBundle:Default:compte }
-    
+
 nroho_base_annonce:
     pattern: /annonce
     defaults: { _controller: BaseNrohoBundle:Default:annonce }
-    
+
 nroho_base_demande:
     pattern: /demande
     defaults: { _controller: BaseNrohoBundle:Demande:demande }
-    
+
 nroho_base_demande_yes:
     pattern: /demande/yes/{id}
     defaults: { _controller: BaseNrohoBundle:Demande:yesDemande }
     requirements:
         id:  \d+
-    
+
 nroho_base_demande_no:
     pattern: /demande/no/{id}
     defaults: { _controller: BaseNrohoBundle:Demande:noDemande }
@@ -93,7 +93,7 @@ nroho_base_demande_no:
 nroho_base_message:
     pattern: /message
     defaults: { _controller: BaseNrohoBundle:Message:message }
-    
+
 nroho_base_message_lecture:
     pattern: /message/{id}/{product}
     defaults: { _controller: BaseNrohoBundle:Message:messageid }
@@ -107,7 +107,7 @@ nroho_base_message_submit:
     requirements:
         id:  \d+
         product: \d+
-    
+
 nroho_base_profil:
     pattern: /profil/{id}
     defaults: { _controller: BaseNrohoBundle:Default:profil }
@@ -123,7 +123,7 @@ nroho_admin_annonce_yes:
     defaults: { _controller: BaseNrohoBundle:Admin:yesAnnonce }
     requirements:
         id:  \d+
-    
+
 nroho_admin_annonce_no:
     pattern: /admin/annonce/no/{id}
     defaults: { _controller: BaseNrohoBundle:Admin:noAnnonce }
