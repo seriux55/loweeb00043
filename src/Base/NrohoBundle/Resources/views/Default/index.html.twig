@@ -577,7 +577,7 @@ $(document).ready(function(){
                         <div class="sectionn">\
                             <div class="caseoi">\
                                 <div class="choirc1">\
-                                    <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
+                                    <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}">\
                                         <div class="detrc">\
                                             <div class="nouvie3">\
                                                 <img src="'; if(jsonn[i].user.gender===1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender===0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
@@ -602,7 +602,7 @@ $(document).ready(function(){
                                      </a>\
                                  </div>\
                                  <div class="rc">\
-                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
+                                     <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}">\
                                          <div class="nouveau1">\
                                              <div class="nouvie1">\
                                                  <p>'+ jsonn[i].depart +' ('+ jsonn[i].villea +')</p>\
@@ -617,7 +617,7 @@ $(document).ready(function(){
                                      </a>\
                                      <div class="nouveau2">\
                                          <article>\
-                                             <a href="{{ path('nroho_base_product', { 'id': '100' }) }}"><h1>'+ jsonn[i].date +' - '+ jsonn[i].heure +'</h1></a>\
+                                             <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}"><h1>'+ jsonn[i].date +' - '+ jsonn[i].heure +'</h1></a>\
                                              <p>'+ jsonn[i].message +'</p>\
                                          </article>\
                                      </div>\
@@ -642,7 +642,7 @@ $(document).ready(function(){
                         <div class="interi" style="display:none">\
                              <div class="interi2">\
                                  <div class="boutin2">\
-                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">Voir</a>\
+                                     <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}">Voir</a>\
                                  </div>\
                              </div>\
                         </div>';
