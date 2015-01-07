@@ -82,6 +82,12 @@ nroho_base_demande_no:
     requirements:
         id:  \d+
 
+nroho_base_Demande_cancel:
+    pattern: /demande/cancel/{id}
+    defaults: { _controller: BaseNrohoBundle:Demande:cancelDemande }
+    requirements:
+        id:  \d+
+
 nroho_base_message:
     pattern: /message
     defaults: { _controller: BaseNrohoBundle:Message:message }

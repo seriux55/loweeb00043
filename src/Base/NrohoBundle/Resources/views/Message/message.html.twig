@@ -51,15 +51,20 @@
                     </div>
                 </li>
                 <li>
-                    <div style="text-align: right;">
+                    <!-- <div style="text-align: right;"> -->
+                    <div class="echangi3">
                         <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
                     </div>
                     <div>
-                        <div style="text-align: left;">4 Juin</div>
-                        <a href="#" style="text-align: right; width: 90%; border: medium none;">Karim</a>
+                        <!-- <div style="text-align: left;">4 Juin</div> -->
+                        <!-- <a href="#" style="text-align: right; width: 90%; border: medium none;">Karim</a> -->
+                        <a href="#">Karim</a>
+                            4 Juin
                     </div>
-                    <div>
-                        <p style="text-align: right;">	
+                    <div class="echangi3r">
+                        <p>
+                    <!-- <div> -->
+                        <!-- <p style="text-align: right;"> -->
                             30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
                             à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
                             Et de tous ceux que vous ne connaissiez pas encore.
@@ -115,7 +120,7 @@ $(document).ready(function(){
                 var jsonn = JSON.parse( json );
                 //console.log(jsonn);
                 if (jsonn !== null){
-                    alert(jsonn);
+                    //alert(jsonn);
                     for (var i = 0; i < jsonn.length; i++){
                         var profill = profil.replace("111", jsonn[i].message.userDist);
                         if(jsonn[i].user.gender === 1) 

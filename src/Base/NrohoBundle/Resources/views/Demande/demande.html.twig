@@ -11,12 +11,12 @@
         <div class="menucompto">
             <div class="contenu1">
                 <h2>
-                    Demandes, confirmations,...
+                    Les réservations
                 </h2>
             </div>
         </div>	
         <!-- debut -->
-        {% for data in product %}
+        {% for data in reservation %}
         <div class="sectionaq">
             <div class="demcon">
                 <h6>Réservation</h6>
@@ -46,6 +46,7 @@
                 <p><a href="{{ path('nroho_base_demande_no', { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Refuser</a></p>
                 <p><a href="{{ path('nroho_base_demande_yes',  { 'id': data.id }) }}">Accepter</a></p>
             {% elseif data.etat == 1 %}
+                <p><a href="{{ path('nroho_base_Demande_cancel',  { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment annuller cette demande de réservation?');">Annuler</a></p>
                 <p>Accepter</p>    
             {% elseif data.etat == 0 %}
                 <p>Refuser</p>
@@ -76,7 +77,82 @@
             <p><a href="#" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Annuler</a></p>
         </div> 
         -->
-    </div>	
+    </div>
+    <div class="menucompty">
+        <div class="menucompto">
+            <div class="contenu1">
+                <h2>
+                    Mes demandes
+                </h2>
+            </div>
+        </div>	
+        <!-- debut -->
+        {% for data in product %}
+        <div class="sectionaq">
+            <div class="demcon">
+                <h6>Réservation</h6>
+                <div class="plosa">
+                    <div class="nouvie3">
+                        {% if data.user.gender == 1 %}
+                            <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}"/>
+                        {% else %}
+                            <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}"/>
+                        {% endif %}
+                    </div>
+                    <p class="prixnuit">
+                        {% if data.user.gender == 1 %} Conducteur {% else %} Conductrice {% endif %}
+                        <br/>
+                        <strong><a href="{{ path('nroho_base_profil',  { 'id': data.user.id }) }}">{{ data.user.secondename }}</a></strong>
+                        {% if data.etat == 1 %}
+                            <p>{{ data.user.phone }}</p>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="choirc">
+                    <p class="ploso">
+                        <strong>{{ data.nombre }}</strong> place reservé
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="supprimer">
+            {% if data.etat == 3 %}
+                <p>Demande annulée</p>
+            {% elseif data.etat == 2 %}
+                <p><a href="{{ path('nroho_base_Demande_cancel',  { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment annuller cette demande de réservation?');">Annuler</a></p>
+                <p>Demande en attente</p>
+            {% elseif data.etat == 1 %}
+                <p>Demande accepter</p>    
+            {% elseif data.etat == 0 %}
+                <p>Demande refuser</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <!-- fin -->
+        <!--
+        <div class="sectionaq">
+            <div class="demcon">
+                <h6>Demandes</h6>
+                <div class="plosa">
+                    <div class="nouvie3">
+                        <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}"/>
+                    </div>
+                    <p class="prixnuit">
+                        Conducteur<br/><strong>Karim</strong>
+                    </p>
+                </div>
+                <div class="choirc">
+                    <p class="ploso">
+                        <strong>2</strong> places Acceptés
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="supprimer">
+            <p><a href="#" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Annuler</a></p>
+        </div> 
+        -->
+    </div>
 </div>
 
 {% endblock %}

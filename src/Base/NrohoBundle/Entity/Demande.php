@@ -36,7 +36,7 @@ class Demande
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", columnDefinition="ENUM('0', '1', '2')")
+     * @ORM\Column(name="etat", type="string", columnDefinition="ENUM('0', '1', '2', '3')")
      */
     private $etat;
 
