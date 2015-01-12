@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Base\NrohoBundle\BaseNrohoBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Ornicar\ApcBundle\OrnicarApcBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

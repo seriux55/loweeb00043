@@ -29,8 +29,3 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
-
-#ornicar_apc:
-    #host: http://www.nroho.com
-    #host: http://localhost:8888/SF_User/web/app_dev.php/
-    #web_dir: %kernel.root_dir%/../web
