@@ -1,6 +1,7 @@
 <?php
 
 namespace Base\NrohoBundle\Controller;
+use Doctrine\Common\Cache\ApcCache;
 
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\Type\AvisType;
@@ -14,6 +15,15 @@ class UserController extends Controller
 { 
     public function profilAction($id)
     {
+        
+        //We get the cache before anything else
+        $cacheDriver = new ApcCache();
+        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
+        if ($cacheDriver->contains('_profil_'.$id))
+        {
+           return $cacheDriver->fetch('_profil_'.$id);
+        }
+        
         $avis = new Avis;
         $avis->setIp($this->getRequest()->getClientIp());
         $form = $this->createForm(new AvisType(), $avis);
@@ -33,14 +43,18 @@ class UserController extends Controller
                           ->orderBy('a.id','ASC')
                           ->where('a.user_avis = :id')
                           ->setParameter('id', $id)
-                          ->getQuery()->getResult();
+                          ->getQuery()
+                          ->useResultCache(true, 360, '_user_tout_avis_'.$id)
+                          ->getResult();
         $user = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                      ->createQueryBuilder('a')
                      ->leftJoin('a.user', 'b')->addSelect('b')
                      ->where('b.id = :id')
                      ->setParameter('id', $id)
                      ->setMaxResults(1)
-                     ->getQuery()->getResult();
+                     ->getQuery()
+                     ->useResultCache(true, 360, '_user_user_'.$id)
+                     ->getResult();
         $ways = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                      ->createQueryBuilder('a')
                      ->where('a.user = :id')
@@ -48,14 +62,19 @@ class UserController extends Controller
                      ->orderBy('a.id','DESC')
                      ->setParameter('id', $id)
                      ->setMaxResults(5)
-                     ->getQuery()->getResult();
-        return $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
+                     ->getQuery()
+                     ->useResultCache(true, 360, '_user_ways_'.$id)
+                     ->getResult();
+        $response = $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form' => $form->createView(),
             'avis' => $tout_avis,
             'user' => $user,
             'id'   => $id,
             'ways' => $ways,
         ));
+        //We put this response in cache for a 2 minutes period !
+        $cacheDriver->save('_profil_'.$id, $response, "300");
+        return $response;
     }
     
     public function removeAction($id)
@@ -63,7 +82,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->find('BaseNrohoBundle:Product', $id)->setValid('2');
         $em->flush();
-        return $this->forward('BaseNrohoBundle:Default:confirmationRemove');
+        return $this->forward('BaseNrohoBundle:User:confirmationRemove');
     }
 
     public function addAction(Request $request)
@@ -78,7 +97,7 @@ class UserController extends Controller
             $em->persist($product);
             $em->flush();
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-            return $this->forward('BaseNrohoBundle:Default:confirmationAdd');
+            return $this->forward('BaseNrohoBundle:User:confirmationAdd');
         }  
         return $this->render('BaseNrohoBundle:Default:add.html.twig', array(
             'form' => $form->createView(),
@@ -106,7 +125,7 @@ class UserController extends Controller
                 $em->persist($product);
                 $em->flush();
                 // On redirige vers la page de visualisation de l'article nouvellement créé
-                return $this->forward('BaseNrohoBundle:Default:confirmationEdit');
+                return $this->forward('BaseNrohoBundle:User:confirmationEdit');
             }
         }
         return $this->render('BaseNrohoBundle:Default:edit.html.twig', array(
@@ -123,7 +142,9 @@ class UserController extends Controller
                    ->where('a.user = :id')
                    ->andWhere("a.valid = '1' OR a.valid= '3'")
                    ->setParameter('id', $id)
-                   ->getQuery()->getResult();
+                   ->getQuery()
+                   ->useResultCache(true, 360, '_user_annonce')
+                   ->getResult();
         // afficher en session $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
         return $this->render('BaseNrohoBundle:Default:annonce.html.twig', array(
             'product' => $product

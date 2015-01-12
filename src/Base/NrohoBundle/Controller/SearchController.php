@@ -1,7 +1,6 @@
 <?php
 
 namespace Base\NrohoBundle\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Base\NrohoBundle\Entity\Product;
@@ -53,7 +52,6 @@ class SearchController extends Controller
     
     public function rechercheAction()
     {
-
         $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
                    ->leftJoin('a.user', 'b')->addSelect('b')
@@ -78,7 +76,9 @@ class SearchController extends Controller
                         ->orderBy('a.id','DESC')
                         ->setFirstResult($page)
                         ->setMaxResults(10)
-                        ->getQuery()->getResult();
+                        ->getQuery()
+                        ->useResultCache(true, 600, '_search_top_'.$page)
+                        ->getResult();
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($product, 'json');
         return new Response($reports);
@@ -91,7 +91,9 @@ class SearchController extends Controller
                         ->leftJoin('a.user', 'b')->addSelect('b')
                         ->where("a.depart LIKE :depart AND a.arrivee LIKE :arrivee AND a.valid = '1'")
                         ->setParameter('depart', $first.'%')->setParameter('arrivee', $seconde.'%')
-                        ->getQuery()->getResult();
+                        ->getQuery()
+                        ->useResultCache(true, 600, '_search_'.$first.'_'.$seconde)
+                        ->getResult();
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($product, 'json');
         return new Response($reports);

@@ -97,3 +97,9 @@ doctrine_migrations:
     namespace: Application\Migrations
     table_name: migration_versions
     name: Application Migrations
+
+ornicar_apc:
+    #host: http://www.nroho.com
+    host: http://localhost:8888/SF_User/web/
+    web_dir: %kernel.root_dir%/../web
+    

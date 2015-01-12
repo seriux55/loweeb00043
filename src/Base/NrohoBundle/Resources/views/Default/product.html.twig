@@ -63,13 +63,13 @@
                     <div class="rcdout">
                         <div class="nouveau1">
                             <div class="nouvie1">
-                                <p>{{ data.depart }} ({{ data.villea }})</p>									
+                                <p>{{ data.depart|striptags|slice(5) }} {% if data.villea != "" %} ({{ data.villea }}) {% endif %}</p>		
                             </div>
                             <div class="detail2">
                                 <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="direction covoiturage algerie" />
                             </div>
                             <div class="nouvie1">
-                                <p>{{ data.arrivee }} ({{ data.villeb }})</p>
+                                <p>{{ data.arrivee|striptags|slice(5) }} {% if data.villeb != "" %} ({{ data.villeb }}) {% endif %}</p>
                             </div>
                         </div>
                         <div class="nouveau2">

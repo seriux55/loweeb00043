@@ -36,7 +36,7 @@
                 </div>
                 <div class="choirc">
                     <p class="ploso">
-                        <strong>{{ data.nombre }}</strong> place reservé
+                        <strong>{{ data.nombre }}</strong> place(s)
                     </p>
                 </div>
             </div>
@@ -47,9 +47,9 @@
                 <p><a href="{{ path('nroho_base_demande_yes',  { 'id': data.id }) }}">Accepter</a></p>
             {% elseif data.etat == 1 %}
                 <p><a href="{{ path('nroho_base_Demande_cancel',  { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment annuller cette demande de réservation?');">Annuler</a></p>
-                <p>Accepter</p>    
+                <p>Acceptée</p>    
             {% elseif data.etat == 0 %}
-                <p>Refuser</p>
+                <p>Refusée</p>
             {% endif %}
         </div>
         {% endfor %}
@@ -110,7 +110,7 @@
                 </div>
                 <div class="choirc">
                     <p class="ploso">
-                        <strong>{{ data.nombre }}</strong> place reservé
+                        <strong>{{ data.nombre }}</strong> place(s)
                     </p>
                 </div>
             </div>
@@ -122,9 +122,9 @@
                 <p><a href="{{ path('nroho_base_Demande_cancel',  { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment annuller cette demande de réservation?');">Annuler</a></p>
                 <p>Demande en attente</p>
             {% elseif data.etat == 1 %}
-                <p>Demande accepter</p>    
+                <p>Demande acceptée</p>    
             {% elseif data.etat == 0 %}
-                <p>Demande refuser</p>
+                <p>Demande refusée</p>
             {% endif %}
         </div>
         {% endfor %}

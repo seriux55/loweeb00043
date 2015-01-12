@@ -2,6 +2,7 @@
 
 namespace Base\NrohoBundle\Controller;
 
+use Doctrine\Common\Cache\ApcCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Base\NrohoBundle\Entity\Message;
@@ -9,18 +10,15 @@ use Base\NrohoBundle\Entity\Message;
 class MessageController extends Controller
 {
     public function messageAction()
-    {     
+    {
+        //We get the cache before anything else
+        $cacheDriver = new ApcCache();
+        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
+        if ($cacheDriver->contains('_message'))
+        {
+           return $cacheDriver->fetch('_message');
+        }
         $idc = $this->get('security.context')->getToken()->getUser()->getId();
-        $message = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
-                        ->createQueryBuilder('a')
-                        ->addSelect('b')->leftJoin('a.user', 'b')
-                        ->addSelect('c')->leftJoin('a.product', 'c')
-                        ->addSelect('d')->leftJoin('a.userDist', 'd')
-                        ->where('((a.user = :idc AND a.userDist = :id) OR (a.user = :id AND a.userDist = :idc)) AND a.product = :product')
-                        ->setParameter('idc', $idc)->setParameter('id', '29969')->setParameter('product', '857')
-                        ->orderBy('a.id','ASC')
-                        ->setMaxResults(7)
-                        ->getQuery()->getResult();
         $db  = $this->get('database_connection');
         $row = $db->prepare(
                             "SELECT u1.id AS u1_id, u1.secondename AS u1_secondename, u1.gender AS u1_gender, u2.id AS u2_id, u2.secondename AS u2_secondename, u2.gender AS u2_gender, Message.depot, Message.user_id AS M_user_id, Product.user_id AS P_user_id, Message.userDist_id, Product.id AS P_id
@@ -52,9 +50,13 @@ class MessageController extends Controller
 		$d[] = $data['M_user_id'];
             }
         }
-        return $this->render('BaseNrohoBundle:Message:message.html.twig', array(
+        //If not, we build the Response as usual and then put it in cache !
+        $response = $this->render('BaseNrohoBundle:Message:message.html.twig', array(
             'product' => $message,
         ));
+        //We put this response in cache for a 2 minutes period !
+        $cacheDriver->save('_message', $response, "120");
+        return $response;
     }
     
     public function messageidAction($id, $product)

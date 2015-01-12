@@ -2,6 +2,7 @@
 
 namespace Base\NrohoBundle\Controller;
 
+use Doctrine\Common\Cache\ApcCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Base\NrohoBundle\Entity\Message;
@@ -15,6 +16,13 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        //We get the cache before anything else
+        $cacheDriver = new ApcCache();
+        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
+        if ($cacheDriver->contains('_home'))
+        {
+           return $cacheDriver->fetch('_home');
+        }
         $wilaya = array(
             "01 - Adrar", "02 - Chlef", "03 - Laghouat", "04 - Oum El Bouaghi", "05 - Batna",
             "06 - Bejaia", "07 - Biskra", "08 - Bechar", "09 - Blida", "10 - Bouira", "11 - Tamanrasset",
@@ -47,17 +55,28 @@ class DefaultController extends Controller
                    ->orderBy('a.id','DESC')
                    ->setMaxResults(10)
                    ->getQuery()
-                   ->getResult();
-        return $this->render('BaseNrohoBundle:Default:index.html.twig', array(
+                   ->getResult();  
+        //If not, we build the Response as usual and then put it in cache !
+        $response = $this->render('BaseNrohoBundle:Default:index.html.twig', array(
             'product' => $product,
             'wilaya'  => $wilaya,
             'ville'   => $ville,
             'nbr'     => $i,
         ));
+        //We put this response in cache for a 2 minutes period !
+        $cacheDriver->save('_home', $response, "120");
+        return $response;
     }
     
     public function productAction($id)
     {
+        //We get the cache before anything else
+        $cacheDriver = new ApcCache();
+        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
+        if ($cacheDriver->contains('_product_'.$id))
+        {
+           return $cacheDriver->fetch('_product_'.$id);
+        }
         // detail du covoiturage
         $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
@@ -69,10 +88,15 @@ class DefaultController extends Controller
         foreach($product as $value) {
             $nbrPlace = $value->getPlace();
             $userDist = $value->getUser();
+            $nbrVue   = $value->getVue();
         }
         if (!isset($nbrPlace)) {
             throw new NotFoundHttpException("L'annonce n'existe pas :-( ");
         }
+        // le nombre de vue
+        $em = $this->getDoctrine()->getManager();
+        $em->find('BaseNrohoBundle:Product', $id)->setVue($nbrVue+1);
+        $em->flush();
         // formulaire de reservation
         $reservation = new Demande();
         $reservation->setIp($this->getRequest()->getClientIp());
@@ -134,8 +158,7 @@ class DefaultController extends Controller
                     ->getQuery()->getResult();
         
         if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
-          
-            return $this->render('BaseNrohoBundle:Default:produit.html.twig', array(
+            $response = $this->render('BaseNrohoBundle:Default:produit.html.twig', array(
                 'product'  => $product,
                 'comments' => $comments,
                 'nbr'      => $nbr,
@@ -144,7 +167,7 @@ class DefaultController extends Controller
                 'formM'    => $formM->createView(),
             ));
         }else{
-            return $this->render('BaseNrohoBundle:Default:product.html.twig', array(
+            $response = $this->render('BaseNrohoBundle:Default:product.html.twig', array(
                 'product'  => $product,
                 'comments' => $comments,
                 'nbr'      => $nbr,
@@ -153,6 +176,9 @@ class DefaultController extends Controller
                 'formM'    => $formM->createView(),
             ));
         }
+        //We put this response in cache for a 5 minutes period !
+        $cacheDriver->save('_product_'.$id, $response, "300");
+        return $response;
     }
     
     public function aideAction()
