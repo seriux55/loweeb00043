@@ -34,3 +34,9 @@ ornicar_apc:
     #host: http://www.nroho.com
     host: http://localhost:8888/SF_User/web/
     web_dir: %kernel.root_dir%/../web
+
+doctrine_migrations:
+    dir_name: %kernel.root_dir%/DoctrineMigrations
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations

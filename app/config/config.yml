@@ -91,9 +91,3 @@ fos_user:
             type:       base_user_registration
         confirmation:
             enabled:    true
-            
-doctrine_migrations:
-    dir_name: %kernel.root_dir%/DoctrineMigrations
-    namespace: Application\Migrations
-    table_name: migration_versions
-    name: Application Migrations
