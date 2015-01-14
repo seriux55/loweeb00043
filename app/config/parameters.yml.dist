@@ -2,9 +2,9 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     localhost
     database_port:     8888
-    database_name:     SF_User
-    database_user:     nadir
-    database_password: null
+    database_name:     nroho
+    database_user:     root
+    database_password: root
 
     mailer_transport:  smtp
     mailer_host:       smtp.nroho.com

@@ -21,7 +21,6 @@ class AppKernel extends Kernel
             new Base\NrohoBundle\BaseNrohoBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Ornicar\ApcBundle\OrnicarApcBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -29,6 +28,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new CoreSphere\ConsoleBundle\CoreSphereConsoleBundle();
+            $bundles[] = new Ornicar\ApcBundle\OrnicarApcBundle();
         }
 
         return $bundles;
