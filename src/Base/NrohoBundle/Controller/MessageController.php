@@ -2,7 +2,7 @@
 
 namespace Base\NrohoBundle\Controller;
 
-use Doctrine\Common\Cache\ApcCache;
+//use Doctrine\Common\Cache\ApcCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Base\NrohoBundle\Entity\Message;
@@ -11,13 +11,6 @@ class MessageController extends Controller
 {
     public function messageAction()
     {
-        //We get the cache before anything else
-        $cacheDriver = new ApcCache();
-        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
-        if ($cacheDriver->contains('_message'))
-        {
-           return $cacheDriver->fetch('_message');
-        }
         $idc = $this->get('security.context')->getToken()->getUser()->getId();
         $db  = $this->get('database_connection');
         $row = $db->prepare(
@@ -54,8 +47,6 @@ class MessageController extends Controller
         $response = $this->render('BaseNrohoBundle:Message:message.html.twig', array(
             'product' => $message,
         ));
-        //We put this response in cache for a 2 minutes period !
-        $cacheDriver->save('_message', $response, "120");
         return $response;
     }
     

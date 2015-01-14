@@ -2,20 +2,13 @@
 
 namespace Base\NrohoBundle\Controller;
 
-use Doctrine\Common\Cache\ApcCache;
+//use Doctrine\Common\Cache\ApcCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DemandeController extends Controller
 {
     public function demandeAction()
     {
-        //We get the cache before anything else
-        $cacheDriver = new ApcCache();
-        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
-        if ($cacheDriver->contains('_demande'))
-        {
-           return $cacheDriver->fetch('_demande');
-        }
         $id = $this->get('security.context')->getToken()->getUser();
         // Les reservations du trajet que je propose
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Demande')
@@ -44,8 +37,6 @@ class DemandeController extends Controller
             'product'     => $demande,
             'reservation' => $reservation,
         ));
-        //We put this response in cache for a 3 minutes period !
-        $cacheDriver->save('_demande', $response, "180");
         return $response;
     }
     

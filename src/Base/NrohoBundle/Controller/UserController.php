@@ -1,7 +1,7 @@
 <?php
 
 namespace Base\NrohoBundle\Controller;
-use Doctrine\Common\Cache\ApcCache;
+//use Doctrine\Common\Cache\ApcCache;
 
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\Type\AvisType;
@@ -15,15 +15,6 @@ class UserController extends Controller
 { 
     public function profilAction($id)
     {
-        
-        //We get the cache before anything else
-        $cacheDriver = new ApcCache();
-        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
-        if ($cacheDriver->contains('_profil_'.$id))
-        {
-           return $cacheDriver->fetch('_profil_'.$id);
-        }
-        
         $avis = new Avis;
         $avis->setIp($this->getRequest()->getClientIp());
         $form = $this->createForm(new AvisType(), $avis);
@@ -72,8 +63,6 @@ class UserController extends Controller
             'id'   => $id,
             'ways' => $ways,
         ));
-        //We put this response in cache for a 2 minutes period !
-        $cacheDriver->save('_profil_'.$id, $response, "300");
         return $response;
     }
     

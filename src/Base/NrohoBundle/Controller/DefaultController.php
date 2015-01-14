@@ -2,7 +2,7 @@
 
 namespace Base\NrohoBundle\Controller;
 
-use Doctrine\Common\Cache\ApcCache;
+//use Doctrine\Common\Cache\ApcCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Base\NrohoBundle\Entity\Message;
@@ -16,13 +16,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        //We get the cache before anything else
-        $cacheDriver = new ApcCache();
-        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
-        if ($cacheDriver->contains('_home'))
-        {
-           return $cacheDriver->fetch('_home');
-        }
         $wilaya = array(
             "01 - Adrar", "02 - Chlef", "03 - Laghouat", "04 - Oum El Bouaghi", "05 - Batna",
             "06 - Bejaia", "07 - Biskra", "08 - Bechar", "09 - Blida", "10 - Bouira", "11 - Tamanrasset",
@@ -63,20 +56,11 @@ class DefaultController extends Controller
             'ville'   => $ville,
             'nbr'     => $i,
         ));
-        //We put this response in cache for a 2 minutes period !
-        $cacheDriver->save('_home', $response, "120");
         return $response;
     }
     
     public function productAction($id)
     {
-        //We get the cache before anything else
-        $cacheDriver = new ApcCache();
-        //If the cache exists and is not expired for _home_rssNews, we simply return its content !
-        if ($cacheDriver->contains('_product_'.$id))
-        {
-           return $cacheDriver->fetch('_product_'.$id);
-        }
         // detail du covoiturage
         $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                    ->createQueryBuilder('a')
@@ -176,8 +160,6 @@ class DefaultController extends Controller
                 'formM'    => $formM->createView(),
             ));
         }
-        //We put this response in cache for a 5 minutes period !
-        $cacheDriver->save('_product_'.$id, $response, "300");
         return $response;
     }
     
