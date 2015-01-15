@@ -1,9 +1,9 @@
 imports:
     - { resource: config.yml }
 
-framework:
-    validation:
-        cache: apc
+#framework:
+    #validation:
+        #cache: apc
 
 #doctrine:
 #    orm:
@@ -47,8 +47,8 @@ monolog:
 #            level:              info
 #            channels:           security
 
-doctrine:
-    orm:
-        query_cache_driver: apc
-        metadata_cache_driver: apc
-        result_cache_driver: apc
+#doctrine:
+    #orm:
+        #query_cache_driver: apc
+        #metadata_cache_driver: apc
+        #result_cache_driver: apc
