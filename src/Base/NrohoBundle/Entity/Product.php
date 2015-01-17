@@ -548,10 +548,10 @@ class Product
     /**
      * Set jours
      *
-     * @param \Base\UserBundle\Entity\Jours $jours
+     * @param \Base\NrohoBundle\Entity\Jours $jours
      * @return Product
      */
-    public function setJours(\Base\UserBundle\Entity\Jours $jours)
+    public function setJours(\Base\NrohoBundle\Entity\Jours $jours)
     {
         $this->jours = $jours;
 
@@ -561,7 +561,7 @@ class Product
     /**
      * Get jours
      *
-     * @return \Base\UserBundle\Entity\Jours 
+     * @return \Base\NrohoBundle\Entity\Jours 
      */
     public function getJours()
     {
