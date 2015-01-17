@@ -25,7 +25,7 @@ class UserController extends Controller
         $av->bindValue(3, $id);
         $av->execute();
         $i = 0;
-        while ($data = $av->fetch()) {
+        while ($av->fetch()) {
             $i++;
         }
         $request = $this->get('request');
