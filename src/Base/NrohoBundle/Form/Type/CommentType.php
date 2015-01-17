@@ -16,16 +16,13 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('comment', 'textarea', array(
-                'attr' => array(
-                    'class' => 'textaro',
-                    //'empty_value' => 'Choose your gender',
-                ),
+                                            'attr' => array(
+                                            'class' => 'textaro',
+                                            //'empty_value' => 'Choose your gender',
+                                                     ),
                 
-            ))
-            //->add('ip')
-            //->add('depot')
-            //->add('product')
-            //->add('user')
+                                        )
+            )
         ;
     }
     

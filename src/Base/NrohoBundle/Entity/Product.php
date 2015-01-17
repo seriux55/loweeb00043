@@ -20,6 +20,11 @@ class Product
     private $user;
     
     /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\Jours", cascade={"persist"})
+     */
+    private $jours;
+    
+    /**
      * @ORM\Column(name="updated", type="datetime", nullable=true)
      */
     private $updated;
@@ -34,6 +39,7 @@ class Product
         $this->deposit = new \DateTime();
         $this->vue = 0;
         $this->maj = 0;
+        $this->jours = new Jours();
     }
     
     /**
@@ -59,6 +65,13 @@ class Product
      */
     private $type;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="categorie", type="string", columnDefinition="ENUM('0', '1', '2')", nullable=false, options={"comment"="0:professionnel,1:etudes,2:autre"})
+     */
+    private $categorie;
+    
     /**
      * @var boolean $filles
      *
@@ -181,7 +194,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="valid", type="string", columnDefinition="ENUM('0', '1', '2', '3')", nullable=false)
+     * @ORM\Column(name="valid", type="string", columnDefinition="ENUM('0', '1', '2', '3')", nullable=false, options={"comment" = "0:refuser,1:valider,2:supprimer,3:En attente"})
      */
     private $valid;
     
@@ -531,6 +544,29 @@ class Product
     {
         return $this->user;
     }
+    
+    /**
+     * Set jours
+     *
+     * @param \Base\UserBundle\Entity\Jours $jours
+     * @return Product
+     */
+    public function setJours(\Base\UserBundle\Entity\Jours $jours)
+    {
+        $this->jours = $jours;
+
+        return $this;
+    }
+
+    /**
+     * Get jours
+     *
+     * @return \Base\UserBundle\Entity\Jours 
+     */
+    public function getJours()
+    {
+        return $this->jours;
+    }
 
     /**
      * Get maj
@@ -737,6 +773,29 @@ class Product
     public function getValid()
     {
         return $this->valid;
+    }
+    
+    /**
+     * Set categorie
+     *
+     * @param string $categorie
+     * @return Product
+     */
+    public function setCategorie($categorie)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return string 
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 
     /**

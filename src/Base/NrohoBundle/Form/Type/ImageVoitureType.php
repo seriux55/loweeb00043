@@ -16,7 +16,6 @@ class ImageVoitureType extends AbstractType
     {
         $builder
             ->add('file', 'file')
-            //->add('Valider', 'submit')
         ;
     }
     

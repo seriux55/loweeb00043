@@ -11,14 +11,7 @@ class ImageProfilData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $imageprofil = new ImageProfil();
-        $imageprofil->setUsername('admin');
-        $imageprofil->setPassword('test');
-
-        $manager->persist($imageprofil);
-        $manager->flush();
         
-        $this->addReference('admin-imageprofil', $imageprofil);
     }
     
     public function getOrder()

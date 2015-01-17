@@ -1,7 +1,6 @@
 <?php
 
 namespace Base\NrohoBundle\Controller;
-//use Doctrine\Common\Cache\ApcCache;
 
 use Base\NrohoBundle\Entity\Avis;
 use Base\NrohoBundle\Form\Type\AvisType;
@@ -18,6 +17,17 @@ class UserController extends Controller
         $avis = new Avis;
         $avis->setIp($this->getRequest()->getClientIp());
         $form = $this->createForm(new AvisType(), $avis);
+        $av = $this->get('database_connection')
+                ->prepare("SELECT Demande.id FROM Demande JOIN Product ON Demande.product_id=Product.id "
+                . "WHERE Demande.etat=? AND Demande.user_id=? AND Product.user_id=?");
+        $av->bindValue(1, '1');
+        $av->bindValue(2, $this->get('security.context')->getToken()->getUser()->getId());
+        $av->bindValue(3, $id);
+        $av->execute();
+        $i = 0;
+        while ($data = $av->fetch()) {
+            $i++;
+        }
         $request = $this->get('request');
         if ($form->handleRequest($request)->isValid()) {
             $avis->setUser($this->get('security.context')->getToken()->getUser());
@@ -37,6 +47,10 @@ class UserController extends Controller
                           ->getQuery()
                           ->useResultCache(true, 360, '_user_tout_avis_'.$id)
                           ->getResult();
+        $j = 0;
+        foreach ($tout_avis as $v) {
+            $j++;
+        }
         $user = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
                      ->createQueryBuilder('a')
                      ->leftJoin('a.user', 'b')->addSelect('b')
@@ -62,6 +76,8 @@ class UserController extends Controller
             'user' => $user,
             'id'   => $id,
             'ways' => $ways,
+            'av'   => $i,
+            'nbra' => $j,
         ));
         return $response;
     }

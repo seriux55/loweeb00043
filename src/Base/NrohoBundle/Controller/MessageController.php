@@ -2,7 +2,6 @@
 
 namespace Base\NrohoBundle\Controller;
 
-//use Doctrine\Common\Cache\ApcCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Base\NrohoBundle\Entity\Message;

@@ -2,7 +2,6 @@
 
 namespace Base\NrohoBundle\Controller;
 
-//use Doctrine\Common\Cache\ApcCache;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DemandeController extends Controller

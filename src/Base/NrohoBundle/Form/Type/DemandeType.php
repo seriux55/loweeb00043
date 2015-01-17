@@ -16,7 +16,6 @@ class DemandeType extends AbstractType
     {
         $builder
             ->add('nombre')
-            //->add('nombre', 'integer', array('attr' => array('min' =>1, 'max' =>5)))
         ;
     }
     

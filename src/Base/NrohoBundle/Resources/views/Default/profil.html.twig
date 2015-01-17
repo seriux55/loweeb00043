@@ -79,7 +79,7 @@
     -->
     
     <!-- les commentaires -->
-
+    {% if nbra != 0 %}
     <div class="detailono">
         <div class="publiy">
             <div class="comail">
@@ -119,9 +119,10 @@
             </div>
         </div>	
     </div>
+    {% endif %}
     <!-- fin des commentaires -->
 
-    {% if id != app.user.id %}
+    {% if av!= 0 and id != app.user.id %}
     <!-- debut avis -->     
         <div class="blocde">
             <h6>Déposez un avis</h6>

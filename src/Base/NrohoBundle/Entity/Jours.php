@@ -12,12 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Jours
 {
-    
-    /**
-     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\Product", cascade={"persist"})
-     */
-    private $product;
-    
     /**
      * @var integer
      *
@@ -28,68 +22,53 @@ class Jours
     private $id;
 
     /**
-     * @var integer
+     * @var boolean $dim
      *
-     * @ORM\Column(name="sam", type="integer")
-     */
-    private $sam;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="dim", type="integer")
+     * @ORM\Column(name="dim", type="boolean")
      */
     private $dim;
 
     /**
-     * @var integer
+     * @var boolean $lun
      *
-     * @ORM\Column(name="lun", type="integer")
+     * @ORM\Column(name="lun", type="boolean")
      */
     private $lun;
 
     /**
-     * @var integer
+     * @var boolean $mar
      *
-     * @ORM\Column(name="mar", type="integer")
+     * @ORM\Column(name="mar", type="boolean")
      */
     private $mar;
 
     /**
-     * @var integer
+     * @var boolean $mer
      *
-     * @ORM\Column(name="mer", type="integer")
+     * @ORM\Column(name="mer", type="boolean")
      */
     private $mer;
 
     /**
-     * @var integer
+     * @var boolean $jeu
      *
-     * @ORM\Column(name="jeu", type="integer")
+     * @ORM\Column(name="jeu", type="boolean")
      */
     private $jeu;
 
     /**
-     * @var integer
+     * @var boolean $ven
      *
-     * @ORM\Column(name="ven", type="integer")
+     * @ORM\Column(name="ven", type="boolean")
      */
     private $ven;
-
+    
     /**
-     * @var string
+     * @var boolean $sam
      *
-     * @ORM\Column(name="ip", type="string", length=255)
+     * @ORM\Column(name="sam", type="boolean")
      */
-    private $ip;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="depot", type="datetime")
-     */
-    private $depot;
-
+    private $sam;
 
     /**
      * Get id
@@ -102,32 +81,9 @@ class Jours
     }
 
     /**
-     * Set sam
-     *
-     * @param integer $sam
-     * @return Jours
-     */
-    public function setSam($sam)
-    {
-        $this->sam = $sam;
-
-        return $this;
-    }
-
-    /**
-     * Get sam
-     *
-     * @return integer 
-     */
-    public function getSam()
-    {
-        return $this->sam;
-    }
-
-    /**
      * Set dim
      *
-     * @param integer $dim
+     * @param boolean $dim
      * @return Jours
      */
     public function setDim($dim)
@@ -140,7 +96,7 @@ class Jours
     /**
      * Get dim
      *
-     * @return integer 
+     * @return boolean 
      */
     public function getDim()
     {
@@ -150,7 +106,7 @@ class Jours
     /**
      * Set lun
      *
-     * @param integer $lun
+     * @param boolean $lun
      * @return Jours
      */
     public function setLun($lun)
@@ -163,7 +119,7 @@ class Jours
     /**
      * Get lun
      *
-     * @return integer 
+     * @return boolean 
      */
     public function getLun()
     {
@@ -173,7 +129,7 @@ class Jours
     /**
      * Set mar
      *
-     * @param integer $mar
+     * @param boolean $mar
      * @return Jours
      */
     public function setMar($mar)
@@ -186,7 +142,7 @@ class Jours
     /**
      * Get mar
      *
-     * @return integer 
+     * @return boolean 
      */
     public function getMar()
     {
@@ -196,7 +152,7 @@ class Jours
     /**
      * Set mer
      *
-     * @param integer $mer
+     * @param boolean $mer
      * @return Jours
      */
     public function setMer($mer)
@@ -209,7 +165,7 @@ class Jours
     /**
      * Get mer
      *
-     * @return integer 
+     * @return boolean 
      */
     public function getMer()
     {
@@ -219,7 +175,7 @@ class Jours
     /**
      * Set jeu
      *
-     * @param integer $jeu
+     * @param boolean $jeu
      * @return Jours
      */
     public function setJeu($jeu)
@@ -232,7 +188,7 @@ class Jours
     /**
      * Get jeu
      *
-     * @return integer 
+     * @return boolean 
      */
     public function getJeu()
     {
@@ -242,7 +198,7 @@ class Jours
     /**
      * Set ven
      *
-     * @param integer $ven
+     * @param boolean $ven
      * @return Jours
      */
     public function setVen($ven)
@@ -255,79 +211,33 @@ class Jours
     /**
      * Get ven
      *
-     * @return integer 
+     * @return boolean 
      */
     public function getVen()
     {
         return $this->ven;
     }
-
+    
     /**
-     * Set ip
+     * Set sam
      *
-     * @param string $ip
+     * @param boolean $sam
      * @return Jours
      */
-    public function setIp($ip)
+    public function setSam($sam)
     {
-        $this->ip = $ip;
+        $this->sam = $sam;
 
         return $this;
     }
 
     /**
-     * Get ip
+     * Get sam
      *
-     * @return string 
+     * @return boolean 
      */
-    public function getIp()
+    public function getSam()
     {
-        return $this->ip;
-    }
-
-    /**
-     * Set depot
-     *
-     * @param \DateTime $depot
-     * @return Jours
-     */
-    public function setDepot($depot)
-    {
-        $this->depot = $depot;
-
-        return $this;
-    }
-
-    /**
-     * Get depot
-     *
-     * @return \DateTime 
-     */
-    public function getDepot()
-    {
-        return $this->depot;
-    }
-
-    /**
-     * Set product
-     *
-     * @param \Base\NrohoBundle\Entity\Product $product
-     * @return Jours
-     */
-    public function setProduct(\Base\NrohoBundle\Entity\Product $product = null)
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    /**
-     * Get product
-     *
-     * @return \Base\NrohoBundle\Entity\Product 
-     */
-    public function getProduct()
-    {
-        return $this->product;
+        return $this->sam;
     }
 }

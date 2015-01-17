@@ -11,14 +11,7 @@ class ImageVoitureData extends AbstractFixture implements OrderedFixtureInterfac
 {
     public function load(ObjectManager $manager)
     {
-        $imagevoiture = new ImageVoiture();
-        $imagevoiture->setUsername('admin');
-        $imagevoiture->setPassword('test');
-
-        $manager->persist($imagevoiture);
-        $manager->flush();
         
-        $this->addReference('admin-imagevoiture', $imagevoiture);
     }
     
     public function getOrder()

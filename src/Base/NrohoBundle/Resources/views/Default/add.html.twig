@@ -25,87 +25,63 @@
                 <h6>Nouveau trajet</h6>
             </div>
             <div class="mt1">
-                <!--
-                <form method="post" action="#">
+                <form method="post" {{ form_enctype(form) }}>
+                    {{ form_errors(form) }}
                     <div class="nouvio">
                         <p>
-                            <input type="radio" name="type" value="1" 
-                                   onClick="document.getElementById('offre1').style.display='none'; 
-                                            document.getElementById('demande1').style.display='inline-block'; 
-                                            document.getElementById('offre2').style.display='none'; 
-                                            document.getElementById('demande2').style.display='inline-block';
-                                            document.getElementById('mir2').style.display='inline-block';
-                                            document.getElementById('mir').style.display='inline-block';"/>Je propose des places
-                        </p>
-                        <p>
-                            <input type="radio" name="type" value="0" 
-                                   onClick="document.getElementById('demande1').style.display='none'; 
-                                            document.getElementById('offre1').style.display='inline-block'; 
-                                            document.getElementById('demande2').style.display='none'; 
-                                            document.getElementById('offre2').style.display='inline-block'; 
-                                            document.getElementById('mir2').style.display='none';
-                                            document.getElementById('mir').style.display='none';"/>Je cherche des places
+                            {{ form_label(form.type, " ") }}
+                            {{ form_errors(form.type) }}
+                            {{ form_widget(form.type) }}
                         </p>
                     </div>
                     <div class="mt2">
                         <p>Mon trajet, départ, arrivée..</p>
-
                     </div>
                     <div class="nouveau7">
                         <fieldset>
                             <legend class="garlab">Infos sur le rendez-vous au DEPART :</legend>
                             <div class="mr7"> 
                                 <div class="mr3">
-                                    <label class="garlabi">Ville :</label>
-                                    <select class="ouardep" name="select3">
-                                        <option value='Alger'>Alger</option>
-                                    </select>
-
+                                    {{ form_label(form.depart, "Ville de départ") }}
+                                    {{ form_errors(form.depart) }}
+                                    {{ form_widget(form.depart) }}
                                 </div>
+                                <div class="mr3">
+                                    {{ form_label(form.villea, "Lieu exact") }}
+                                    {{ form_errors(form.villea) }}
+                                    {{ form_widget(form.villea) }}
+                                </div>
+                                <div class="mr3">
+                                    {{ form_label(form.date, "") }}
+                                    {{ form_errors(form.date) }}
+                                    {{ form_widget(form.date) }}
+                                </div>
+                                <div id="mir">
                                     <div class="mr3">
-                                        <label class="garlabi">Lieu exact :</label> 
-                                        <input class="ouardep" type="text" name="villea" placeholder="ex : La grande poste" 
-                                        size="35" value=""/>
-                                    </div>
-                                    <div class="mr3">
-                                        <label class="garlabi">Date de départ :</label>
-                                        <input type="text" class="datepicker" size="20" name="date" value="" />
-
-                                    </div>
-                                    <div id="mir">
-                                    <div class="mr3">
-                                        <label class="garlabi">Heure du départ :</label>
-                                        <select name="hour">
-                                            <option value="">50</option>
-                                        </select>
-                                        <select name="minutes">
-                                            <option value="">50</option>
-                                        </select>
+                                        {{ form_label(form.heure, "") }}
+                                        {{ form_errors(form.heure) }}
+                                        {{ form_widget(form.heure) }}
                                     </div>
                                     <div class="mr3">
-                                        <label class="garlabi">Mon véhicule :</label> 
-                                        <input class="ouardepo" type="text" name="vehicule" placeholder="EX : 407" 
-                                        size="35" value=""/>
-                                    </div>
-                                    </div>
-
+                                        {{ form_label(form.vehicule, "Véhicule") }}
+                                        {{ form_errors(form.vehicule) }}
+                                        {{ form_widget(form.vehicule) }}
+                                    </div> 
+                                </div>
                             </div>
                         </fieldset>
-
                         <fieldset>
                             <legend class="garlab">Lieu de dépose à l'ARRIVEE :</legend>
-                            <div class="mr7"> 
+                            <div class="mr7">
                                 <div class="mr3">
-                                    <label class="garlabi">Ville :</label>
-                                    <select class="ouardep" name="select4">
-                                            <option value='Alger' selected>Alger</option>
-                                    </select>
+                                    {{ form_label(form.arrivee, "Ville d'arrivée") }}
+                                    {{ form_errors(form.arrivee) }}
+                                    {{ form_widget(form.arrivee) }}
                                 </div>
                                 <div class="mr3">
-                                    <label class="garlabi">Lieu exact :</label> 
-                                    <input class="ouardep" type="text" name="villeb" placeholder="ex : Boufarik" 
-                                    size="35" value=""/>
-                                    <input class="ccabirati" name="moment" type="text" size="35" value=""/>
+                                    {{ form_label(form.villeb, "Lieu exact") }}
+                                    {{ form_errors(form.villeb) }}
+                                    {{ form_widget(form.villeb) }}
                                 </div>
                             </div>
                         </fieldset>
@@ -119,102 +95,91 @@
                             <div class="mr7">
                                 <div class="mr3y">
                                     <div class="mr3">
-                                        <label class="garlabi">Places disponibles :</label>
-                                        <select name="place">
-                                            <option value="">azerty</option>
-                                        </select>
+                                        {{ form_label(form.place, "") }}
+                                        {{ form_errors(form.place) }}
+                                        {{ form_widget(form.place) }}
                                     </div>
                                     <div class="mr3">
-                                        <label class="garlabi">Prix (Da/place) :</label>
-                                        <select name="hour">
-                                            <option value="">50</option>
-                                        </select>
+                                        {{ form_label(form.prix, "") }}
+                                        {{ form_errors(form.prix) }}
+                                        {{ form_widget(form.prix) }}
                                     </div>
                                 </div>
                                 <div class="mr3z" id="mir2">
                                     <div class="mr3">
                                         <p class="garlabo">
-                                            <INPUT type= "checkbox" name="fumer" value="non" checked>Non fumeur
+                                            {{ form_label(form.fumer, "") }}
+                                            {{ form_errors(form.fumer) }}
+                                            {{ form_widget(form.fumer) }}
                                         </p>
                                     </div>
                                     <div class="mr3">
                                         <p class="garlabo">
-                                            <INPUT type= "checkbox" name="musique" value="non">Pas de musique
+                                            {{ form_label(form.musique, "") }}
+                                            {{ form_errors(form.musique) }}
+                                            {{ form_widget(form.musique) }}
                                         </p>
                                     </div>
                                     <div class="mr3">
                                         <p class="garlabo">
-                                            <INPUT type= "checkbox" name="animal" value="non" checked>Pas d'animaux 
+                                            {{ form_label(form.animal, "") }}
+                                            {{ form_errors(form.animal) }}
+                                            {{ form_widget(form.animal) }}
                                         </p>
                                     </div>
                                     <div class="mr3">
                                         <p class="garlabo">
-                                            <INPUT type= "checkbox" name="blabla" value="oui" checked>Discussion <? echo $data['sexe']; ?>
+                                            {{ form_label(form.blabla, "") }}
+                                            {{ form_errors(form.blabla) }}
+                                            {{ form_widget(form.blabla) }}
                                         </p>
                                     </div>
                                     <div class="mr3">
                                         <p class="garlabo">
-                                            <INPUT type= "checkbox" name="filles" value="oui" checked>Entre filles
+                                            {{ form_label(form.filles, "") }}
+                                            {{ form_errors(form.filles) }}
+                                            {{ form_widget(form.filles) }}
                                         </p>
                                     </div>
                                 </div>
                                 <div class="mr3i">
-                                    <label class="garlabi">Précisez : Gros bagage ? Chat ? Pauses ? Tolérance retard ?...</label>
-                                    <textarea class="textarea" name="message"
-                                    rows="10" cols="50">Hello</textarea>
+                                    {{ form_label(form.message, "Précisez : Gros bagage ? Chat ? Pauses ? Tolérance retard ?...") }}
+                                    {{ form_errors(form.message) }}
+                                    {{ form_widget(form.message) }}
                                 </div>
                                 <div class="mr3z">
-
                                     <div class="nouvio">
                                         <p>
-                                        <input type="radio" name="maj" value="0" checked 
-                                        onclick="getElementById('trajet').style.display='none';" />Trajet unique
-                                        </p>
-                                        <p>
-                                        <input type="radio" name="maj" value="1" 
-                                        onclick="getElementById('trajet').style.display='block';" />Trajet régulier
+                                            {{ form_label(form.categorie, "Catégorie du trajet") }}
+                                            {{ form_errors(form.categorie) }}
+                                            {{ form_widget(form.categorie) }}
                                         </p>
                                     </div>
-
+                                    <div class="nouvio">
+                                        <p>
+                                            <input type="radio" name="maj" value="0" checked 
+                                            onclick="getElementById('trajet').style.display='none';" />Trajet unique
+                                        </p>
+                                        <p>
+                                            <input type="radio" name="maj" value="1" 
+                                            onclick="getElementById('trajet').style.display='block';" />Trajet régulier
+                                        </p>
+                                    </div>
                                     <div class="mr3" id="trajet" style="display:none;">
-                                        <p class="garlabo">
-                                            <INPUT type= "checkbox" name="dimanche" value="oui">dimanche
-                                        </p>
-                                        <p class="garlabo">
-                                            <INPUT type= "checkbox" name="lundi" value="oui">lundi
-                                        </p>
-                                        <p class="garlabo">
-                                            <INPUT type= "checkbox" name="mardi" value="oui">mardi
-                                        </p>
-                                        <p class="garlabo">
-                                            <INPUT type= "checkbox" name="mercredi" value="oui">mercredi
-                                        </p>
-                                        <p class="garlabo">
-                                            <INPUT type= "checkbox" name="jeudi" value="oui">jeudi
-                                        </p>
-                                        <p class="garlabo">
-                                            <INPUT type= "checkbox" name="vendredi" value="oui">vendredi
-                                        </p>
-                                        <p class="garlabo">
-                                            <INPUT type= "checkbox" name="samedi" value="oui">samedi
-                                        </p>
+                                        {{ form_label(form.jours, " ") }}
+                                        {{ form_errors(form.jours) }}
+                                        {{ form_widget(form.jours) }}
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
                     </div>
+                    {{ form_rest(form) }}
                     <div class="mr2">
                         <div class="mr6">
                             <input class="trouvezzz" name="valider" type="submit" value="Je publie"/>
                         </div>
                     </div>
-                </form>
-                -->
-                <form method="post">
-        
-                    {{ form_widget(form) }}
-        
-                    <input type="submit">
                 </form>
             </div>
         </div>

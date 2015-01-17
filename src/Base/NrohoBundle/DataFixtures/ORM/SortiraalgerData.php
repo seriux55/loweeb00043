@@ -11,14 +11,7 @@ class SortiraalgerData extends AbstractFixture implements OrderedFixtureInterfac
 {
     public function load(ObjectManager $manager)
     {
-        $sortiraalger = new Sortiraalger();
-        $sortiraalger->setUsername('admin');
-        $sortiraalger->setPassword('test');
-
-        $manager->persist($sortiraalger);
-        $manager->flush();
         
-        $this->addReference('admin-sortiraalger', $sortiraalger);
     }
     
     public function getOrder()

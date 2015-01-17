@@ -16,13 +16,14 @@ class AvisType extends AbstractType
     {
         $builder
             ->add('avis', 'textarea', array(
-                'attr' => array('cols' => '92', 'rows' => '5'),
-            ))
+                                        'attr' => array(
+                                                    'cols' => '92', 
+                                                    'rows' => '5'
+                                                ),
+                                    )
+            )
             ->add('emo', 'hidden')
             ->add('ip', 'hidden')
-            //->add('depot')
-            //->add('user')
-            //->add('user_avis')
         ;
     }
     

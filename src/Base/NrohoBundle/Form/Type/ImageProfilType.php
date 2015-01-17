@@ -16,7 +16,6 @@ class ImageProfilType extends AbstractType
     {
         $builder
             ->add('file', 'file')
-            //->add('Valider', 'submit')
         ;
     }
     
