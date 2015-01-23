@@ -22,7 +22,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
     public function load(ObjectManager $manager)
     {
         $user1 = new User();
-        $user1->setBorn(1990);
+        $user1->setBorn(1991);
         $user1->setEmail('seriux55@hotmail.com');
         $user1->setFirstname('ALLAM');
         $user1->setGender(1);
@@ -34,7 +34,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $manager->persist($user1);
         
         $user2 = new User();
-        $user2->setBorn(1990);
+        $user2->setBorn(1984);
         $user2->setEmail('karim.man@live.fr');
         $user2->setFirstname('Mansoura');
         $user2->setGender(1);
@@ -47,7 +47,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         
         $user3 = new User();
         $user3->setBorn(1990);
-        $user3->setEmail('c@gmail.com');
+        $user3->setEmail('a@a.fr');
         $user3->setFirstname('Fenniche');
         $user3->setGender(1);
         $user3->setPhone('0601020304');
@@ -58,24 +58,24 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $manager->persist($user3);
         
         $user4 = new User();
-        $user4->setBorn(1990);
-        $user4->setEmail('d@gmail.com');
-        $user4->setFirstname('Fenniche');
-        $user4->setGender(1);
+        $user4->setBorn(1984);
+        $user4->setEmail('b@b.fr');
+        $user4->setFirstname('Khodja');
+        $user4->setGender(0);
         $user4->setPhone('0601020304');
-        $user4->setSecondename('Khaled');
+        $user4->setSecondename('Amina');
         $user4->setIp('127.0.0.1');
         $user4->setEnabled('1');
         $user4->setPassword($this->container->get('security.encoder_factory')->getEncoder($user4)->encodePassword('aaaaaa', $user4->getSalt()));
         $manager->persist($user4);
         
         $user5 = new User();
-        $user5->setBorn(1990);
-        $user5->setEmail('e@gmail.com');
-        $user5->setFirstname('Fenniche');
-        $user5->setGender(1);
+        $user5->setBorn(1980);
+        $user5->setEmail('c@c.fr');
+        $user5->setFirstname('Righi');
+        $user5->setGender(0);
         $user5->setPhone('0601020304');
-        $user5->setSecondename('Khaled');
+        $user5->setSecondename('Sarah');
         $user5->setIp('127.0.0.1');
         $user5->setEnabled('1');
         $user5->setPassword($this->container->get('security.encoder_factory')->getEncoder($user5)->encodePassword('aaaaaa', $user5->getSalt()));
@@ -83,11 +83,11 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         
         $user6 = new User();
         $user6->setBorn(1990);
-        $user6->setEmail('f@gmail.com');
-        $user6->setFirstname('Fenniche');
+        $user6->setEmail('d@d.fr');
+        $user6->setFirstname('Naghid');
         $user6->setGender(1);
         $user6->setPhone('0601020304');
-        $user6->setSecondename('Khaled');
+        $user6->setSecondename('Hamza');
         $user6->setIp('127.0.0.1');
         $user6->setEnabled('1');
         $user6->setPassword($this->container->get('security.encoder_factory')->getEncoder($user6)->encodePassword('aaaaaa', $user6->getSalt()));
@@ -99,7 +99,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user7->setFirstname('Fenniche');
         $user7->setGender(1);
         $user7->setPhone('0601020304');
-        $user7->setSecondename('Khaled');
+        $user7->setSecondename('Amine');
         $user7->setIp('127.0.0.1');
         $user7->setEnabled('1');
         $user7->setPassword($this->container->get('security.encoder_factory')->getEncoder($user7)->encodePassword('aaaaaa', $user7->getSalt()));
@@ -109,9 +109,9 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user8->setBorn(1990);
         $user8->setEmail('h@gmail.com');
         $user8->setFirstname('Fenniche');
-        $user8->setGender(1);
+        $user8->setGender(0);
         $user8->setPhone('0601020304');
-        $user8->setSecondename('Khaled');
+        $user8->setSecondename('Lamia');
         $user8->setIp('127.0.0.1');
         $user8->setEnabled('1');
         $user8->setPassword($this->container->get('security.encoder_factory')->getEncoder($user8)->encodePassword('aaaaaa', $user8->getSalt()));
@@ -123,7 +123,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user9->setFirstname('Fenniche');
         $user9->setGender(1);
         $user9->setPhone('0601020304');
-        $user9->setSecondename('Khaled');
+        $user9->setSecondename('Sofiane');
         $user9->setIp('127.0.0.1');
         $user9->setEnabled('1');
         $user9->setPassword($this->container->get('security.encoder_factory')->getEncoder($user9)->encodePassword('aaaaaa', $user9->getSalt()));
@@ -133,11 +133,11 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user10->setBorn(1990);
         $user10->setEmail('j@gmail.com');
         $user10->setFirstname('Fenniche');
-        $user10->setGender(1);
+        $user10->setGender(0);
         $user10->setPhone('0601020304');
-        $user10->setSecondename('Khaled');
+        $user10->setSecondename('Rania');
         $user10->setIp('127.0.0.1');
-        $user10->setEnabled('1');
+        $user10->setEnabled('0');
         $user10->setPassword($this->container->get('security.encoder_factory')->getEncoder($user10)->encodePassword('aaaaaa', $user10->getSalt()));
         $manager->persist($user10);
         
@@ -147,7 +147,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user11->setFirstname('Fenniche');
         $user11->setGender(1);
         $user11->setPhone('0601020304');
-        $user11->setSecondename('Khaled');
+        $user11->setSecondename('Kamel');
         $user11->setIp('127.0.0.1');
         $user11->setEnabled('1');
         $user11->setPassword($this->container->get('security.encoder_factory')->getEncoder($user11)->encodePassword('aaaaaa', $user11->getSalt()));
@@ -157,11 +157,11 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user12->setBorn(1990);
         $user12->setEmail('l@gmail.com');
         $user12->setFirstname('Fenniche');
-        $user12->setGender(1);
+        $user12->setGender(0);
         $user12->setPhone('0601020304');
-        $user12->setSecondename('Khaled');
+        $user12->setSecondename('Dalila');
         $user12->setIp('127.0.0.1');
-        $user12->setEnabled('1');
+        $user12->setEnabled('0');
         $user12->setPassword($this->container->get('security.encoder_factory')->getEncoder($user12)->encodePassword('aaaaaa', $user12->getSalt()));
         $manager->persist($user12);
         
@@ -171,7 +171,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user13->setFirstname('Fenniche');
         $user13->setGender(1);
         $user13->setPhone('0601020304');
-        $user13->setSecondename('Khaled');
+        $user13->setSecondename('Nabil');
         $user13->setIp('127.0.0.1');
         $user13->setEnabled('1');
         $user13->setPassword($this->container->get('security.encoder_factory')->getEncoder($user13)->encodePassword('aaaaaa', $user13->getSalt()));
@@ -181,11 +181,11 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user14->setBorn(1990);
         $user14->setEmail('n@gmail.com');
         $user14->setFirstname('Fenniche');
-        $user14->setGender(1);
+        $user14->setGender(0);
         $user14->setPhone('0601020304');
-        $user14->setSecondename('Khaled');
+        $user14->setSecondename('Kamelia');
         $user14->setIp('127.0.0.1');
-        $user14->setEnabled('1');
+        $user14->setEnabled('0');
         $user14->setPassword($this->container->get('security.encoder_factory')->getEncoder($user14)->encodePassword('aaaaaa', $user14->getSalt()));
         $manager->persist($user14);
         
@@ -195,7 +195,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user15->setFirstname('Fenniche');
         $user15->setGender(1);
         $user15->setPhone('0601020304');
-        $user15->setSecondename('Khaled');
+        $user15->setSecondename('Djamel');
         $user15->setIp('127.0.0.1');
         $user15->setEnabled('1');
         $user15->setPassword($this->container->get('security.encoder_factory')->getEncoder($user15)->encodePassword('aaaaaa', $user15->getSalt()));

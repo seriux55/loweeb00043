@@ -4,6 +4,7 @@ namespace Base\NrohoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Base\NrohoBundle\Entity\Message;
 
 class MessageController extends Controller
@@ -51,6 +52,7 @@ class MessageController extends Controller
     
     public function messageidAction($id, $product)
     {
+        $session = new Session();
         $idc = $this->get('security.context')->getToken()->getUser()->getId();
         $message = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
                         ->createQueryBuilder('a')
@@ -62,8 +64,13 @@ class MessageController extends Controller
                         ->orderBy('a.id','ASC')
                         ->setMaxResults(7)
                         ->getQuery()->getResult();
+        foreach($message as $value){
+            $lastId = $value->getId(); // recuperer le dernier id de message
+        }
+        $session->set('MessageLastId', $lastId); // On met en session le dernier id de message
         $serializer = $this->container->get('serializer');
         $reports = $serializer->serialize($message, 'json');
+        $session->set('messagearray', $reports);
         return new Response($reports);
     }
     
@@ -86,5 +93,33 @@ class MessageController extends Controller
         $em->persist($message);
         $em->flush();
         return new Response('ok'); 
+    }
+    
+    public function messageidlastAction($id, $product)
+    {
+        $session = new Session();
+        $lastId  = $session->get('MessageLastId');
+        $idc     = $this->get('security.context')->getToken()->getUser()->getId();
+        $message = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
+                        ->createQueryBuilder('a')
+                        ->addSelect('b')->leftJoin('a.user', 'b')
+                        ->addSelect('c')->leftJoin('a.product', 'c')
+                        ->addSelect('d')->leftJoin('a.userDist', 'd')
+                        ->where('((a.user = :idc AND a.userDist = :id) OR (a.user = :id AND a.userDist = :idc)) AND a.product = :product')
+                        ->andWhere('a.id > :lastId')
+                        ->setParameter('idc', $idc)->setParameter('id', $id)->setParameter('product', $product)->setParameter('lastId', $lastId)
+                        ->orderBy('a.id','ASC')
+                        ->setMaxResults(1)
+                        ->getQuery()->useResultCache(true, 600, '_message_last_'.$lastId)->getResult();
+        foreach($message as $value){
+            $lastId = $value->getId(); // recuperer le dernier id de message
+        }
+        $session->set('MessageLastId', $lastId); // On met en session le dernier id de message
+        $serializer = $this->container->get('serializer');
+        //$reports    = $serializer->serialize($message, 'json');
+        //$reports    = $serializer->serialize($session->get('messagearray'), 'json');
+        //$reports    = $serializer->deserialize($session->get('messagearray'),'Base\NrohoBundle\Entity\Message','json');
+        $reports    = $session->get('messagearray');
+        return new Response($reports);
     }
 }

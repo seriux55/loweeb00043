@@ -99,6 +99,13 @@ nroho_base_message_lecture:
         id:  \d+
         product:  \d+
 
+nroho_base_message_lecture_last:
+    pattern: /message/last/{id}/{product}
+    defaults: { _controller: BaseNrohoBundle:Message:messageidlast }
+    requirements:
+        id:  \d+
+        product:  \d+
+
 nroho_base_message_submit:
     pattern: /message/submit/{id}/{product}/{msg}
     defaults: { _controller: BaseNrohoBundle:Message:messagesubmit }

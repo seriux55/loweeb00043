@@ -31,7 +31,7 @@
         </div>
         <div class="contenu2">
             <h2 id="msgway">
-                Messagerie
+                Messagerie et la session {{ app.session.get('MessageLastId') }}
             </h2>
             <nav class="menuinf2" id="msglist">
                 <li>
@@ -98,7 +98,11 @@
 <script type="text/javascript" src="{{ asset('bundles/basenroho/js/jquery-1.11.1.min.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+    var IntervalMessage;
+    var timeOutMessage = 0;
     $(".recup_id").on("click", function(){
+        clearInterval(IntervalMessage);
+        if (timeOutMessage !== 0) clearTimeout(timeOutMessage);
         var idt = this.id;
         var idd, ways, url2, idp;
         var reg = new RegExp("[ ,;/]+", "g");
@@ -116,14 +120,14 @@ $(document).ready(function(){
             url: url2,
             contentType: 'application/json',
             cache: false,
-            success: function(json){
-                var jsonn = JSON.parse( json );
-                //console.log(jsonn);
-                if (jsonn !== null){
-                    //alert(jsonn);
-                    for (var i = 0; i < jsonn.length; i++){
-                        var profill = profil.replace("111", jsonn[i].message.userDist);
-                        if(jsonn[i].user.gender === 1) 
+            success: function(jsonn){
+                var json = JSON.parse( jsonn );
+                //console.log(json);
+                if (json !== null){
+                    //alert(json);
+                    for (var i = 0; i < json.length; i++){
+                        var profill = profil.replace("111", json[i].message.userDist);
+                        if(json[i].user.gender === 1) 
                             url2 = "{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}";
                         else
                             url2 = "{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}";
@@ -133,18 +137,18 @@ $(document).ready(function(){
                                     <img src="'+ url2 +'">\
                                 </div>\
                                 <div class="echangi3r">\
-                                    <a href="'+ profill +'">'+ jsonn[i].user.secondename +'</a>\
-                                        '+ jsonn[i].depot.substr(0,10) +'\
+                                    <a href="'+ profill +'">'+ json[i].user.secondename +'</a>\
+                                        '+ json[i].depot.substr(0,10) +'\
                                 </div>\
                                 <div class="echangi3r">\
                                     <p>\
-                                        '+ nl2br(jsonn[i].message, true) +'\
+                                        '+ nl2br(json[i].message, true) +'\
                                     </p>\
                                 </div>\
                             </li>';
-                        ways = jsonn[i].product.depart.substr(5)+' <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/></div> '+jsonn[i].product.arrivee.substr(5);
-                        if(jsonn[i].user.id === {{ app.user.id }}) idd = jsonn[i].user_dist.id; else idd = jsonn[i].user.id;
-                        var product_id = jsonn[i].product.id;
+                        ways = json[i].product.depart.substr(5)+' <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/></div> '+json[i].product.arrivee.substr(5);
+                        if(json[i].user.id === {{ app.user.id }}) idd = json[i].user_dist.id; else idd = json[i].user.id;
+                        var product_id = json[i].product.id;
                     }
                     var bouton = '\
                     <div class="detaily">\
@@ -166,7 +170,11 @@ $(document).ready(function(){
                     $("#msgway").html(ways);
                     $("#msglist").html(result);
                     $("#msgsub").html(bouton);
-                    refreshMessage(idp);
+                    IntervalMessage = setInterval( function(){
+                        if (timeOutMessage !== 0) clearTimeout(timeOutMessage);
+                        timeOutMessage = setTimeout("refreshMessage("+id+","+idp+")", 4000);
+                    }, 7000);
+                    //clearInterval(IntervalMessage);
                 }
                 $(".publiera").on("click", function(){
                     var msg  = nl2br($("#msg").val());
@@ -227,10 +235,58 @@ function nl2br(str, is_xhtml) {
 }
 
 // La boucle des messages "actualisation"
-function refreshMessage(id)
+function refreshMessage(id, idp)
 {
     //alert(id);
-    setTimeout("refreshMessage("+id+")",7000);
+    var profil = "{{ path('nroho_base_profil', { 'id': "111" }) }}";
+    var url2 = "{{ path('nroho_base_message_lecture_last', { 'id': "111", 'product': "222" }) }}";
+    var url1 = url2.replace("111", id);
+    var url  = url1.replace("222", idp);
+    var result;
+    //var = ways;
+    $.ajax({
+        type: "POST",
+        url: url,
+        contentType: 'application/json',
+        cache: false,
+        success: function(jsonn){
+            var json = JSON.parse( jsonn );
+            //console.log(json);
+            if (json !== null){
+                //alert(json);
+                for (var i = 0; i < json.length; i++){
+                    var profill = profil.replace("111", json[i].message.userDist);
+                    if(json[i].user.gender === 1) 
+                        url2 = "{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}";
+                    else
+                        url2 = "{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}";
+                    result += '\
+                        <li>\
+                            <div class="echangi3">\
+                                <img src="'+ url2 +'">\
+                            </div>\
+                            <div class="echangi3r">\
+                                <a href="'+ profill +'">'+ json[i].user.secondename +'</a>\
+                                    '+ json[i].depot.substr(0,10) +'\
+                            </div>\
+                            <div class="echangi3r">\
+                                <p>\
+                                    '+ nl2br(json[i].message, true) +'\
+                                </p>\
+                            </div>\
+                        </li>';
+                    //ways = json[i].product.depart.substr(5)+' <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/></div> '+json[i].product.arrivee.substr(5);
+                    if(json[i].user.id === {{ app.user.id }}) idd = json[i].user_dist.id; else idd = json[i].user.id;
+                    var product_id = json[i].product.id;
+                }
+                
+                result += '<div id="msgajax"></div>';
+                //$("#msgway").html(ways);
+                $("#msglist").empty().html(result);
+            }
+        }
+    });
+    //setTimeout("refreshMessage("+id+","+idp+")",7000);
 }
 </script>
 {% endblock %}

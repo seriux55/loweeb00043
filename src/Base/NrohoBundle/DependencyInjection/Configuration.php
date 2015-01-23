@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        // -- $rootNode = $treeBuilder->root('base_nroho');
+        // -- $rootNode = 
         $treeBuilder->root('base_nroho');
         
         // Here you should define the parameters that are allowed to
