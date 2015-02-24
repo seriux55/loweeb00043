@@ -134,3 +134,7 @@ nroho_admin_annonce_no:
     defaults: { _controller: BaseNrohoBundle:Admin:noAnnonce }
     requirements:
         id:  \d+
+
+nroho_sortie_bledvoyage:
+    path:     /sorties
+    defaults: { _controller: BaseNrohoBundle:Bledvoyage:index }

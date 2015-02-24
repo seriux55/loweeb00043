@@ -238,10 +238,10 @@ function nl2br(str, is_xhtml) {
 function refreshMessage(id, idp)
 {
     //alert(id);
-    var profil = "{{ path('nroho_base_profil', { 'id': "111" }) }}";
-    var url2 = "{{ path('nroho_base_message_lecture_last', { 'id': "111", 'product': "222" }) }}";
-    var url1 = url2.replace("111", id);
-    var url  = url1.replace("222", idp);
+    var profil  = "{{ path('nroho_base_profil', { 'id': "111" }) }}";
+    var url2    = "{{ path('nroho_base_message_lecture_last', { 'id': "111", 'product': "222" }) }}";
+    var url1    = url2.replace("111", id);
+    var url     = url1.replace("222", idp);
     var result;
     //var = ways;
     $.ajax({
@@ -288,5 +288,5 @@ function refreshMessage(id, idp)
     });
     //setTimeout("refreshMessage("+id+","+idp+")",7000);
 }
-</script> 
+</script>
 {% endblock %}
