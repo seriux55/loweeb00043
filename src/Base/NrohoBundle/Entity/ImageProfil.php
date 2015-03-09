@@ -54,7 +54,7 @@ class ImageProfil
   
     public function getFile()
     {
-      return $this->file;
+        return $this->file;
     }
     
     /**
@@ -76,7 +76,6 @@ class ImageProfil
     public function setUrl($url)
     {
         $this->url = $url;
-
         return $this;
     }
 
@@ -99,7 +98,6 @@ class ImageProfil
     public function setAlt($alt)
     {
         $this->alt = $alt;
-
         return $this;
     }
 
@@ -122,12 +120,10 @@ class ImageProfil
     public function setFile(UploadedFile $file)
     {
         $this->file = $file;
-
         // On vérifie si on avait déjà un fichier pour cette entité
         if (null !== $this->url) {
             // On sauvegarde l'extension du fichier pour le supprimer plus tard
             $this->tempFilename = $this->url;
-
             // On réinitialise les valeurs des attributs url et alt
             $this->url = null;
             $this->alt = null;
@@ -144,11 +140,9 @@ class ImageProfil
         if (null === $this->file) {
             return;
         }
-
         // Le nom du fichier est son id, on doit juste stocker également son extension
         // Pour faire propre, on devrait renommer cet attribut en « extension », plutôt que « url »
         $this->url = $this->file->guessExtension();
-
         // Et on génère l'attribut alt de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
         $this->alt = $this->file->getClientOriginalName();
     }
@@ -163,7 +157,6 @@ class ImageProfil
         if (null === $this->file) {
             return;
         }
-
         // Si on avait un ancien fichier, on le supprime
         if (null !== $this->tempFilename) {
             $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
@@ -171,21 +164,19 @@ class ImageProfil
                 unlink($oldFile);
             }
         }
-
         // modification made by Nadir
         $size = getimagesize($this->file);
         if( $size[1] == $size[0] ){
-                $destination = imagecreatetruecolor(300, 300);
+            $destination = imagecreatetruecolor(300, 300);
         }else if( $size[1] > $size[0] ){ 
-                $rap = $size[0] / $size[1];
-                $L   = 300 * $rap;
-                $destination = imagecreatetruecolor($L, 300);
+            $rap = $size[0] / $size[1];
+            $L   = 300 * $rap;
+            $destination = imagecreatetruecolor($L, 300);
         }else if( $size[0] > $size[1] ){ 
-                $rap = $size[1] / $size[0];
-                $H   = 300 * $rap;
-                $destination = imagecreatetruecolor(300, $H);
+            $rap = $size[1] / $size[0];
+            $H   = 300 * $rap;
+            $destination = imagecreatetruecolor(300, $H);
         }
-        
         switch ($this->url)
         {
             case 'jpeg':
@@ -200,16 +191,13 @@ class ImageProfil
             default:
                 return false;
         }
-        
         $largeur_source      = imagesx($source);
         $hauteur_source      = imagesy($source);
         $largeur_destination = imagesx($destination);
         $hauteur_destination = imagesy($destination);
         $chemin              = $this->getUploadRootDir().'/'.$this->id.'.'.$this->url;
-
         imagecopyresampled($destination, $source, 0, 0, 0, 0, $largeur_destination, $hauteur_destination, $largeur_source, $hauteur_source);
         imagejpeg($destination, $chemin);
-        
         unset($this->file);
     }
 
