@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * ImageProfil
  *
- * @ORM\Table()
+ * @ORM\Table(name="nroho__ImageProfil")
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\ImageProfilRepository")
  * @ORM\HasLifecycleCallbacks()
  */

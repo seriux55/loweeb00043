@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Jours
  *
- * @ORM\Table()
+ * @ORM\Table(name="nroho__Jours")
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\JoursRepository")
  */
 class Jours

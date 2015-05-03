@@ -33,5 +33,5 @@ assetic:
 doctrine_migrations:
     dir_name: %kernel.root_dir%/DoctrineMigrations
     namespace: Application\Migrations
-    table_name: Migration_versions
+    table_name: nroho__Migration
     name: Application Migrations

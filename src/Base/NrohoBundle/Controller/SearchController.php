@@ -102,7 +102,7 @@ class SearchController extends Controller
     public function destinationAction($start)
     {
         $db  = $this->get('database_connection');
-        $row = $db->prepare("SELECT arrivee FROM Product WHERE depart LIKE ? AND valid = '1'");
+        $row = $db->prepare("SELECT arrivee FROM nroho__Product WHERE depart LIKE ? AND valid = '1'");
         $row->bindValue(1, $start.'%');
         $row->execute();
         $product = array();

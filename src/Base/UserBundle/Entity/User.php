@@ -7,11 +7,20 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="User")
+ * @ORM\Table(name="nroho__User")
  */
 class User extends BaseUser
 {
     //@ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\ImageProfil", cascade={"persist"})
+    
+    /**
+     * Le constructeur
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->deposit = new \Datetime();
+    }
     
     /**
      * @ORM\Id
@@ -28,15 +37,6 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-    
-    /**
-     * Le constructeur
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->deposit = new \Datetime();
     }
     
     /**

@@ -30,6 +30,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user1->setSecondename('Nadir');
         $user1->setIp('127.0.0.1');
         $user1->setEnabled('1');
+        $user1->setRoles(array('ROLE_ADMIN'));
         $user1->setPassword($this->container->get('security.encoder_factory')->getEncoder($user1)->encodePassword('Tictic2', $user1->getSalt()));
         $manager->persist($user1);
         
@@ -42,6 +43,7 @@ class UserData extends AbstractFixture implements FixtureInterface, ContainerAwa
         $user2->setSecondename('Karim');
         $user2->setIp('127.0.0.1');
         $user2->setEnabled('1');
+        $user2->setRoles(array('ROLE_ADMIN'));
         $user2->setPassword($this->container->get('security.encoder_factory')->getEncoder($user2)->encodePassword('021250031', $user2->getSalt()));
         $manager->persist($user2);
         

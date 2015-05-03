@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Product
  *
- * @ORM\Table(indexes={@ORM\Index(name="my_idx",columns={"valid","depart","arrivee"})})
+ * @ORM\Table(name="nroho__Product", indexes={@ORM\Index(name="my_idx",columns={"valid","depart","arrivee"})})
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\ProductRepository")
  * @ORM\HasLifecycleCallbacks()
  */

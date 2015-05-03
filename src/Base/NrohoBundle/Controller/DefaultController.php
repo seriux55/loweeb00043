@@ -27,7 +27,7 @@ class DefaultController extends Controller
             "41 - Souk Ahras", "42 - Tipaza", "43 - Mila", "44 - Ain Defla", "45 - Naama",
             "46 - Ain Temouchent", "47 - Ghardaia", "48 - Relizane"
         );      
-        $row = $this->get('database_connection')->prepare("SELECT depart FROM Product");
+        $row = $this->get('database_connection')->prepare("SELECT depart FROM nroho__Product");
         $row->execute();
         $ville = array();
         $i = 0;

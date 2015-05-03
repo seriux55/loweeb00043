@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * ImageVoiture
  *
- * @ORM\Table()
+ * @ORM\Table(name="nroho__ImageVoiture")
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\ImageVoitureRepository")
  * @ORM\HasLifecycleCallbacks()
  */

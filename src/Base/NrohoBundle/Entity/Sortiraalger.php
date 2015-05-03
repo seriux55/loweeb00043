@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Sortiraalger
  *
- * @ORM\Table()
+ * @ORM\Table(name="nroho__Sortiraalger")
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\SortiraalgerRepository")
  */
 class Sortiraalger

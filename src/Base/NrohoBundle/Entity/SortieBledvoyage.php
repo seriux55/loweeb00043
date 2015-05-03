@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SortieBledvoyage
  *
- * @ORM\Table()
+ * @ORM\Table(name="nroho__BledvoyageSortie")
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\SortieBledvoyageRepository")
  */
 class SortieBledvoyage
@@ -21,6 +21,30 @@ class SortieBledvoyage
      */
     private $id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\BledvoyagePicture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $picture1;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\BledvoyagePicture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $picture2;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\BledvoyagePicture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $picture3;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\BledvoyagePicture", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $picture4;
+    
     /**
      * @var string
      *
@@ -137,6 +161,98 @@ class SortieBledvoyage
         return $this->id;
     }
 
+    /**
+     * Set picture1
+     *
+     * @param \Base\NrohoBundle\Entity\BledvoyagePicture $picture1
+     * @return SortieBledvoyage
+     */
+    public function setPicture1(\Base\NrohoBundle\Entity\BledvoyagePicture $picture1)
+    {
+        $this->picture1 = $picture1;
+
+        return $this;
+    }
+
+    /**
+     * Get picture1
+     *
+     * @return \Base\NrohoBundle\Entity\BledvoyagePicture
+     */
+    public function getPicture1()
+    {
+        return $this->picture1;
+    }
+
+    /**
+     * Set picture2
+     *
+     * @param \Base\NrohoBundle\Entity\BledvoyagePicture $picture2
+     * @return SortieBledvoyage
+     */
+    public function setPicture2(\Base\NrohoBundle\Entity\BledvoyagePicture $picture2)
+    {
+        $this->picture2 = $picture2;
+
+        return $this;
+    }
+
+    /**
+     * Get picture2
+     *
+     * @return \Base\NrohoBundle\Entity\BledvoyagePicture
+     */
+    public function getPicture2()
+    {
+        return $this->picture2;
+    }
+
+    /**
+     * Set picture3
+     *
+     * @param \Base\NrohoBundle\Entity\BledvoyagePicture $picture3
+     * @return SortieBledvoyage
+     */
+    public function setPicture3(\Base\NrohoBundle\Entity\BledvoyagePicture $picture3)
+    {
+        $this->picture3 = $picture3;
+
+        return $this;
+    }
+
+    /**
+     * Get picture3
+     *
+     * @return \Base\NrohoBundle\Entity\BledvoyagePicture
+     */
+    public function getPicture3()
+    {
+        return $this->picture3;
+    }
+
+    /**
+     * Set picture4
+     *
+     * @param \Base\NrohoBundle\Entity\BledvoyagePicture $picture4
+     * @return SortieBledvoyage
+     */
+    public function setPicture4(\Base\NrohoBundle\Entity\BledvoyagePicture $picture4)
+    {
+        $this->picture4 = $picture4;
+
+        return $this;
+    }
+
+    /**
+     * Get picture4
+     *
+     * @return \Base\BledvoyageBundle\Entity\BledvoyagePicture
+     */
+    public function getPicture4()
+    {
+        return $this->picture4;
+    }
+    
     /**
      * Set titre
      *

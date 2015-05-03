@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Avis
  *
- * @ORM\Table()
+ * @ORM\Table(name="nroho__Avis")
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\AvisRepository")
  */
 class Avis

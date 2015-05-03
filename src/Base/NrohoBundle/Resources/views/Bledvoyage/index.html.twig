@@ -3,6 +3,51 @@
 {% block title %}BaseNrohoBundle:Bledvoyage:index{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Bledvoyage:index page</h1>
-<p>{{ dump(sorties) }}</p>
+<p>{# dump(sorties) #}</p>
+{% for data in sorties %}
+    {% if data.id == id %}
+    <div class="bloc_page_bodya">
+        <div class="foc_1">
+            <div class="photoi">
+                <img src="http://www.bledvoyage.com/new/web/upload/img/picture/{{ data.picture4.id }}.{{ data.picture4.url }}" alt="{{ data.picture4.alt }}"/>
+            </div>
+        </div>
+				
+        <div class="foc_2">
+            <div class="detailima"> 
+                <div class="foc_3">
+                    <img src="http://www.bledvoyage.com/new/web/upload/img/picture/{{ data.picture1.id }}.{{ data.picture1.url }}" alt="{{ data.picture1.alt }}"/>
+                </div>
+                <div class="detailinfo">
+                    <h2>
+                        {{ data.titre }}
+                    </h2>
+                    <div class="campus6">
+                        <p>{{ data.localisation }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="detailimo"> 
+                <div class="detml">
+                    <div class="boutinr">
+                        <a href="" class="invos" id="event1">Proposer un trajet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detailono">
+            <div class="mt1">
+                <div class="detailform">
+                    <div class="mrdes">
+                        <p>
+                            <h3>Détail de la sortie</h3>
+                            {{ data.descriptif }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>		
+    </div>
+    {% endif %}
+{% endfor %}
 {% endblock %}

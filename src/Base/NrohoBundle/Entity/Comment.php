@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Comment
  *
- * @ORM\Table()
+ * @ORM\Table(name="nroho__Comment")
  * @ORM\Entity(repositoryClass="Base\NrohoBundle\Entity\CommentRepository")
  */
 class Comment
