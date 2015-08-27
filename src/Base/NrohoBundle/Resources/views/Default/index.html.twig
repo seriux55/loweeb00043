@@ -395,6 +395,18 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
 <script type="text/javascript" charset="utf-8">
+function dateToFr(date){
+    var y = date.substr(0,4);
+    var m = date.substr(5,2);
+    var d = date.substr(8,2);
+    return d + '/' + m + '/' + y;
+}
+function age(date){
+    if(date === "") 
+        return "";
+    else
+        return (2015 - date) + ' ans';
+}
 $(document).ready(function(){
     var first = 15;
     $("#mm").on("click", function(){
@@ -429,7 +441,7 @@ $(document).ready(function(){
                                          </div>\
                                          <div class="destrcco">\
                                              <div class="detrc">\
-                                                 <p></p>\
+                                                 <p>'+ age(jsonn[i].user.born) +'</p>\
                                              </div>\
                                              <div class="detrc">\
                                              </div>\
@@ -437,27 +449,39 @@ $(document).ready(function(){
                                                      <p>'+ jsonn[i].vehicule +'</p>\
                                              </div>\
                                          </div>\
-                                         <div class="opicon">\
-                                         </div>\
+                                         <div class="opicon">';
+                                            if(jsonn[i].fumer === 1)
+                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/accepte_fumer.png" alt="covoiturage non fumeur"></div>';
+                                            else 
+                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/cigarette.png" alt="covoiturage non fumeur"></div>';
+                                            if(jsonn[i].musique === 1)
+                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/accepte_musique.png" alt="covoiturage pas de musique"></div>';
+                                            else result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/musique.png" alt="covoiturage pas de musique"></div>';
+                                            if(jsonn[i].animal === 1)
+                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/accepte_animaux.png" alt="covoiturage sans animaux"></div>';
+                                            result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/mouton.png" alt="covoiturage pas de musique"></div>';
+                                            if(jsonn[i].blabla === 1)
+                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/gosra.png" alt="covoiturage sans animaux"></div>';
+                            result +=   '</div>\
                                      </a>\
                                  </div>\
                                  <div class="rc">\
                                      <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
                                          <div class="nouveau1">\
                                              <div class="nouvie1">\
-                                                 <p>'+ jsonn[i].depart +' ('+ jsonn[i].villea +')</p>\
+                                                 <p>'+ jsonn[i].depart.substr(5,20); if(jsonn[i].villea !== "") result +=' ('+ jsonn[i].villea +')'; result += '</p>\
                                              </div>\
                                              <div class="nouvie2">\
                                                  <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>\
                                              </div>\
                                              <div class="nouvie1">\
-                                                 <p>'+ jsonn[i].arrivee +' ('+ jsonn[i].villeb +')</p>\
+                                                 <p>'+ jsonn[i].arrivee.substr(5,20); if(jsonn[i].villeb !== "") result +=' ('+ jsonn[i].villeb +')'; result += '</p>\
                                              </div>\
                                          </div>\
                                      </a>\
                                      <div class="nouveau2">\
                                          <article>\
-                                             <a href="{{ path('nroho_base_product', { 'id': '100' }) }}"><h1>'+ jsonn[i].date +' - '+ jsonn[i].heure +'</h1></a>\
+                                             <a href="{{ path('nroho_base_product', { 'id': '100' }) }}"><h1>Le '+ dateToFr(jsonn[i].date) +' à '+ jsonn[i].heure +'</h1></a>\
                                              <p>'+ jsonn[i].message +'</p>\
                                          </article>\
                                      </div>\
@@ -472,7 +496,7 @@ $(document).ready(function(){
                                          <p><strong>'+ jsonn[i].place +'</strong> places<br/></p>\
                                      </div>\
                                      <div class="detrc1p">\
-                                         <p>'; if(jsonn[i].filles==1) result += 'Entre Elles'; result += '</p>\
+                                         <p>'; if(jsonn[i].filles === 1) result += 'Entre Elles'; result += '</p>\
                                      </div>\
                                  </div>\
                              </div>\

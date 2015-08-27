@@ -14,16 +14,16 @@ class MessageController extends Controller
         $idc = $this->get('security.context')->getToken()->getUser()->getId();
         $db  = $this->get('database_connection');
         $row = $db->prepare(
-                            "SELECT u1.id AS u1_id, u1.secondename AS u1_secondename, u1.gender AS u1_gender, u2.id AS u2_id, u2.secondename AS u2_secondename, u2.gender AS u2_gender, Message.depot, Message.user_id AS M_user_id, Product.user_id AS P_user_id, Message.userDist_id, Product.id AS P_id
-                             FROM Message
-                             LEFT  JOIN Product ON Message.product_id = Product.id
-                             LEFT  JOIN User u1 ON Message.user_id = u1.id
-                             RIGHT JOIN User u2 ON Message.userDist_id = u2.id
-                             WHERE 
-                                ( Product.user_id  = ? AND Message.user_id != ? )
-                                OR 
-                                ( Product.user_id != ? AND Message.userDist_id =? )"
-                           );
+            "SELECT u1.id AS u1_id, u1.secondename AS u1_secondename, u1.gender AS u1_gender, u2.id AS u2_id, u2.secondename AS u2_secondename, u2.gender AS u2_gender, nroho__Message.depot, nroho__Message.user_id AS M_user_id, nroho__Product.user_id AS P_user_id, nroho__Message.userDist_id, nroho__Product.id AS P_id
+            FROM nroho__Message
+            LEFT  JOIN nroho__Product ON nroho__Message.product_id = nroho__Product.id
+            LEFT  JOIN nroho__User u1 ON nroho__Message.user_id = u1.id
+            RIGHT JOIN nroho__User u2 ON nroho__Message.userDist_id = u2.id
+            WHERE 
+               ( nroho__Product.user_id  = ? AND nroho__Message.user_id != ? )
+               OR 
+               ( nroho__Product.user_id != ? AND nroho__Message.userDist_id =? )"
+        );
         $row->bindValue(1, $idc);
         $row->bindValue(2, $idc);
         $row->bindValue(3, $idc);

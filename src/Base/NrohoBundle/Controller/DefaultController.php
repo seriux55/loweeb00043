@@ -9,6 +9,7 @@ use Base\NrohoBundle\Form\Type\MessageType;
 use Base\NrohoBundle\Entity\Comment;
 use Base\NrohoBundle\Form\Type\CommentType;
 use Base\NrohoBundle\Entity\Demande;
+use Base\NrohoBundle\Entity\Product;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
@@ -26,36 +27,19 @@ class DefaultController extends Controller
             "36 - El Tarf", "37 - Tindouf", "38 - Tissemsilt", "39 - El Oued", "40 - Khenchela",
             "41 - Souk Ahras", "42 - Tipaza", "43 - Mila", "44 - Ain Defla", "45 - Naama",
             "46 - Ain Temouchent", "47 - Ghardaia", "48 - Relizane"
-        );      
-        $row = $this->get('database_connection')->prepare("SELECT depart FROM nroho__Product");
-        $row->execute();
-        $ville = array();
-        $i = 0;
-        while ($data = $row->fetch()) {
-            if(!in_array($data['depart'], $ville)){
-		$ville[] = $data['depart'];
-            }
-            $i++;
-        }
-        asort($ville);
-        $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
-                   ->createQueryBuilder('a')
-                   ->addSelect('b')
-                   ->leftJoin('a.user', 'b')
-                   ->where('a.valid = :valid')
-                   ->setParameter('valid', '1')
-                   ->orderBy('a.id','DESC')
-                   ->setMaxResults(10)
-                   ->getQuery()
-                   ->getResult();  
+        );
+        $gc      = $this->get('database_connection');
+        $em      = $this->getDoctrine();
+        $product = new Product();
+        $depart  = $product->getSearchDepart($gc);
+        $ways    = $product->getListeWays($em);
         //If not, we build the Response as usual and then put it in cache !
-        $response = $this->render('BaseNrohoBundle:Default:index.html.twig', array(
-            'product' => $product,
+        return $this->render('BaseNrohoBundle:Default:index.html.twig', array(
+            'product' => $ways,
             'wilaya'  => $wilaya,
-            'ville'   => $ville,
-            'nbr'     => $i,
+            'ville'   => $depart['0'],
+            'nbr'     => $depart['1'],
         ));
-        return $response;
     }
     
     public function productAction($id)
@@ -133,12 +117,10 @@ class DefaultController extends Controller
                    ->setParameter('id', $id)
                    ->getQuery()->getResult();
         // Le nombre de commentaires
-        $nbr = $this->getDoctrine()->getRepository('BaseNrohoBundle:Comment')
-                    ->createQueryBuilder('a')
-                    ->addSelect('COUNT(a) AS nbr')
-                    ->where('a.product = :id')
-                    ->setParameter('id', $id)
-                    ->getQuery()->getResult();
+        $nbr = 0;
+        foreach($comment as $c){
+            $nbr++;
+        }
         
         if (false === $this->get('security.context')->isGranted('ROLE_USER')) {
             $response = $this->render('BaseNrohoBundle:Default:produit.html.twig', array(

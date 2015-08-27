@@ -828,4 +828,41 @@ class Product
     {
       $this->setUpdated(new \Datetime());
     }
+    
+    /*
+     * les departs du moteur de recherche
+     */
+    public function getSearchDepart($gc)
+    {
+        $row = $gc->prepare("SELECT depart FROM nroho__Product");
+        $row->execute();
+        $ville = array();
+        $i = 0;
+        while ($data = $row->fetch()) {
+            if(!in_array($data['depart'], $ville)){
+		$ville[] = $data['depart'];
+            }
+            $i++;
+        }
+        asort($ville);
+        return array($ville, $i);
+    }
+    
+    /*
+     * la liste des covoiturages
+     */
+    public function getListeWays($em)
+    {
+        $product = $em->getRepository('BaseNrohoBundle:Product')
+            ->createQueryBuilder('a')
+            ->addSelect('b')
+            ->leftJoin('a.user', 'b')
+            ->where('a.valid = :valid')
+            ->setParameter('valid', '1')
+            ->orderBy('a.id','DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+        return $product;
+    }
 }
