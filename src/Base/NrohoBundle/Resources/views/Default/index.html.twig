@@ -451,17 +451,17 @@ $(document).ready(function(){
                                          </div>\
                                          <div class="opicon">';
                                             if(jsonn[i].fumer === 1)
-                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/accepte_fumer.png" alt="covoiturage non fumeur"></div>';
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumer.png') }}" alt="covoiturage non fumeur"></div>';
                                             else 
-                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/cigarette.png" alt="covoiturage non fumeur"></div>';
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage fumeur"></div>';
                                             if(jsonn[i].musique === 1)
-                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/accepte_musique.png" alt="covoiturage pas de musique"></div>';
-                                            else result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/musique.png" alt="covoiturage pas de musique"></div>';
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_musique.png') }}" alt="covoiturage avec musique"></div>';
+                                            else result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage acceptant la musique"></div>';
                                             if(jsonn[i].animal === 1)
-                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/accepte_animaux.png" alt="covoiturage sans animaux"></div>';
-                                            result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/mouton.png" alt="covoiturage pas de musique"></div>';
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_animaux.png') }}" alt="covoiturage acceptant animaux"></div>';
+                                            result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage acceptant les animaux"></div>';
                                             if(jsonn[i].blabla === 1)
-                                                result += '<div class="nouvie2"><img src="/nroho/web/bundles/basenroho/img/gosra.png" alt="covoiturage sans animaux"></div>';
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/gosra.png') }}" alt="covoiturage acceptant la discussion"></div>';
                             result +=   '</div>\
                                      </a>\
                                  </div>\
