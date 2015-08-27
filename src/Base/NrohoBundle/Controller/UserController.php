@@ -18,8 +18,8 @@ class UserController extends Controller
         $avis->setIp($this->getRequest()->getClientIp());
         $form = $this->createForm(new AvisType(), $avis);
         $av = $this->get('database_connection')
-                ->prepare("SELECT Demande.id FROM Demande JOIN Product ON Demande.product_id=Product.id "
-                . "WHERE Demande.etat=? AND Demande.user_id=? AND Product.user_id=?");
+                ->prepare("SELECT nroho__Demande.id FROM nroho__Demande JOIN nroho__Product ON nroho__Demande.product_id=nroho__Product.id "
+                . "WHERE nroho__Demande.etat=? AND nroho__Demande.user_id=? AND nroho__Product.user_id=?");
         $av->bindValue(1, '1');
         $av->bindValue(2, $this->get('security.context')->getToken()->getUser()->getId());
         $av->bindValue(3, $id);
