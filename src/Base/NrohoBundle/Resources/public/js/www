@@ -1,0 +1,107 @@
+
+var fs     = require('fs');
+var http   = require('http');
+var path   = require('path');
+var uniqid = require('uniqid');
+var mysql  = require('mysql');
+
+httpServer = http.createServer(function (req, res) {
+	console.log('allo');
+	
+});
+
+httpServer.listen(1337);
+
+var mySqlClient = mysql.createConnection({
+	host     : "127.0.0.1",
+	user     : "nroho",
+	password : "Chalgrin116",
+	database : "nroho"
+});
+
+// -------------------
+
+
+var selectQuery = 'SELECT * FROM nroho__User';
+ 
+mySqlClient.query(
+  selectQuery,
+  function select(error, results, fields) {
+    if (error) {
+      console.log(error);
+      mySqlClient.end();
+      return;
+    }
+    /*
+    if ( results.length > 0 )  { 
+      var firstResult = results[ 0 ];
+      console.log('id: ' + firstResult['id']);
+      console.log('user: ' + firstResult['user']);
+      console.log('datetime: ' + firstResult['date_time']);
+    } else {
+      console.log("Pas de données");
+    }
+    */
+    mySqlClient.end();
+  }
+);
+
+
+// -------------------
+
+var io = require ('socket.io').listen(httpServer);
+var users = {};
+var messages = [];
+var history = 2;
+
+io.sockets.on('connection', function(socket){
+	
+	var me = false;
+	console.log('nouveau utilisateur');
+	
+	for(var k in users){
+		socket.emit('newusr', users[k]);
+	}
+	
+	for(var k in messages){
+		socket.emit('newmsg', messages[k]);
+	}
+	
+	/**
+	 * On a reçu un message
+	 */
+	socket.on('newmsg', function(message){
+		message.user = me;
+		date = new Date();
+		message.h = date.getHours();
+		message.m = date.getMinutes();
+		messages.push(message);
+		if(messages.length > history){
+			messages.shift(); // supprime l'ancien element d'un tableau
+		}
+		io.sockets.emit('newmsg', message);
+	});
+	
+	/**
+	 * Je me connecte
+	 */
+	socket.on('login', function(user){
+		me 			 = user;
+		me.id 		 = user.username.replace('@','-').replace('.','-') + uniqid();
+		users[me.id] = me;
+		socket.emit('logged');
+		io.sockets.emit('newusr', me);
+		
+	});
+	
+	/**
+	 * Je quite le tchat
+	 */
+	socket.on('disconnect', function(){
+		if(!me){
+			return false;
+		}
+		delete users[me.id];
+		io.sockets.emit('disusr', me);
+	});
+});
