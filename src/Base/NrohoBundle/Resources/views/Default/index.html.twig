@@ -394,20 +394,15 @@
 #}
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="{{ asset('bundles/basenroho/js/scroll.js') }}"></script>
+<script type="text/javascript" src="http://localhost:1338/socket.io/socket.io.js"></script>
 <script type="text/javascript" charset="utf-8">
-function dateToFr(date){
-    var y = date.substr(0,4);
-    var m = date.substr(5,2);
-    var d = date.substr(8,2);
-    return d + '/' + m + '/' + y;
-}
-function age(date){
-    if(date === "") 
-        return "";
-    else
-        return (2015 - date) + ' ans';
-}
 $(document).ready(function(){
+    var socket = io.connect('http://localhost:1338/');
+    socket.emit('recupe');
+    socket.on('allo', function(data){
+        alert(data);
+    });
+    
     var first = 15;
     $("#mm").on("click", function(){
         $("#plus").hide();
@@ -684,5 +679,18 @@ $(document).ready(function(){
         });
     });
 });
+
+function dateToFr(date){
+    var y = date.substr(0,4);
+    var m = date.substr(5,2);
+    var d = date.substr(8,2);
+    return d + '/' + m + '/' + y;
+}
+function age(date){
+    if(date === "") 
+        return "";
+    else
+        return (2015 - date) + ' ans';
+}
 </script>
 {% endblock %}
