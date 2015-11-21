@@ -397,11 +397,13 @@
 {# <script type="text/javascript" src="http://localhost:1338/socket.io/socket.io.js"></script> #}
 <script type="text/javascript" charset="utf-8">
 $(document).ready(function(){
+    {#
     var socket = io.connect('http://localhost:1338/');
     socket.emit('recupe');
     socket.on('allo', function(data){
         alert(data);
     });
+    #}
     
     var first = 15;
     $("#mm").on("click", function(){
