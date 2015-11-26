@@ -24,13 +24,16 @@
                                 <label for="password">{{ 'security.login.password'|trans }}</label>
                                 <input class="ouardepp" type="password" id="password" name="_password" required="required" />
                             </div>
+                            <br />
                             <div class="mr3">
                                 <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
                                 <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
                             </div>
+                            <br />
                             <div class="mr3">
                                 <a href="{{ path('fos_user_resetting_request') }}">Mot de passe oublié</a>
                             </div>
+                            <br />
                             <div class="mr3">
                                 <a href="{{ path('fos_user_registration_register') }}">Inscription</a>
                             </div>
@@ -40,13 +43,13 @@
                                 <input class="trouvezzz" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
                             </div>
                         </div>
+                        {% if error %}
                         <div class="mr2">
                             <div class="mr6">
-                                {% if error %}
-                                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                                {% endif %}
+                                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             </div>
                         </div>
+                        {% endif %}
                     </form>
                 </div>
             </div>

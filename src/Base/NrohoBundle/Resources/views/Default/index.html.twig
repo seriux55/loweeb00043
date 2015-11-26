@@ -128,22 +128,22 @@
                                         {% endif %}
                                     </div>
                                     <p class="prixnuit">
-                                        {% if data.user.gender == 1 %}
-                                            Conducteur
-                                        {% elseif data.user.gender == 0 %}
-                                            Conductrice
+                                        {% if     data.type == '1' and data.user.gender == '1' %}Conducteur
+                                        {% elseif data.type == '1' and data.user.gender == '0' %}Conductrice
+                                        {% elseif data.type == '0' and data.user.gender == '1' %}Passager
+                                        {% elseif data.type == '0' and data.user.gender == '0' %}Passagère
                                         {% endif %}
                                         <br/><strong>{{ data.user.secondename|title }}</strong>
                                     </p>
                                 </div>
                                 <div class="destrcco">
                                     <div class="detrc">
-                                        <p>{{ "now"|date('Y') - data.user.born }} ans</p>
+                                        <p><img src="{{ asset('bundles/basenroho/img/birthday_small.png') }}" alt=""/>&nbsp;{{ "now"|date('Y') - data.user.born }} ans</p>
                                     </div>
                                     <div class="detrc">
                                     </div>
                                     <div class="detrc">
-                                            <p>{{ data.vehicule|title }}</p>
+                                        <p><img src="{{ asset('bundles/basenroho/img/car_small.png') }}" alt=""/>&nbsp;{{ data.vehicule|title }}</p>
                                     </div>
                                 </div>
                                 <div class="opicon">
@@ -353,11 +353,11 @@
     <h3>Suivez-nous!</h3>
 </div>
 <div class="bloc_page_body2">
-    <a href="https://www.facebook.com/pages/nrohocom/" target="_blank">
+    <a href="https://www.facebook.com/pages/nroho/" target="_blank" style="text-decoration: none;">
         <div class="social_body1">
         </div>
     </a>
-    <a href="https://twitter.com/nrohoAlgerie" target="_blank">
+    <a href="https://twitter.com/nrohoAlgerie" target="_blank" style="text-decoration: none;">
         <div class="social_body2">
         </div>
     </a>
@@ -369,16 +369,13 @@
 <div class="bloc_page_body2">
     <div class="souti">
         <div class="souti1">
-                <a href="https://www.bledvoyage.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/bledvoyage.jpg') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
+            <a href="https://www.bledvoyage.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/bledvoyage.jpg') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
         </div>
         <div class="souti1">
-                <a href="https://www.twiiza.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/twiiza.png') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
+            <a href="https://www.twiiza.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/twiiza.png') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
         </div>
         <div class="souti1">
-                <a href="http://centresebastopol.com/lagarderie/" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/lagarderie.png') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
-        </div>
-        <div class="souti1">
-                <a href="http://www.diridarek.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/diridarek.png') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
+            <a href="http://www.diridarek.com" target="_blank"><img src="{{ asset('bundles/basenroho/img/partenaire/diridarek.png') }}" alt="soutien nroho.com coiturage en Algérie"/></a>
         </div>
     </div>
 </div>
@@ -403,6 +400,7 @@ $(document).ready(function(){
         $("#loadersearching").show();
         var result  = "";
         var resultt = "";
+        var title;
         var route   = "{{ path('nroho_base_top', { 'page': 'text' }) }}";
         var url     = route.replace("text", first);
         $.ajax({
@@ -414,6 +412,10 @@ $(document).ready(function(){
                 var jsonn = JSON.parse( json );
                 if (jsonn !== null){
                     for (var i = 0; i < jsonn.length; i++){
+                        if      (jsonn[i].type == '1' && jsonn[i].user.gender == '1') title = 'Conducteur';
+                        else if (jsonn[i].type == '1' && jsonn[i].user.gender == '0') title = 'Conductrice';
+                        else if (jsonn[i].type == '0' && jsonn[i].user.gender == '1') title = 'Passager';
+                        else if (jsonn[i].type == '0' && jsonn[i].user.gender == '0') title = 'Passagère';
                         result += '\
                         <div class="sectionn">\
                             <div class="caseoi">\
@@ -424,32 +426,34 @@ $(document).ready(function(){
                                                 <img src="'; if(jsonn[i].user.gender===1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender===0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
                                             </div>\
                                             <p class="prixnuit">\
-                                                Conductrice\
+                                                '+ title +'\
                                                 <br/><strong>'+ jsonn[i].user.secondename +'</strong>\
                                             </p>\
                                          </div>\
                                          <div class="destrcco">\
                                              <div class="detrc">\
-                                                 <p>'+ age(jsonn[i].user.born) +'</p>\
+                                                 <p><img src="{{ asset('bundles/basenroho/img/birthday_small.png') }}" alt=""/>&nbsp;'+ age(jsonn[i].user.born) +'</p>\
                                              </div>\
                                              <div class="detrc">\
                                              </div>\
                                              <div class="detrc">\
-                                                     <p>'+ jsonn[i].vehicule +'</p>\
+                                                     <p><img src="{{ asset('bundles/basenroho/img/car_small.png') }}" alt=""/>&nbsp;'+ jsonn[i].vehicule +'</p>\
                                              </div>\
                                          </div>\
                                          <div class="opicon">';
-                                            if(jsonn[i].fumer === 1)
+                                            if(jsonn[i].fumer == '1')
                                                 result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumer.png') }}" alt="covoiturage non fumeur"></div>';
                                             else 
                                                 result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage fumeur"></div>';
-                                            if(jsonn[i].musique === 1)
+                                            if(jsonn[i].musique == '1')
                                                 result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_musique.png') }}" alt="covoiturage avec musique"></div>';
-                                            else result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage acceptant la musique"></div>';
-                                            if(jsonn[i].animal === 1)
+                                            else 
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage acceptant la musique"></div>';
+                                            if(jsonn[i].animal == '1')
                                                 result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_animaux.png') }}" alt="covoiturage acceptant animaux"></div>';
-                                            result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage acceptant les animaux"></div>';
-                                            if(jsonn[i].blabla === 1)
+                                            else 
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage acceptant les animaux"></div>';
+                                            if(jsonn[i].blabla == '1')
                                                 result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/gosra.png') }}" alt="covoiturage acceptant la discussion"></div>';
                             result +=   '</div>\
                                      </a>\
@@ -571,21 +575,25 @@ $(document).ready(function(){
     });
     
     $("#search").on("click", function(){
-        var result = ""; var resultt;
+        var result  = ""; var resultt; var title;
         var first   = $("#departsearch").val().substr(0,2);
         var seconde = $("#arriversearch").val().substr(0,2);
-        var route = "{{ path('nroho_base_search', { 'first': '111', 'seconde': '222' }) }}";
-        var url1  = route.replace("111", first);
-        var url   = url1.replace("222", seconde);
+        var route   = "{{ path('nroho_base_search', { 'first': '111', 'seconde': '222' }) }}";
+        var url1    = route.replace("111", first);
+        var url     = url1.replace("222", seconde);
         $.ajax({
-            type: "POST",
-            url: url,
-            contentType: 'application/json',
-            cache: false,
-            success: function(json){
+            type        : "POST",
+            url         : url,
+            contentType : 'application/json',
+            cache       : false,
+            success     : function(json){
                 var jsonn = JSON.parse( json );
                 if (jsonn !== null){
                     for (var i = 0; i < jsonn.length; i++){
+                        if      (jsonn[i].type == '1' && jsonn[i].user.gender == '1') title = 'Conducteur';
+                        else if (jsonn[i].type == '1' && jsonn[i].user.gender == '0') title = 'Conductrice';
+                        else if (jsonn[i].type == '0' && jsonn[i].user.gender == '1') title = 'Passager';
+                        else if (jsonn[i].type == '0' && jsonn[i].user.gender == '0') title = 'Passagère';
                         result += '\
                         <div class="sectionn">\
                             <div class="caseoi">\
@@ -596,41 +604,55 @@ $(document).ready(function(){
                                                 <img src="'; if(jsonn[i].user.gender===1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender===0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
                                             </div>\
                                             <p class="prixnuit">\
-                                                Conductrice\
+                                                '+ title +'\
                                                 <br/><strong>'+ jsonn[i].user.secondename +'</strong>\
                                             </p>\
                                          </div>\
                                          <div class="destrcco">\
                                              <div class="detrc">\
-                                                 <p></p>\
+                                                 <p><img src="{{ asset('bundles/basenroho/img/birthday_small.png') }}" alt=""/>&nbsp;'+ age(jsonn[i].user.born) +'</p>\
                                              </div>\
                                              <div class="detrc">\
                                              </div>\
                                              <div class="detrc">\
-                                                     <p>'+ jsonn[i].vehicule +'</p>\
+                                                     <p><img src="{{ asset('bundles/basenroho/img/car_small.png') }}" alt=""/>&nbsp;'+ jsonn[i].vehicule +'</p>\
                                              </div>\
                                          </div>\
-                                         <div class="opicon">\
-                                         </div>\
+                                         <div class="opicon">';
+                                            if(jsonn[i].fumer == '1')
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumer.png') }}" alt="covoiturage non fumeur"></div>';
+                                            else 
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage fumeur"></div>';
+                                            if(jsonn[i].musique == '1')
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_musique.png') }}" alt="covoiturage avec musique"></div>';
+                                            else 
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/musique.png') }}" alt="covoiturage acceptant la musique"></div>';
+                                            if(jsonn[i].animal == '1')
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_animaux.png') }}" alt="covoiturage acceptant animaux"></div>';
+                                            else 
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/mouton.png') }}" alt="covoiturage acceptant les animaux"></div>';
+                                            if(jsonn[i].blabla == '1')
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/gosra.png') }}" alt="covoiturage acceptant la discussion"></div>';
+                            result +=   '</div>\
                                      </a>\
                                  </div>\
                                  <div class="rc">\
                                      <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}">\
                                          <div class="nouveau1">\
                                              <div class="nouvie1">\
-                                                 <p>'+ jsonn[i].depart +' ('+ jsonn[i].villea +')</p>\
+                                                 <p>'+ jsonn[i].depart.substr(5,20); if(jsonn[i].villea !== "") result +=' ('+ jsonn[i].villea +')'; result += '</p>\
                                              </div>\
                                              <div class="nouvie2">\
                                                  <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/>\
                                              </div>\
                                              <div class="nouvie1">\
-                                                 <p>'+ jsonn[i].arrivee +' ('+ jsonn[i].villeb +')</p>\
+                                                 <p>'+ jsonn[i].arrivee.substr(5,20); if(jsonn[i].villeb !== "") result +=' ('+ jsonn[i].villeb +')'; result += '</p>\
                                              </div>\
                                          </div>\
                                      </a>\
                                      <div class="nouveau2">\
                                          <article>\
-                                             <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}"><h1>'+ jsonn[i].date +' - '+ jsonn[i].heure +'</h1></a>\
+                                             <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}"><h1>Le '+ dateToFr(jsonn[i].date) +' à '+ jsonn[i].heure +'</h1></a>\
                                              <p>'+ jsonn[i].message +'</p>\
                                          </article>\
                                      </div>\

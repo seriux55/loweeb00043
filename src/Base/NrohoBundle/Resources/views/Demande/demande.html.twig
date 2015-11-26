@@ -7,14 +7,12 @@
         {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
     </div>
     #}
-    <div class="menucompty">
-        <div class="menucompto">
-            <div class="contenu1">
-                <h2>
-                    Les réservations
-                </h2>
-            </div>
-        </div>	
+    <div class="n10load">
+        <div class="nouveau101">
+            <h3>
+                Les réservations
+            </h3>
+        </div>
         <!-- debut -->
         {% for data in reservation %}
         <div class="sectionaq">
@@ -78,53 +76,56 @@
         </div> 
         -->
     </div>
-    <div class="menucompty">
-        <div class="menucompto">
-            <div class="contenu1">
-                <h2>
-                    Mes demandes
-                </h2>
-            </div>
-        </div>	
+    <div class="n10load">
+        <div class="nouveau101">
+            <h3>
+                Mes demandes
+            </h3>
+        </div>
         <!-- debut -->
         {% for data in product %}
         <div class="sectionaq">
             <div class="demcon">
-                <h6>Réservation</h6>
+                <h6>Demande</h6>
                 <div class="plosa">
                     <div class="nouvie3">
-                        {% if data.user.gender == 1 %}
-                            <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}"/>
+                        {% if data.product.user.gender == 1 %}
+                            <img src="{{ asset('bundles/basenroho/img/homme_1.jpg') }}" alt=""/>
                         {% else %}
-                            <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}"/>
+                            <img src="{{ asset('bundles/basenroho/img/femme_1.jpg') }}" alt=""/>
                         {% endif %}
                     </div>
                     <p class="prixnuit">
-                        {% if data.user.gender == 1 %} Conducteur {% else %} Conductrice {% endif %}
+                        {% if data.product.user.gender == 1 %} Conducteur {% else %} Conductrice {% endif %}
                         <br/>
-                        <strong><a href="{{ path('nroho_base_profil',  { 'id': data.user.id }) }}">{{ data.user.secondename }}</a></strong>
-                        {% if data.etat == 1 %}
-                            <p>{{ data.user.phone }}</p>
-                        {% endif %}
+                        <strong><a href="{{ path('nroho_base_profil',  { 'id': data.product.user.id }) }}">{{ data.product.user.secondename }}</a></strong>
+                        
+                        
+                        
                     </p>
                 </div>
-                <div class="choirc">
+                <div class="choirc" style="width : 27%;">
                     <p class="ploso">
                         <strong>{{ data.nombre }}</strong> place(s)
                     </p>
+                    {% if data.etat == 1 %}
+                        <div class="nouveau101">
+                            <h4><img src="{{ asset('bundles/basenroho/img/phone.png') }}" alt=""/>&nbsp;{{ data.product.user.phone }}</h4>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
         <div class="supprimer">
             {% if data.etat == 3 %}
-                <p>Demande annulée</p>
+                <p>Annulée</p>
             {% elseif data.etat == 2 %}
                 <p><a href="{{ path('nroho_base_Demande_cancel',  { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment annuller cette demande de réservation?');">Annuler</a></p>
-                <p>Demande en attente</p>
+                <p>En attente</p>
             {% elseif data.etat == 1 %}
-                <p>Demande acceptée</p>    
+                <p>Acceptée</p>    
             {% elseif data.etat == 0 %}
-                <p>Demande refusée</p>
+                <p>Refusée</p>
             {% endif %}
         </div>
         {% endfor %}

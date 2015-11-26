@@ -84,6 +84,12 @@ class User extends BaseUser
      * @ORM\Column(name="phone", type="string", length=255)
      */
     private $phone;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\Permis")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $permis;
 
     /**
      * @var string
@@ -213,6 +219,29 @@ class User extends BaseUser
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * Set permis
+     *
+     * @param \Base\NrohoBundle\Entity\Permis $permis
+     * @return User
+     */
+    public function setPermis(\Base\NrohoBundle\Entity\Permis $permis)
+    {
+        $this->permis = $permis;
+
+        return $this;
+    }
+
+    /**
+     * Get permis
+     *
+     * @return \Base\NrohoBundle\Entity\Permis 
+     */
+    public function getPermis()
+    {
+        return $this->permis;
     }
 
     /**

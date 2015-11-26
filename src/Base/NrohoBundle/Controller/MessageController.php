@@ -20,9 +20,10 @@ class MessageController extends Controller
             LEFT  JOIN nroho__User u1 ON nroho__Message.user_id = u1.id
             RIGHT JOIN nroho__User u2 ON nroho__Message.userDist_id = u2.id
             WHERE 
-               ( nroho__Product.user_id  = ? AND nroho__Message.user_id != ? )
-               OR 
-               ( nroho__Product.user_id != ? AND nroho__Message.userDist_id =? )"
+                ( nroho__Product.user_id  = ? AND nroho__Message.user_id != ? )
+                OR 
+                ( nroho__Product.user_id != ? AND nroho__Message.userDist_id =? )
+                AND nroho__Product.valid = '1'"
         );
         $row->bindValue(1, $idc);
         $row->bindValue(2, $idc);
@@ -101,16 +102,16 @@ class MessageController extends Controller
         $lastId  = $session->get('MessageLastId');
         $idc     = $this->get('security.context')->getToken()->getUser()->getId();
         $message = $this->getDoctrine()->getRepository('BaseNrohoBundle:Message')
-                        ->createQueryBuilder('a')
-                        ->addSelect('b')->leftJoin('a.user', 'b')
-                        ->addSelect('c')->leftJoin('a.product', 'c')
-                        ->addSelect('d')->leftJoin('a.userDist', 'd')
-                        ->where('((a.user = :idc AND a.userDist = :id) OR (a.user = :id AND a.userDist = :idc)) AND a.product = :product')
-                        ->andWhere('a.id > :lastId')
-                        ->setParameter('idc', $idc)->setParameter('id', $id)->setParameter('product', $product)->setParameter('lastId', $lastId)
-                        ->orderBy('a.id','ASC')
-                        ->setMaxResults(1)
-                        ->getQuery()->useResultCache(true, 600, '_message_last_'.$lastId)->getResult();
+            ->createQueryBuilder('a')
+            ->addSelect('b')->leftJoin('a.user', 'b')
+            ->addSelect('c')->leftJoin('a.product', 'c')
+            ->addSelect('d')->leftJoin('a.userDist', 'd')
+            ->where('((a.user = :idc AND a.userDist = :id) OR (a.user = :id AND a.userDist = :idc)) AND a.product = :product')
+            ->andWhere('a.id > :lastId')
+            ->setParameter('idc', $idc)->setParameter('id', $id)->setParameter('product', $product)->setParameter('lastId', $lastId)
+            ->orderBy('a.id','ASC')
+            ->setMaxResults(1)
+            ->getQuery()->useResultCache(true, 600, '_message_last_'.$lastId)->getResult();
         foreach($message as $value){
             $lastId = $value->getId(); // recuperer le dernier id de message
         }

@@ -2,8 +2,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
+<div class="bloc_page_bodyg">
     <p>
         {# {{ 'resetting.check_email'|trans({'%email%': email}, 'BaseUserBundle') }} #}
         {{ 'resetting.check_email'|trans({'%email%': email}) }}
     </p>
+</div>
 {% endblock %}

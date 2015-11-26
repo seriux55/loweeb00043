@@ -81,7 +81,7 @@ class ProductType extends AbstractType
                                     'widget' => 'single_text',
                                     'input'  => 'datetime',
                                     'format' => 'dd/MM/yyyy',
-                                    'attr'   => array('class' => 'date'),
+                                    'attr'   => array('class' => 'date ouardep'),
                                 )
             )
             ->add('heure', 'text', array(
@@ -144,7 +144,9 @@ class ProductType extends AbstractType
             )
             ->add('message', 'textarea', array(
                                             'required' => false,
-                                            'attr'     => array('class' => 'ouardep'),
+                                            'attr'     => array('class' => 'ouardepp',
+                                                                'cols'  => '550',
+                                                                'rows'  => '3'),
                                        )
             )
             ->add('categorie', 'choice', array(

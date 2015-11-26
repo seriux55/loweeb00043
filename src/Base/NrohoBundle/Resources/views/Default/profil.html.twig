@@ -39,7 +39,13 @@
                     <strong>{{ data.user.secondename }}</strong>
                 </p>
                 <div class="detailop">
-                    <p>{{ "now"|date('Y') - data.user.born }} ans - {{ data.vehicule }}<br />{{ data.user.phone }}</p>
+                    <p>&nbsp;<img src="{{ asset('bundles/basenroho/img/birthday.png') }}" alt=""/>{{ "now"|date('Y') - data.user.born }} ans <img src="{{ asset('bundles/basenroho/img/car.png') }}" alt=""/>{{ data.vehicule }}
+                    {% if app.user.id == id %}
+                        <div class="nouveau101">
+                            <h4>&nbsp;&nbsp;&nbsp;<img src="{{ asset('bundles/basenroho/img/phone.png') }}" alt=""/>&nbsp;{{ app.user.phone }}</h4>
+                        </div>
+                    {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
@@ -54,8 +60,44 @@
         </center>
     </div>
     -->
+    <!-- Permis de conduire -->
+    {% for data in user %}
+        {% if app.user.id == id %}
+            {% if data.user.permis == null or data.user.permis.etat == '0' %}
+                <div class="detailono">
+                    <div class="publiy">
+                        <div class="comail">
+                            <form method="post" {{ form_enctype(form_permis) }}>
+                                {{ form_widget(form_permis) }}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+        {% if data.user.permis != null and data.user.permis.etat == '1' %}
+            <div class="detailono">
+                <div class="publiy">
+                    <div class="comail">
+                        Le permis a été validé par notre équipe.<img style="padding-left: 9cm;" src="{{ asset('bundles/basenroho/img/valider.png') }}" alt="Amis">
+                    </div>
+                </div>
+            </div>
+        {% elseif data.user.permis != null and data.user.permis.etat == '2' %}
+            <div class="detailono">
+                <div class="publiy">
+                    <div class="comail">
+                        Le permis est en cours de validation.
+                    </div>
+                </div>
+            </div> 
+        {% endif %}
+    {% endfor %}
+    <!-- Fin Permis de conduire -->
+    
+    <!-- Mes trajets -->
     <div class="blocde">
-        <h6>Mes trajets</h6>
+        <h6>Mes derniers trajets</h6>
         {% for data in ways %}
             <div class="nouveau1">
                 <div class="nouvie1">
@@ -70,6 +112,7 @@
             </div>
         {% endfor %}
     </div>
+    <!-- Fin mes trajets -->
     
     <!--
     <div class="blocde">
@@ -83,12 +126,19 @@
     <div class="detailono">
         <div class="publiy">
             <div class="comail">
-                <h3>Avis sur conducteur</h3>
+                <h3>Avis sur le conducteur</h3>
                 <div class="reponsi">             
                     <p>
                         {% for data in avis %}
                         <div class="reponsi">
                             <div class="echangi">
+                                {% if data.emo == 1 %}
+                                    <img class="ihe" src="{{ asset('bundles/basenroho/img/emo1_small.png') }}" alt="Amis" style="float:right;">
+                                {% elseif data.emo == 2 %}
+                                    <img class="ihe" src="{{ asset('bundles/basenroho/img/emo2_small.png') }}" alt="Amis" style="float:right;">
+                                {% elseif data.emo == 3 %}
+                                    <img class="ihe" src="{{ asset('bundles/basenroho/img/emo3_small.png') }}" alt="Amis" style="float:right;">
+                                {% endif %}
                                 <div class="echangi3">
                                     {% if data.user.gender == 0 %}
                                         <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}"/>
@@ -99,13 +149,6 @@
                                 <div class="echangi4">
                                     <div class="echangi1">
                                         <p><a href="#">{{ data.user.secondename }}</a>{{ data.avis }}</p>
-                                        {% if data.emo == 1 %}
-                                            <img class="ihe" src="{{ asset('bundles/basenroho/img/emo1.png') }}" alt="Amis">
-                                        {% elseif data.emo == 2 %}
-                                            <img class="ihe" src="{{ asset('bundles/basenroho/img/emo2.png') }}" alt="Amis">
-                                        {% elseif data.emo == 3 %}
-                                            <img class="ihe" src="{{ asset('bundles/basenroho/img/emo3.png') }}" alt="Amis">
-                                        {% endif %}
                                     </div>
                                     <div class="echangi2">
                                         <p>Le {{ data.depot|date('d/m/Y à h:i') }}</p>
@@ -129,20 +172,20 @@
             <form method="post" {{ form_enctype(form) }}> 
                 {{ form_errors(form) }}
                 1. Votre humeur sur ce covoitureur ?
-                <div class="avibod">
-                    <a id="smily1" class="adb" onclick="return false;" href="">
+                <div style="text-align: center;">
+                    <a id="smily1" class="adb" onclick="return false;" href="" style="text-decoration:none;">
                         <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo1.png') }}" alt="Amis">
                     </a>
-                    <a id="smily2" class="adb" onclick="return false;" href="">
+                    <a id="smily2" class="adb" onclick="return false;" href="" style="text-decoration:none;">
                         <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo2.png') }}" alt="Amis">
                     </a>
-                    <a id="smily3" class="adb" onclick="return false;" href="">
+                    <a id="smily3" class="adb" onclick="return false;" href="" style="text-decoration:none;">
                         <img class="ihepg" src="{{ asset('bundles/basenroho/img/emo3.png') }}" alt="Amis">
                     </a>
                 </div>
                 <div class="cibero" style="display:none">
                     2. Votre avis 
-                    <div class="modfooter">
+                    <div>
                         {{ form_label(form.avis, " ") }}
                         {{ form_errors(form.avis) }}
                         {{ form_widget(form.avis) }}
@@ -150,7 +193,7 @@
                     {{ form_rest(form) }}
                     <div class="publio">
                         <div class="boutin">
-                            <input class="publier" type="submit" value="Envoyez"/>
+                            <input class="publier" type="submit" name="valide_avis" value="Envoyer"/>
                         </div>
                     </div>
                 </div>
@@ -163,7 +206,7 @@
     <div class="blocde">
         <h6>Signalez</h6>
     </div>
-    -->     
+    -->
             
 </div>
 {% endblock %}

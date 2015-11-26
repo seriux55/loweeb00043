@@ -260,6 +260,10 @@ body
 	/*border-bottom : 1px solid #CDCACA;*/
 }
 
+.nosautligne{
+    display: inline-block;
+    float: left;
+}
 
 .foc_7 h4
 {
@@ -858,7 +862,7 @@ body
 	display : inline-block;
 	margin : auto;
 	vertical-align : top;
-	background-color : #ffffff;
+	background-color : #f8f8f8;
 	border: 1px solid #CDCACA;
 	width: 700px;
 	padding:5px;
@@ -869,7 +873,7 @@ body
 	display : inline-block;
 	margin : auto;
 	vertical-align : top;
-	background-color : #ffffff;
+	background-color : #f8f8f8;
 	/*border-right: 1px solid #CDCACA;*/
 	width: 30%;
 	padding:5px;
@@ -2553,14 +2557,14 @@ hr
 
 .detailima
 {
-	width : 65%;
+	width : 55%;
 	display : inline-block;
 	vertical-align : top;
 	overflow:hidden;
 }
 .detailimo
 {
-	/*width : 40%;*/
+	width : 45%;
 	display : inline-block;
 	vertical-align : top;
 	float: right; 
@@ -2617,7 +2621,7 @@ hr
 	font-weight : bold;
 	color: #555555;
 	text-decoration : none;
-	padding : 10px 80px;
+	padding : 10px 20px;
 	text-align : center;
 	background-color : #F8F8F8;
 	border: 1px solid #CDCACA; 
@@ -3147,7 +3151,8 @@ nav
 .mt1
 {
 	border : 1px solid #cdcaca;
-	background-color : #ffffff;
+	/* background-color : #ffffff; */
+        background-color: #f8f8f8;
 	border-radius: 3px;
 	margin : auto;
 	height : auto;
@@ -3831,6 +3836,13 @@ label
 	padding: 4px;
 	display : inline-block;
 	
+}
+
+.ouardepp {
+    background-color: #f1f6f8;
+    border: 1px solid #dadcdc;
+    display: inline-block;
+    padding: 4px;
 }
 
 .ouardev
@@ -5861,14 +5873,14 @@ article p
 /*******************************/
 
 
-/*******Page*************/
+/******* Page *************/
 .detailform 
 {
     height: auto;
     text-align: center;
     width: auto;
 	min-height:150px;
-	width:700px;
+    /* width:700px; */
 	border-top:1px solid #cdcaca;
 	text-align:center;
 }
@@ -5892,7 +5904,7 @@ article p
 	margin-bottom:15px;
 	border:1px solid #cdcaca;
 	min-height:150px;
-	background-color:#ffffff;
+	background-color:#f8f8f8;
 }
 
 .blocde h6

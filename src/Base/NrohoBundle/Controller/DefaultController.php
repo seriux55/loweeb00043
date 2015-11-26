@@ -118,7 +118,7 @@ class DefaultController extends Controller
                    ->getQuery()->getResult();
         // Le nombre de commentaires
         $nbr = 0;
-        foreach($comment as $c){
+        foreach($comments as $c){
             $nbr++;
         }
         

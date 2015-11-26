@@ -10,7 +10,11 @@
     #}
     <div class="detail1r1">
         <h3>
-            Conducteur			
+            {% if     data.type == '1' and data.user.gender == '1' %}Conducteur
+            {% elseif data.type == '1' and data.user.gender == '0' %}Conductrice
+            {% elseif data.type == '0' and data.user.gender == '1' %}Passager
+            {% elseif data.type == '0' and data.user.gender == '0' %}Passagère
+            {% endif %}			
         </h3>
     </div>
     <div class="detail1i1">
@@ -27,7 +31,8 @@
                     <strong><a href="{{ path('nroho_base_profil', { 'id': data.user.id }) }}">{{ data.user.secondename }}</a></strong>
                 </p>
                 <div class="detailop">
-                    <p>{{ "now"|date('Y') - data.user.born }} ans - {{ data.vehicule }}<br /></p>
+                    <p><img src="{{ asset('bundles/basenroho/img/birthday.png') }}" alt=""/>{{ "now"|date('Y') - data.user.born }} ans
+                        <img src="{{ asset('bundles/basenroho/img/car.png') }}" alt=""/>{{ data.vehicule }}<br /></p>
                 </div>
             </div>
         </div>
@@ -35,9 +40,8 @@
             <div class="dezaili1">
                 <div class="misa1">
                     <a href="#buy" class="openModal">Réserver</a>
-                </div>
-                <div class="misa1">
                     <a href="#msg" class="openModal">Message</a>
+                    
                 </div>
                 <div class="misa">
                     <div class="dez1">
@@ -74,7 +78,7 @@
                         </div>
                         <div class="nouveau2">
                             <article>
-                                <h1>{{ data.date|date('d/m/Y') }} - {{ data.heure }}</h1>
+                                <h1>Le {{ data.date|date('d/m/Y') }} à {{ data.heure }}</h1>
                             </article>
                         </div>
                     </div>
@@ -115,13 +119,11 @@
     </div>
                 
     <!-- les commentaires -->
-    {% set nbrc = "" %}{% for data in nbr %}{% set nbrc = data.nbr %}{% endfor %}
-    
-    {% if nbrc > 0 %}
+    {% if nbr > 0 %}
         <div class="detailono">
             <div class="publiy">
                 <div class="comail">
-                    <h3>{{ nbrc }} Commentaires</h3>
+                    <h3>{{ nbr }} Commentaires</h3>
                     <div class="reponsi">             
                         <p>
                             {% for data in comments %}

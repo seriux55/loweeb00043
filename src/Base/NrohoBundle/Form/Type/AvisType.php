@@ -17,7 +17,7 @@ class AvisType extends AbstractType
         $builder
             ->add('avis', 'textarea', array(
                                         'attr' => array(
-                                                    'cols' => '92', 
+                                                    'cols' => '87', 
                                                     'rows' => '5'
                                                 ),
                                     )

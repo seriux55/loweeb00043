@@ -12,28 +12,26 @@
         {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
     </div>
     #}
-    <div class="menucompty">
-        <div class="menucompto">
-            <div class="contenu1">
-                <h2>
-                    Ajouter un trajet
-                </h2>
-            </div>
-        </div>	
-        <div class="sectionaq">
-            <div class="demcon">
-                <h6>Nouveau trajet</h6>
-            </div>
-            <div class="mt1">
+        <div class="nouveau1r1">
+            <h3>Publie ton annonce</h3>
+        </div>
+        <div class="nouveau1i1">
+            <img alt="proposer" src="{{ asset('bundles/basenroho/img/back_coordonee.jpg') }}">
+	</div>
+    <div class="sectiono">
+        <div class="mt1">
+            <div>
                 <form method="post" {{ form_enctype(form) }}>
-                    {{ form_errors(form) }}
-                    <div class="nouvio">
-                        <p>
-                            {{ form_label(form.type, " ") }}
-                            {{ form_errors(form.type) }}
-                            {{ form_widget(form.type) }}
+                    <div style="padding-left: 30px;">
+                        <p class="nosautligne">
+                            {% for child in form.type %}
+                                {{ form_widget(child, {'attr': {'class': 'nosautligne'} }) }}
+                                {{ form_label(child, null, {'label_attr': {'class': 'nosautligne'} }) }}
+                                {{ form_errors(child) }}
+                            {% endfor %}
                         </p>
                     </div>
+                    <br /><br />
                     <div class="mt2">
                         <p>Mon trajet, départ, arrivée..</p>
                     </div>
@@ -52,9 +50,9 @@
                                     {{ form_widget(form.villea) }}
                                 </div>
                                 <div class="mr3">
-                                    {{ form_label(form.date, "") }}
+                                    {{ form_label(form.date, "La date") }}
                                     {{ form_errors(form.date) }}
-                                    {{ form_widget(form.date) }}
+                                    {{ form_widget(form.date, { 'attr': { 'value': 'now'|date('d/m/Y') } }) }}
                                 </div>
                                 <div id="mir">
                                     <div class="mr3">
@@ -92,8 +90,8 @@
                     <div class="nouveau7">
                         <fieldset>
                             <legend class="garlab">Gros bagage ? Chien ? Pauses ? Tolérance retard ? Fumeur ?...</legend>
-                            <div class="mr7">
-                                <div class="mr3y">
+                            <div>
+                                <div>
                                     <div class="mr3">
                                         {{ form_label(form.place, "") }}
                                         {{ form_errors(form.place) }}
@@ -105,70 +103,94 @@
                                         {{ form_widget(form.prix) }}
                                     </div>
                                 </div>
-                                <div class="mr3z" id="mir2">
-                                    <div class="mr3">
-                                        <p class="garlabo">
-                                            {{ form_label(form.fumer, "") }}
+                                <div id="mir2">
+                                    <div>
+                                        <p style="display: inline-block; float:left;">
+                                            {{ form_label(form.fumer, "", {'label_attr': {'class': 'nosautligne'} }) }}
                                             {{ form_errors(form.fumer) }}
                                             {{ form_widget(form.fumer) }}
                                         </p>
                                     </div>
-                                    <div class="mr3">
-                                        <p class="garlabo">
-                                            {{ form_label(form.musique, "") }}
+                                    <div>
+                                        <p style="display: inline-block; float:left;">
+                                            {{ form_label(form.musique, "", {'label_attr': {'class': 'nosautligne'} }) }}
                                             {{ form_errors(form.musique) }}
                                             {{ form_widget(form.musique) }}
                                         </p>
                                     </div>
-                                    <div class="mr3">
-                                        <p class="garlabo">
-                                            {{ form_label(form.animal, "") }}
+                                    <div>
+                                        <p style="display: inline-block; float:left;">
+                                            {{ form_label(form.animal, "", {'label_attr': {'class': 'nosautligne'} }) }}
                                             {{ form_errors(form.animal) }}
                                             {{ form_widget(form.animal) }}
                                         </p>
                                     </div>
-                                    <div class="mr3">
-                                        <p class="garlabo">
-                                            {{ form_label(form.blabla, "") }}
+                                    <div>
+                                        <p style="display: inline-block; float:left;">
+                                            {{ form_label(form.blabla, "", {'label_attr': {'class': 'nosautligne'} }) }}
                                             {{ form_errors(form.blabla) }}
                                             {{ form_widget(form.blabla) }}
                                         </p>
                                     </div>
-                                    <div class="mr3">
-                                        <p class="garlabo">
-                                            {{ form_label(form.filles, "") }}
+                                    {% if gender == '0' %}
+                                    <div>
+                                        <p style="display: inline-block; float:left;">
+                                            {{ form_label(form.filles, "Entre filles", {'label_attr': {'class': 'nosautligne'} }) }}
                                             {{ form_errors(form.filles) }}
                                             {{ form_widget(form.filles) }}
                                         </p>
                                     </div>
+                                    {% elseif gender == '1' %}
+                                    <div style="display:none;">
+                                        <p style="display: inline-block; float:left;">
+                                            {{ form_label(form.filles, "Entre filles", {'label_attr': {'class': 'nosautligne'} }) }}
+                                            {{ form_errors(form.filles) }}
+                                            {{ form_widget(form.filles) }}
+                                        </p>
+                                    </div>
+                                    {% endif %}
                                 </div>
-                                <div class="mr3i">
-                                    {{ form_label(form.message, "Précisez : Gros bagage ? Chat ? Pauses ? Tolérance retard ?...") }}
+                                <div>
+                                    <br /><br /><br />
+                                    <legend class="garlab">Précisez : Gros bagage ? Chat ? Pauses ? Tolérance retard ?...</legend>
+                                    {{ form_label(form.message, " ") }}
                                     {{ form_errors(form.message) }}
                                     {{ form_widget(form.message) }}
                                 </div>
-                                <div class="mr3z">
-                                    <div class="nouvio">
+                                <div>
+                                    <div>
+                                        <legend class="garlab">Catégorie du trajet</legend>
                                         <p>
-                                            {{ form_label(form.categorie, "Catégorie du trajet") }}
-                                            {{ form_errors(form.categorie) }}
-                                            {{ form_widget(form.categorie) }}
+                                            {% for child in form.categorie %}
+                                                {{ form_label(child, null, {'label_attr': {'class': 'nosautligne'} }) }}
+                                                {{ form_errors(child) }}
+                                                {{ form_widget(child, {'attr': {'class': 'nosautligne'} }) }}
+                                            {% endfor %}
                                         </p>
                                     </div>
-                                    <div class="nouvio">
-                                        <p>
-                                            <input type="radio" name="maj" value="0" checked 
-                                            onclick="getElementById('trajet').style.display='none';" />Trajet unique
+                                    <br /><br />
+                                    <div>
+                                        <legend class="garlab">Fréquence du trajet</legend>
+                                        <p style="display: inline-block; float:left;">
+                                            <label style="display: inline-block; float:left;">Trajet unique</label>
+                                            <input type="radio" name="maj" value="0" checked
+                                                   onclick="getElementById('trajet').style.display='none';" />
                                         </p>
-                                        <p>
-                                            <input type="radio" name="maj" value="1" 
-                                            onclick="getElementById('trajet').style.display='block';" />Trajet régulier
+                                        <p style="display: inline-block; float:left;">
+                                            <label style="display: inline-block; float:left;">Trajet régulier</label>
+                                            <input type="radio" name="maj" value="1"
+                                                   onclick="getElementById('trajet').style.display='block';" />
                                         </p>
                                     </div>
-                                    <div class="mr3" id="trajet" style="display:none;">
-                                        {{ form_label(form.jours, " ") }}
-                                        {{ form_errors(form.jours) }}
-                                        {{ form_widget(form.jours) }}
+                                    <br /><br /><br />
+                                    <div id="trajet" style="display:none;">
+                                        <div>
+                                            {% for child in form.jours %}
+                                                {{ form_label(child, null, {'label_attr': {'class': 'nosautligne'} }) }}
+                                                {{ form_errors(child) }}
+                                                {{ form_widget(child, {'attr': {'class': 'nosautligne'} }) }}
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

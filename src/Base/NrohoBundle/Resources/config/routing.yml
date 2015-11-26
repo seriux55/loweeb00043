@@ -135,6 +135,18 @@ nroho_admin_annonce_no:
     requirements:
         id:  \d+
 
+nroho_admin_permis_yes:
+    pattern: /admin/permis/yes/{id}
+    defaults: { _controller: BaseNrohoBundle:Admin:yesPermis }
+    requirements:
+        id:  \d+
+
+nroho_admin_permis_no:
+    pattern: /admin/permis/no/{id}
+    defaults: { _controller: BaseNrohoBundle:Admin:noPermis }
+    requirements:
+        id:  \d+
+
 nroho_sortie_bledvoyage:
     path:     /bledvoyage/{id}
     defaults: { _controller: BaseNrohoBundle:Bledvoyage:index }

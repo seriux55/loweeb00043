@@ -24,43 +24,43 @@
                         <div>
                             {{ form_label(form.firstname, "Nom") }}
                             {{ form_errors(form.firstname) }}
-                            {{ form_widget(form.firstname) }}
+                            {{ form_widget(form.firstname, {'attr': {'class': 'ouardep'} }) }}
                         </div>
 
                         <div>
                             {{ form_label(form.secondename, "Prénom") }}
                             {{ form_errors(form.secondename) }}
-                            {{ form_widget(form.secondename) }}
+                            {{ form_widget(form.secondename, {'attr': {'class': 'ouardep'} }) }}
                         </div>
 
                         <div>
                             {{ form_label(form.born, "Année de naissance") }}
                             {{ form_errors(form.born) }}
-                            {{ form_widget(form.born) }}
+                            {{ form_widget(form.born, {'attr': {'class': 'ouardep'} }) }}
                         </div>
 
                         <div>
                             {{ form_label(form.phone, "Téléphone") }}
                             {{ form_errors(form.phone) }}
-                            {{ form_widget(form.phone) }}
+                            {{ form_widget(form.phone, {'attr': {'class': 'ouardep'} }) }}
                         </div>
 
                         <div>
                             {{ form_label(form.email, "Adresse mail") }}
                             {{ form_errors(form.email) }}
-                            {{ form_widget(form.email) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'ouardep'} }) }}
                         </div>
 
                         <div>
                             {{ form_label(form.plainPassword.first, "Mot de passe ") }}
                             {{ form_errors(form.plainPassword.first) }}
-                            {{ form_widget(form.plainPassword.first) }}
+                            {{ form_widget(form.plainPassword.first, {'attr': {'class': 'ouardep'} }) }}
                         </div>
 
                         <div>
                             {{ form_label(form.plainPassword.second, "Confirmez le mot de passe ") }}
                             {{ form_errors(form.plainPassword.second) }}
-                            {{ form_widget(form.plainPassword.second) }}
+                            {{ form_widget(form.plainPassword.second, {'attr': {'class': 'ouardep'} }) }}
                         </div>                   
 
                         {{ form_rest(form) }}

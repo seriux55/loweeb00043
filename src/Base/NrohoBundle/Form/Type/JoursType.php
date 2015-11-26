@@ -17,44 +17,44 @@ class JoursType extends AbstractType
         $builder
             ->add('dim', 'checkbox', array(
                                         'required' => false,
-                                        'label' => 'dimanche',
-                                        'attr'   => array('class' => 'garlabo')
+                                        'label' => 'Dimanche',
+                                        'attr'   => array('class' => 'nosautligne')
                                     )
             )
             ->add('lun', 'checkbox', array(
                                         'required' => false,
-                                        'label' => 'lundi',
-                                        'attr'   => array('class' => 'garlabo')
+                                        'label' => 'Lundi',
+                                        'attr'   => array('class' => 'nosautligne')
                                     )
             )
             ->add('mar', 'checkbox', array(
                                         'required' => false,
-                                        'label' => 'mardi',
-                                        'attr'   => array('class' => 'garlabo')
+                                        'label' => 'Mardi',
+                                        'attr'   => array('class' => 'nosautligne')
                                     )
             )
             ->add('mer', 'checkbox', array(
                                         'required' => false,
-                                        'label' => 'mercredi',
-                                        'attr'   => array('class' => 'garlabo')
+                                        'label' => 'Mercredi',
+                                        'attr'   => array('class' => 'nosautligne')
                                     )
             )
             ->add('jeu', 'checkbox', array(
                                         'required' => false,
-                                        'label' => 'jeudi',
-                                        'attr'   => array('class' => 'garlabo')
+                                        'label' => 'Jeudi',
+                                        'attr'   => array('class' => 'nosautligne')
                                     )
             )
             ->add('ven', 'checkbox', array(
                                         'required' => false,
-                                        'label' => 'vendredi',
-                                        'attr'   => array('class' => 'garlabo')
+                                        'label' => 'Vendredi',
+                                        'attr'   => array('class' => 'nosautligne')
                                     )
             )
             ->add('sam', 'checkbox', array(
                                         'required' => false,
-                                        'label' => 'samedi',
-                                        'attr'   => array('class' => 'garlabo')
+                                        'label' => 'Samedi',
+                                        'attr'   => array('class' => 'nosautligne')
                                     )
             )
         ;

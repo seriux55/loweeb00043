@@ -7,6 +7,11 @@
         {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
     </div>
     #}
+    <div class="nouveau101">
+        <h3>
+            Les messages
+        </h3>
+    </div>
     <div class="menucompte1">
         <div class="menucompte2">
             <nav class="menuinf1">
@@ -30,49 +35,13 @@
             </nav>
         </div>
         <div class="contenu2">
-            <h2 id="msgway">
-                Messagerie et la session {{ app.session.get('MessageLastId') }}
+            <h2 id="msgway" style="text-align: center;">
+                Bienvenue sur votre messagerie
             </h2>
             <nav class="menuinf2" id="msglist">
-                <li>
-                    <div class="echangi3">
-                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
-                    </div>
-                    <div class="echangi3r"> 
-                        <a href="#">Karim</a>
-                            4 Juin
-                    </div>
-                    <div class="echangi3r">
-                        <p>	
-                            30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
-                            à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
-                            Et de tous ceux que vous ne connaissiez pas encore.
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <!-- <div style="text-align: right;"> -->
-                    <div class="echangi3">
-                        <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">
-                    </div>
-                    <div>
-                        <!-- <div style="text-align: left;">4 Juin</div> -->
-                        <!-- <a href="#" style="text-align: right; width: 90%; border: medium none;">Karim</a> -->
-                        <a href="#">Karim</a>
-                            4 Juin
-                    </div>
-                    <div class="echangi3r">
-                        <p>
-                    <!-- <div> -->
-                        <!-- <p style="text-align: right;"> -->
-                            30 petites secondes pour vous permettre de prendre une meilleure décision que si vous aviez passé des heures 
-                            à chercher sur la toile. 30 secondes pour ranger sur votre écran les informations triées de tous covoitureurs. 
-                            Et de tous ceux que vous ne connaissiez pas encore.
-                        </p>
-                    </div>
-                </li>
+                <center><iframe style="border:0;" width="360" height="202" src="//www.youtube.com/embed/Wqpx66bYvIw" allowfullscreen></iframe></center><br />
             </nav>
-            <form class="contenu4" method="post" action="#" id="msgsub">	
+            <form class="contenu4" method="post" action="#" id="msgsub" style="display:none">	
                 <div class="detaily">
                     <div class="publiyo">
                         <div class="commesg">
@@ -148,7 +117,7 @@ $(document).ready(function(){
                                 </div>\
                             </li>';
                         ways = json[i].product.depart.substr(5)+' <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/></div> '+json[i].product.arrivee.substr(5);
-                        if(json[i].user.id === {{ app.user.id }}) idd = json[i].user_dist.id; else idd = json[i].user.id;
+                        if( json[i].user.id == {{ app.user.id }} ) idd = json[i].user_dist.id; else idd = json[i].user.id;
                         var product_id = json[i].product.id;
                     }
                     var bouton = '\
@@ -171,10 +140,14 @@ $(document).ready(function(){
                     $("#msgway").html(ways);
                     $("#msglist").html(result);
                     $("#msgsub").html(bouton);
+                    $("#msgsub").show();
+                    // message en instantané
+                    /*
                     IntervalMessage = setInterval( function(){
                         if (timeOutMessage !== 0) clearTimeout(timeOutMessage);
                         timeOutMessage = setTimeout("refreshMessage("+id+","+idp+")", 4000);
                     }, 7000);
+                    */
                     //clearInterval(IntervalMessage);
                 }
                 $(".publiera").on("click", function(){
@@ -193,18 +166,18 @@ $(document).ready(function(){
                             if(json === 'ok'){
                                 message = '\
                                 <li>\
-                                    <div>\
+                                    <div class="echangi3">\
                                         {% if app.user.gender == 0 %}\
                                             <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}">\
                                         {% else %}\
                                             <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}">\
                                         {% endif %}\
                                     </div>\
-                                    <div> \
-                                        <a href="#" style="text-align: right;">{{ app.user.secondename }}</a>\
+                                    <div class="echangi3r">\
+                                        <a href="#">{{ app.user.secondename }}</a>\
                                             {{ "now"|date("d/m/Y") }}\
                                     </div>\
-                                    <div>\
+                                    <div class="echangi3r">\
                                         <p>\
                                             '+ msg +'\
                                         </p>\
@@ -246,11 +219,11 @@ function refreshMessage(id, idp)
     var result;
     //var = ways;
     $.ajax({
-        type: "POST",
-        url: url,
-        contentType: 'application/json',
-        cache: false,
-        success: function(jsonn){
+        type        : "POST",
+        url         : url,
+        contentType : 'application/json',
+        cache       : false,
+        success     : function(jsonn){
             var json = JSON.parse( jsonn );
             //console.log(json);
             if (json !== null){
@@ -276,8 +249,8 @@ function refreshMessage(id, idp)
                                 </p>\
                             </div>\
                         </li>';
-                    //ways = json[i].product.depart.substr(5)+' <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/></div> '+json[i].product.arrivee.substr(5);
-                    if(json[i].user.id === {{ app.user.id }}) idd = json[i].user_dist.id; else idd = json[i].user.id;
+                    {# //ways = json[i].product.depart.substr(5)+' <div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}" alt="vers"/></div> '+json[i].product.arrivee.substr(5); #}
+                    if(json[i].user.id == {{ app.user.id }}) idd = json[i].user_dist.id; else idd = json[i].user.id;
                     var product_id = json[i].product.id;
                 }
                 

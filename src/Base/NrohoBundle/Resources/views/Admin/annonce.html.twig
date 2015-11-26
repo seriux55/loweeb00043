@@ -7,13 +7,11 @@
         {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
     </div>
     #}
-    <div class="menucompty">
-        <div class="menucompto">
-            <div class="contenu1">
-                <h2>
-                    Mes annonces
-                </h2>
-            </div>
+    <div class="n10load">
+        <div class="nouveau101">
+            <h3>
+                Validation des annonces
+            </h3>
         </div>
         {% for data in product %}
         <div class="sectionaq">
@@ -30,12 +28,12 @@
                 </div>
                 <div class="destrcco">
                     <div class="detrc">
-                        <p>{{ "now"|date('Y') - data.user.born }} ans - {{ data.user.phone }}</p>
+                        <p><img src="{{ asset('bundles/basenroho/img/birthday_small.png') }}" alt=""/>&nbsp;{{ "now"|date('Y') - data.user.born }} ans</p>
                     </div>
                     <div class="detrc"> 
                     </div>
                     <div class="detrc">
-                        <p>{{ data.vehicule }}</p>
+                        <p><img src="{{ asset('bundles/basenroho/img/car_small.png') }}" alt=""/>&nbsp;{{ data.vehicule }}</p>
                     </div>
                 </div>
                 <div class="opicon">
@@ -65,18 +63,18 @@
             <div class="rc">
                 <div class="nouveau1">
                     <div class="nouvie1">
-                        <p>{{ data.depart }} ({{ data.villea }})</p>
+                        <p>{{ data.depart|striptags|slice(5) }} {% if data.villea != "" %} ({{ data.villea }}) {% endif %}</p>
                     </div>
                     <div class="nouvie2">
                         <img src="{{ asset('bundles/basenroho/img/fleche_2.png') }}"/>
                     </div>
                     <div class="nouvie1">
-                        <p>{{ data.arrivee }} ({{ data.villeb }})</p>
+                        <p>{{ data.arrivee|striptags|slice(5) }} {% if data.villeb != "" %} ({{ data.villeb }}) {% endif %}</p>
                     </div>
                 </div>
                 <div class="nouveau2">
                     <article>
-                        <h1>Le {{ data.date|date("d/m/Y") }} - {{ data.heure }}</h1>
+                        <h1>Le {{ data.date|date("d/m/Y") }} à {{ data.heure }}</h1>
                         <p>{{ data.message }}</p>
                     </article>
                 </div>
@@ -98,8 +96,26 @@
             </div>
         </div>
         <div class="supprimer">
-            <p><a href="{{ path('nroho_admin_annonce_no', { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Refuser</a></p>
+            <p><a href="{{ path('nroho_admin_annonce_no',  { 'id': data.id }) }}" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">Refuser</a></p>
             <p><a href="{{ path('nroho_admin_annonce_yes', { 'id': data.id }) }}">Valider</a></p>
+        </div>
+        {% endfor %}
+        <div class="nouveau101">
+            <h3>
+                Validation du permis de conduire
+            </h3>
+        </div>
+        {% for data in permis %}
+        <div class="sectionaq">
+            {% if data.alt %}
+                <img src="{{ asset(data.getWebPath()) }}" style="max-width: 700px; display: block; margin: 0 auto;"/>
+            {% else %}
+                Pas d'image de profil chargée !
+            {% endif %}
+        </div>
+        <div class="supprimer">
+            <p><a href="{{ path('nroho_admin_permis_no',  { 'id': data.id }) }}">Refuser</a></p>
+            <p><a href="{{ path('nroho_admin_permis_yes', { 'id': data.id }) }}">Valider</a></p>
         </div>
         {% endfor %}
     </div>
