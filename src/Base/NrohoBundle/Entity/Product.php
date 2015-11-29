@@ -834,7 +834,7 @@ class Product
      */
     public function getSearchDepart($gc)
     {
-        $row = $gc->prepare("SELECT depart FROM nroho__Product");
+        $row = $gc->prepare("SELECT depart FROM nroho__Product WHERE valid = '1'");
         $row->execute();
         $ville = array();
         $i = 0;

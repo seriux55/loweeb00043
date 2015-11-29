@@ -191,7 +191,7 @@
 <!--	La balise aside pour reserver des places -->
 <aside id="buy" class="modal">
     <div>
-        <form class="envm" method="post" {{ form_enctype(formD) }}>
+        <form class="envm" method="post" {{ form_enctype(formD) }} action="{{ path('nroho_base_product', { 'id' : id } ) ~ '#confR' }}">
             <div>
                 <div class="modhead"> 
                     <a href="#close" class="close" title="Fermer">x</a>
@@ -220,7 +220,7 @@
 </aside>
 <aside id="msg" class="modal">
     <div>
-        <form class="envm" method="post" {{ form_enctype(formM) }}>
+        <form class="envm" method="post" {{ form_enctype(formM) }} action="{{ path('nroho_base_product', { 'id' : id } ) ~ '#confM' }}">
             <div>
                 <div class="modhead"> 
                     <a href="#close" class="close" title="Fermer">x</a>
@@ -247,17 +247,28 @@
         </form>
     </div>
 </aside>
-<div id="conf" class="modil">
+<div id="confM" class="modil">
     <div>
         <div class="modhead"> 
             <h2>Message envoyé</h2>
             <a href="#close" class="close" title="Fermer">x</a>
         </div>
         <div class="modbody">
-            <p>Votre message a été envoyé</p>
+            <p>Votre message a été envoyé.</p>
         </div>
     </div>
 </div>	
+<div id="confR" class="modil">
+    <div>
+        <div class="modhead"> 
+            <h2>Réservation envoyé</h2>
+            <a href="#close" class="close" title="Fermer">x</a>
+        </div>
+        <div class="modbody">
+            <p>Votre demande de réservation est en attente de confirmation.</p>
+        </div>
+    </div>
+</div>
 <!-- fin de la balise aside -->	
 <!--
 <div class="detailpri">

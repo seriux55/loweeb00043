@@ -157,7 +157,7 @@ class ProductType extends AbstractType
                                                 ),
                                     'expanded' => true,
                                     'multiple' => false,
-                                    'data' => '0'
+                                    //'data' => '2'
                                   )
             )
             ->add('fumer',   'checkbox',   array('required' => false))

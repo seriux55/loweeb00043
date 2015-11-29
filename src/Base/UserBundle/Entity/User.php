@@ -20,6 +20,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->deposit = new \Datetime();
+        $this->agree   = "0";
     }
     
     /**
@@ -90,6 +91,13 @@ class User extends BaseUser
      * @ORM\JoinColumn(nullable=true)
      */
     private $permis;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="agree", type="string", columnDefinition="ENUM('0', '1')")
+     */
+    private $agree;
 
     /**
      * @var string
@@ -242,6 +250,29 @@ class User extends BaseUser
     public function getPermis()
     {
         return $this->permis;
+    }
+
+    /**
+     * Set agree
+     *
+     * @param string $agree
+     * @return User
+     */
+    public function setAgree($agree)
+    {
+        $this->agree = $agree;
+
+        return $this;
+    }
+
+    /**
+     * Get agree
+     *
+     * @return string 
+     */
+    public function getAgree()
+    {
+        return $this->agree;
     }
 
     /**

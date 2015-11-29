@@ -67,15 +67,14 @@ class UserController extends Controller
             ->getQuery()
             ->useResultCache(true, 360, '_user_tout_avis_'.$id)
             ->getResult();
-        $j = 0;
+        $j = $u = $voiture = 0;
         foreach ($tout_avis as $v) {
             $j++;
         }
-        $user = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
+        $user = $this->getDoctrine()->getRepository('BaseUserBundle:User')
             ->createQueryBuilder('a')
-            ->leftJoin('a.user', 'b')->addSelect('b')
-            ->leftJoin('b.permis', 'c')->addSelect('c')
-            ->where('b.id = :id')
+            ->leftJoin('a.permis', 'b')->addSelect('b')
+            ->where('a.id = :id')
             ->setParameter('id', $id)
             ->setMaxResults(1)
             ->getQuery()
@@ -91,6 +90,10 @@ class UserController extends Controller
             ->getQuery()
             ->useResultCache(true, 360, '_user_ways_'.$id)
             ->getResult();
+        foreach ($ways as $v) {
+            $voiture = $v->getVehicule();
+            $u++;
+        }
         $response = $this->render('BaseNrohoBundle:Default:profil.html.twig', array(
             'form'        => $form->createView(),
             'avis'        => $tout_avis,
@@ -99,8 +102,45 @@ class UserController extends Controller
             'ways'        => $ways,
             'av'          => $i,
             'nbra'        => $j,
+            'nbrw'        => $u,
+            'voiture'     => $voiture,
             'form_permis' => $form_permis->createView(),
         ));
+        return $response;
+    }
+    
+    public function editProfilAction(Request $request, $id)
+    {
+        if ($this->get('security.context')->getToken()->getUser()->getId() == $id){
+            $em   = $this->getDoctrine()->getManager();
+            $user = $em->find('BaseUserBundle:User', $id);
+
+            if ($request->getMethod() == 'POST') {
+                $user->setGender($request->request->get('gender'));
+                $user->setFirstname($request->request->get('nom'));
+                $user->setSecondename($request->request->get('prenom'));
+                $user->setBorn($request->request->get('naissance'));
+                $user->setPhone($request->request->get('telephone'));
+                $em->persist($user);
+                $em->flush();
+                return $this->forward('BaseNrohoBundle:User:Profil', array(
+                    'id' => $id
+                ));
+            }
+
+            $response = $this->render('BaseNrohoBundle:Default:editProfil.html.twig', array(
+                'gender'    => $user->getGender(),
+                'nom'       => $user->getFirstname(),
+                'prenom'    => $user->getSecondename(),
+                'naissance' => $user->getBorn(),
+                'telephone' => $user->getPhone(),
+                'id'        => $id,
+            ));
+        }else{
+            $response = $this->redirect($this->generateUrl('homepage', array(
+                'id' => $id,
+            )));
+        }
         return $response;
     }
     
@@ -120,6 +160,7 @@ class UserController extends Controller
         if ($form->handleRequest($request)->isValid()) {
             $product->setUser($this->get('security.context')->getToken()->getUser());
             $product->setIp($this->getRequest()->getClientIp());
+            $product->setMaj($request->request->get('maj'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -132,14 +173,14 @@ class UserController extends Controller
         ));
     }
     
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         // On récupère l'annonce $id
         $product = $em->getRepository('BaseNrohoBundle:Product')->find($id);
         $form = $this->createForm(new productType(), $product);
         // On récupère la requête
-        $request = $this->get('request');
+        //$request = $this->get('request');
         // On vérifie qu'elle est de type POST
         if ($request->getMethod() == 'POST') {
             // On fait le lien Requête <-> Formulaire
@@ -150,6 +191,7 @@ class UserController extends Controller
             if ($form->isValid()) {
                 // On l'enregistre notre objet $article dans la base de données
                 $em = $this->getDoctrine()->getManager();
+                $product->setMaj($request->request->get('maj'));
                 $em->persist($product);
                 $em->flush();
                 // On redirige vers la page de visualisation de l'article nouvellement créé
@@ -157,7 +199,8 @@ class UserController extends Controller
             }
         }
         return $this->render('BaseNrohoBundle:Default:edit.html.twig', array(
-           'form' => $form->createView(),
+            'form' => $form->createView(),
+            'maj'  => $product->getMaj(),
         ));
     }
     

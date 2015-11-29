@@ -12,12 +12,12 @@
         {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
     </div>
     #}
-        <div class="nouveau1r1">
-            <h3>Publie ton annonce</h3>
-        </div>
-        <div class="nouveau1i1">
-            <img alt="proposer" src="{{ asset('bundles/basenroho/img/back_coordonee.jpg') }}">
-	</div>
+    <div class="nouveau1r1">
+        <h3>Publie ton annonce</h3>
+    </div>
+    <div class="nouveau1i1">
+        <img alt="proposer" src="{{ asset('bundles/basenroho/img/back_coordonee.jpg') }}">
+    </div>
     <div class="sectiono">
         <div class="mt1">
             <div>
@@ -132,7 +132,7 @@
                                             {{ form_widget(form.blabla) }}
                                         </p>
                                     </div>
-                                    {% if gender == '0' %}
+                                    {% if app.user.gender == '0' %}
                                     <div>
                                         <p style="display: inline-block; float:left;">
                                             {{ form_label(form.filles, "Entre filles", {'label_attr': {'class': 'nosautligne'} }) }}
@@ -140,7 +140,7 @@
                                             {{ form_widget(form.filles) }}
                                         </p>
                                     </div>
-                                    {% elseif gender == '1' %}
+                                    {% elseif app.user.gender == '1' %}
                                     <div style="display:none;">
                                         <p style="display: inline-block; float:left;">
                                             {{ form_label(form.filles, "Entre filles", {'label_attr': {'class': 'nosautligne'} }) }}

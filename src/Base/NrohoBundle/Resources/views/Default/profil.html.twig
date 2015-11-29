@@ -18,9 +18,9 @@
     {% for data in user %}
     <div class="detail1r1">
         <h3>
-            {% if data.user.gender == 1 %}
+            {% if data.gender == 1 %}
                 Conducteur
-            {% elseif data.user.gender == 0 %}
+            {% elseif data.gender == 0 %}
                 Conductrice
             {% endif %}				
         </h3>
@@ -28,27 +28,36 @@
     <div class="detail1i1">
         <div class="detailima">
             <div class="detail3">
-                {% if data.user.gender == 1 %}
+                {% if data.gender == 1 %}
                     <img src="{{ asset('bundles/basenroho/img/moustache_nroho_covoiturage_algerie.png') }}" alt="covoiturage Moustache"/>
-                {% elseif data.user.gender == 0 %}
+                {% elseif data.gender == 0 %}
                     <img src="{{ asset('bundles/basenroho/img/rose_nroho_covoiturage_algerie.png') }}" alt="covoiturage Rose"/>
                 {% endif %}
             </div>
             <div class="detaizinfo">
                 <p class="detailnom">
-                    <strong>{{ data.user.secondename }}</strong>
+                    <strong>{{ data.secondename }}</strong>
                 </p>
                 <div class="detailop">
-                    <p>&nbsp;<img src="{{ asset('bundles/basenroho/img/birthday.png') }}" alt=""/>{{ "now"|date('Y') - data.user.born }} ans <img src="{{ asset('bundles/basenroho/img/car.png') }}" alt=""/>{{ data.vehicule }}
+                    <p>&nbsp;<img src="{{ asset('bundles/basenroho/img/birthday.png') }}" alt=""/>{{ "now"|date('Y') - data.born }} ans {% if voiture != 0 %}<img src="{{ asset('bundles/basenroho/img/car.png') }}" alt=""/>{{ voiture }}{% endif %}
                     {% if app.user.id == id %}
                         <div class="nouveau101">
-                            <h4>&nbsp;&nbsp;&nbsp;<img src="{{ asset('bundles/basenroho/img/phone.png') }}" alt=""/>&nbsp;{{ app.user.phone }}</h4>
+                            <h4>&nbsp;&nbsp;&nbsp;<img src="{{ asset('bundles/basenroho/img/phone.png') }}" alt=""/>&nbsp;{{ data.phone }}</h4>
                         </div>
                     {% endif %}
                     </p>
                 </div>
             </div>
         </div>
+        {% if app.user.id == id %}
+        <div class="detailimo">
+            <div class="dezaili1">
+                <div class="misa1" style="padding-top: 15px; padding-right: 14px;">
+                    <a class="openModal" href="{{ path('nroho_base_profil_id', { 'id': id } ) }}">Modifier</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
     {% endfor %}
     <!--
@@ -63,7 +72,7 @@
     <!-- Permis de conduire -->
     {% for data in user %}
         {% if app.user.id == id %}
-            {% if data.user.permis == null or data.user.permis.etat == '0' %}
+            {% if data.permis == null or data.permis.etat == '0' %}
                 <div class="detailono">
                     <div class="publiy">
                         <div class="comail">
@@ -75,15 +84,15 @@
                 </div>
             {% endif %}
         {% endif %}
-        {% if data.user.permis != null and data.user.permis.etat == '1' %}
+        {% if data.permis != null and data.permis.etat == '1' %}
             <div class="detailono">
                 <div class="publiy">
-                    <div class="comail">
+                    <div class="comail" style="padding-bottom: 15px;">
                         Le permis a été validé par notre équipe.<img style="padding-left: 9cm;" src="{{ asset('bundles/basenroho/img/valider.png') }}" alt="Amis">
                     </div>
                 </div>
             </div>
-        {% elseif data.user.permis != null and data.user.permis.etat == '2' %}
+        {% elseif data.permis != null and data.permis.etat == '2' %}
             <div class="detailono">
                 <div class="publiy">
                     <div class="comail">
@@ -96,6 +105,7 @@
     <!-- Fin Permis de conduire -->
     
     <!-- Mes trajets -->
+    {% if nbrw > 0 %}
     <div class="blocde">
         <h6>Mes derniers trajets</h6>
         {% for data in ways %}
@@ -112,6 +122,7 @@
             </div>
         {% endfor %}
     </div>
+    {% endif %}
     <!-- Fin mes trajets -->
     
     <!--

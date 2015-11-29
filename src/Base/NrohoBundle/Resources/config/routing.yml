@@ -119,6 +119,12 @@ nroho_base_profil:
     requirements:
         id:  \d+
 
+nroho_base_profil_id:
+    pattern: /profil/edit/{id}
+    defaults: { _controller: BaseNrohoBundle:User:editProfil }
+    requirements:
+        id:  \d+
+
 nroho_admin_annonce:
     pattern: /admin/annonce/
     defaults: { _controller: BaseNrohoBundle:Admin:Annonce }

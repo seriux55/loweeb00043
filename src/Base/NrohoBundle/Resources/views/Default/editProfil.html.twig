@@ -1,0 +1,63 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="bloc_page_bodyg">
+    {#
+    <div class="blocgau">
+        {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
+    </div>
+    #}
+    <div>
+        <div class="nouveau101">
+            <h3>
+                Modifier mon profil
+            </h3>
+        </div>
+        <div class="sectionaq">
+            
+            <div class="mt1">
+                
+                <form method="post">
+        
+                    <div class="nouveau7">
+                        <fieldset>
+                            <legend class="garlab">Modification des informations</legend>
+                            <div class="mr7">
+                                <div>
+                                    <div>
+                                        
+                                        <input class="ouardep" type="radio" name="gender" value="1" {% if gender == 1 %}checked{% endif %}>Homme
+                                        <input class="ouardep" type="radio" name="gender" value="0" {% if gender == 0 %}checked{% endif %}>Femme
+                                    </div>
+                                    <div>
+                                        <label class="garlabi">Nom :</label> 
+                                        <input class="ouardep" type="text" name="nom" placeholder="ex : Taflaoui" size="35" value="{{ nom }}"/>
+                                    </div>
+                                    <div>
+                                        <label class="garlabi">Prénom :</label> 
+                                        <input class="ouardep" type="text" name="prenom" placeholder="ex : Amina" size="35" value="{{ prenom }}"/>
+                                    </div>
+                                    <div>
+                                        <label class="garlabi">Année de naissance :</label> 
+                                        <input class="ouardep" type="text" name="naissance" placeholder="ex : 1988" size="35" value="{{ naissance }}"/>
+                                    </div>
+                                    <div>
+                                        <label class="garlabi">Numéro de téléphone :</label> 
+                                        <input class="ouardep" type="text" name="telephone" placeholder="ex : 0606060606" size="35" value="{{ telephone }}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+        
+                    <div class="mr2">
+                        <div class="mr6">
+                            <input class="trouvezzz" name="valider" type="submit" value="Valider"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>	
+</div>
+{% endblock %}

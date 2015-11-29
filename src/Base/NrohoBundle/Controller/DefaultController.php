@@ -3,6 +3,7 @@
 namespace Base\NrohoBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 use Base\NrohoBundle\Entity\Message;
 use Base\NrohoBundle\Form\Type\MessageType;
@@ -42,20 +43,24 @@ class DefaultController extends Controller
         ));
     }
     
-    public function productAction($id)
+    public function productAction(Request $request, $id)
     {
         // detail du covoiturage
         $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
-                   ->createQueryBuilder('a')
-                   ->leftJoin('a.user', 'b')->addSelect('b')
-                   ->where("a.id = :id AND a.valid = '1'")
-                   ->setParameter('id', $id)
-                   ->getQuery()->getResult();
+            ->createQueryBuilder('a')
+            ->leftJoin('a.user', 'b')->addSelect('b')
+            ->where("a.id = :id AND a.valid = '1'")
+            ->setParameter('id', $id)
+            ->getQuery()->getResult();
         // nombre de places max
         foreach($product as $value) {
             $nbrPlace = $value->getPlace();
             $userDist = $value->getUser();
             $nbrVue   = $value->getVue();
+            $name     = $value->getUser()->getSecondename();
+            $depart   = $value->getDepart();
+            $arrivee  = $value->getArrivee();
+            $email    = $value->getUser()->getEmail();
         }
         if (!isset($nbrPlace)) {
             throw new NotFoundHttpException("L'annonce n'existe pas :-( ");
@@ -75,7 +80,6 @@ class DefaultController extends Controller
         $comment = new Comment();
         $comment->setIp($this->getRequest()->getClientIp());
         $form = $this->createForm(new CommentType, $comment);
-        $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
             if ($form->isValid()) {
@@ -92,6 +96,17 @@ class DefaultController extends Controller
                 $reservation->setProduct($this->getDoctrine()->getManager()->getRepository('BaseNrohoBundle:Product')->find($id));
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($reservation);
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Vous avez reçu une demande de réservation sur nroho.com') //Votre commande chez bledvoyage.com
+                    ->setFrom('contact@nroho.com')
+                    ->setTo(array($email, 'validation@nroho.com'))
+                    ->setBody($this->renderView('BaseNrohoBundle:Email:user_reservation_envoye.txt.twig', array(
+                        'name'    => $name,
+                        'fname'   => $this->get('security.context')->getToken()->getUser()->getSecondename(),
+                        'depart'  => $depart,
+                        'arrivee' => $arrivee,
+                    )));
+                $this->get('mailer')->send($message);
                 $em->flush();
                 return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $id)));
             }
@@ -103,6 +118,17 @@ class DefaultController extends Controller
                 $message->setIp($this->getRequest()->getClientIp());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($message);
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Vous avez reçu un message sur nroho.com') //Votre commande chez bledvoyage.com
+                    ->setFrom('contact@nroho.com')
+                    ->setTo(array($email, 'validation@nroho.com'))
+                    ->setBody($this->renderView('BaseNrohoBundle:Email:user_message_envoye.txt.twig', array(
+                        'name'    => $name,
+                        'fname'   => $this->get('security.context')->getToken()->getUser()->getSecondename(),
+                        'depart'  => $depart,
+                        'arrivee' => $arrivee,
+                    )));
+                $this->get('mailer')->send($message);
                 $em->flush();
                 return $this->redirect($this->generateUrl('nroho_base_product', array('id' => $id)));
             }
@@ -130,6 +156,7 @@ class DefaultController extends Controller
                 'form'     => $form->createView(),
                 'formD'    => $formD->createView(),
                 'formM'    => $formM->createView(),
+                'id'       => $id,
             ));
         }else{
             $response = $this->render('BaseNrohoBundle:Default:product.html.twig', array(
@@ -139,6 +166,7 @@ class DefaultController extends Controller
                 'form'     => $form->createView(),
                 'formD'    => $formD->createView(),
                 'formM'    => $formM->createView(),
+                'id'       => $id,
             ));
         }
         return $response;

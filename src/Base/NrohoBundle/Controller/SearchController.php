@@ -56,6 +56,7 @@ class SearchController extends Controller
             ->createQueryBuilder('a')
             ->leftJoin('a.user', 'b')->addSelect('b')
             ->where('a.valid = "1"')
+            ->orderBy('a.id','DESC')
             ->setFirstResult(0) //offset
             ->setMaxResults(5)  //limit
             ->getQuery()->getResult();
@@ -91,6 +92,7 @@ class SearchController extends Controller
             ->leftJoin('a.user', 'b')->addSelect('b')
             ->where("a.valid = '1' AND a.depart LIKE :depart AND a.arrivee LIKE :arrivee")
             ->setParameter('depart', $first.'%')->setParameter('arrivee', $seconde.'%')
+            ->orderBy('a.id','DESC')
             ->getQuery()
             ->useResultCache(true, 600, '_search_'.$first.'_'.$seconde)
             ->getResult();
