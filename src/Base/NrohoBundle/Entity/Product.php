@@ -40,6 +40,7 @@ class Product
         $this->vue = 0;
         $this->maj = 0;
         $this->jours = new Jours();
+        $this->vehicule = "";
     }
     
     /**

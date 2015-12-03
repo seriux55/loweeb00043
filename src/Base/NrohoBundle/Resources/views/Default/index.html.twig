@@ -142,9 +142,11 @@
                                     </div>
                                     <div class="detrc">
                                     </div>
+                                    {% if data.vehicule != '' %}
                                     <div class="detrc">
                                         <p><img src="{{ asset('bundles/basenroho/img/car_small.png') }}" alt=""/>&nbsp;{{ data.vehicule|title }}</p>
                                     </div>
+                                    {% endif %}
                                 </div>
                                 <div class="opicon">
                                     {% if data.fumer==1 %}
@@ -353,7 +355,7 @@
     <h3>Suivez-nous!</h3>
 </div>
 <div class="bloc_page_body2">
-    <a href="https://www.facebook.com/pages/nroho/" target="_blank" style="text-decoration: none;">
+    <a href="https://www.facebook.com/nroho/" target="_blank" style="text-decoration: none;">
         <div class="social_body1">
         </div>
     </a>
@@ -420,7 +422,7 @@ $(document).ready(function(){
                         <div class="sectionn">\
                             <div class="caseoi">\
                                 <div class="choirc1">\
-                                    <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
+                                    <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}">\
                                         <div class="detrc">\
                                             <div class="nouvie3">\
                                                 <img src="'; if(jsonn[i].user.gender===1) result +='{{ asset('bundles/basenroho/img/homme_1.jpg') }}'; else if(jsonn[i].user.gender===0) result += '{{ asset('bundles/basenroho/img/femme_1.jpg') }}'; result += '" alt="covoiturage Rose"/>\
@@ -442,7 +444,7 @@ $(document).ready(function(){
                                          </div>\
                                          <div class="opicon">';
                                             if(jsonn[i].fumer == '1')
-                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumer.png') }}" alt="covoiturage non fumeur"></div>';
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumeur.png') }}" alt="covoiturage non fumeur"></div>';
                                             else 
                                                 result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage fumeur"></div>';
                                             if(jsonn[i].musique == '1')
@@ -459,7 +461,7 @@ $(document).ready(function(){
                                      </a>\
                                  </div>\
                                  <div class="rc">\
-                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">\
+                                     <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}">\
                                          <div class="nouveau1">\
                                              <div class="nouvie1">\
                                                  <p>'+ jsonn[i].depart.substr(5,20); if(jsonn[i].villea !== "") result +=' ('+ jsonn[i].villea +')'; result += '</p>\
@@ -474,7 +476,7 @@ $(document).ready(function(){
                                      </a>\
                                      <div class="nouveau2">\
                                          <article>\
-                                             <a href="{{ path('nroho_base_product', { 'id': '100' }) }}"><h1>Le '+ dateToFr(jsonn[i].date) +' à '+ jsonn[i].heure +'</h1></a>\
+                                             <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}"><h1>Le '+ dateToFr(jsonn[i].date) +' à '+ jsonn[i].heure +'</h1></a>\
                                              <p>'+ jsonn[i].message +'</p>\
                                          </article>\
                                      </div>\
@@ -499,7 +501,7 @@ $(document).ready(function(){
                         <div class="interi" style="display:none">\
                              <div class="interi2">\
                                  <div class="boutin2">\
-                                     <a href="{{ path('nroho_base_product', { 'id': '100' }) }}">Voir</a>\
+                                     <a href="{% if not is_granted('ROLE_USER') %}{{ path('nroho_base_produit', { 'id': '100' }) }}{% else %}{{ path('nroho_base_product', { 'id': '100' }) }}{% endif %}">Voir</a>\
                                  </div>\
                              </div>\
                         </div>';
@@ -620,7 +622,7 @@ $(document).ready(function(){
                                          </div>\
                                          <div class="opicon">';
                                             if(jsonn[i].fumer == '1')
-                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumer.png') }}" alt="covoiturage non fumeur"></div>';
+                                                result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/accepte_fumeur.png') }}" alt="covoiturage non fumeur"></div>';
                                             else 
                                                 result += '<div class="nouvie2"><img src="{{ asset('bundles/basenroho/img/cigarette.png') }}" alt="covoiturage fumeur"></div>';
                                             if(jsonn[i].musique == '1')
@@ -667,7 +669,7 @@ $(document).ready(function(){
                                          <p><strong>'+ jsonn[i].place +'</strong> places<br/></p>\
                                      </div>\
                                      <div class="detrc1p">\
-                                         <p>'; if(jsonn[i].filles===1) result += 'Entre Elles'; result += '</p>\
+                                         <p>'; if(jsonn[i].filles == '1') result += 'Entre Elles'; result += '</p>\
                                      </div>\
                                  </div>\
                              </div>\
