@@ -8,6 +8,7 @@ class DemandeController extends Controller
 {
     public function demandeAction()
     {
+        $d  = $r = 0;
         $id = $this->get('security.context')->getToken()->getUser();
         // Les demandes que je veux y alle
         $qbb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Demande')
@@ -20,6 +21,9 @@ class DemandeController extends Controller
             ->orderBy('a.etat', 'DESC')
         ;
         $reservation = $qbb->getQuery()->getResult();
+        foreach($reservation as $data){
+            $r++;
+        }
         // Les reservations du trajet que je propose
         $qb = $this->getDoctrine()->getRepository('BaseNrohoBundle:Demande')
             ->createQueryBuilder('a')
@@ -31,10 +35,15 @@ class DemandeController extends Controller
             ->orderBy('a.etat', 'DESC')
         ;
         $demande = $qb->getQuery()->getResult();
+        foreach($demande as $data){
+            $d++;
+        }
         
         $response = $this->render('BaseNrohoBundle:Demande:demande.html.twig', array(
-            'product'     => $demande,
+            'demande'     => $demande,
             'reservation' => $reservation,
+            'nbrR'        => $r,
+            'nbrD'        => $d,
         ));
         return $response;
     }

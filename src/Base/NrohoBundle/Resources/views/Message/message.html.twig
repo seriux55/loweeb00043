@@ -12,6 +12,13 @@
             Les messages
         </h3>
     </div>
+    {% if nbrM == 0 %}
+    <div class="sectiono">
+        <div class="mt1">
+            <center><p>Vous n'avez pas encore reçu de message.</p></center>
+        </div>
+    </div>
+    {% else %}
     <div class="menucompte1">
         <div class="menucompte2">
             <nav class="menuinf1">
@@ -60,6 +67,7 @@
             </form>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
 

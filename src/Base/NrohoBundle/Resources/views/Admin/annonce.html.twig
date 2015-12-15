@@ -13,6 +13,13 @@
                 Validation des annonces
             </h3>
         </div>
+        {% if nbrA == 0 %}
+        <div class="sectiono">
+            <div class="mt1">
+                <center><p>Il n'y a pas d'annonce à valider.</p></center>
+            </div>
+        </div>
+        {% endif %}
         {% for data in product %}
         <div class="sectionaq">
             <div class="choirc1">
@@ -105,6 +112,13 @@
                 Validation du permis de conduire
             </h3>
         </div>
+        {% if nbrP == 0 %}
+        <div class="sectiono">
+            <div class="mt1">
+                <center><p>Il n'y a pas de permis à valider.</p></center>
+            </div>
+        </div>
+        {% endif %}
         {% for data in permis %}
         <div class="sectionaq">
             {% if data.alt %}

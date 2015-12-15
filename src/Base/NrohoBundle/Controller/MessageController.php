@@ -11,6 +11,7 @@ class MessageController extends Controller
 {
     public function messageAction()
     {
+        $m = 0;
         $idc = $this->get('security.context')->getToken()->getUser()->getId();
         $db  = $this->get('database_connection');
         $row = $db->prepare(
@@ -44,9 +45,13 @@ class MessageController extends Controller
 		$d[] = $data['M_user_id'];
             }
         }
+        foreach($message as $data){
+            $m++;
+        }
         //If not, we build the Response as usual and then put it in cache !
         $response = $this->render('BaseNrohoBundle:Message:message.html.twig', array(
             'product' => $message,
+            'nbrM'    => $m,
         ));
         return $response;
     }

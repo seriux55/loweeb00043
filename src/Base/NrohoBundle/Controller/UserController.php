@@ -206,6 +206,7 @@ class UserController extends Controller
     
     public function annonceAction()
     {
+        $a = 0;
         $id = $this->get('security.context')->getToken()->getUser();
         $product = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
             ->createQueryBuilder('a')
@@ -216,9 +217,13 @@ class UserController extends Controller
             ->getQuery()
             ->useResultCache(true, 360, '_user_annonce')
             ->getResult();
+        foreach($product as $data){
+            $a++;
+        }
         // afficher en session $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
         return $this->render('BaseNrohoBundle:Default:annonce.html.twig', array(
-            'product' => $product
+            'product' => $product,
+            'nbrA'    => $a,
         ));
     }
     

@@ -8,22 +8,31 @@ class AdminController extends Controller
 {
     public function annonceAction()
     {
+        $a = $p = 0;
         $qb1 = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
             ->createQueryBuilder('a')
             ->leftJoin('a.user', 'b')->addSelect('b')
             ->where("a.valid = '3'")
         ;
         $product = $qb1->getQuery()->getResult();
+        foreach($product as $data){
+            $a++;
+        }
         
         $qb2 = $this->getDoctrine()->getRepository('BaseNrohoBundle:Permis')
             ->createQueryBuilder('a')
             ->where("a.etat = '2'")
         ;
         $permis = $qb2->getQuery()->getResult();
+        foreach($permis as $data){
+            $p++;
+        }
         
         return $this->render('BaseNrohoBundle:Admin:annonce.html.twig', array(
             'product' => $product,
             'permis'  => $permis,
+            'nbrA'    => $a,
+            'nbrP'    => $p,
         ));
     }
     

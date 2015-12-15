@@ -14,6 +14,13 @@
             </h3>
         </div>
         <!-- debut -->
+        {% if nbrR == 0 %}
+        <div class="sectiono">
+            <div class="mt1">
+                <center><p>Vous n'avez pas reçu de demande de covoiturage.</p></center>
+            </div>
+        </div>
+        {% endif %}
         {% for data in reservation %}
         <div class="sectionaq">
             <div class="demcon">
@@ -83,7 +90,14 @@
             </h3>
         </div>
         <!-- debut -->
-        {% for data in product %}
+        {% if nbrD == 0 %}
+        <div class="sectiono">
+            <div class="mt1">
+                <center><p>Vous n'avez pas envoyé de demande de covoiturage.</p></center>
+            </div>
+        </div>
+        {% endif %}
+        {% for data in demande %}
         <div class="sectionaq">
             <div class="demcon">
                 <h6>Demande</h6>

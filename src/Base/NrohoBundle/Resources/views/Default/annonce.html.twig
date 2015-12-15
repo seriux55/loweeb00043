@@ -13,6 +13,13 @@
                 Mes trajets
             </h3>
         </div>
+        {% if nbrA == 0 %}
+        <div class="sectiono">
+            <div class="mt1">
+                <center><p>Vous n'avez pas encore proposé de covoiturage.</p></center>
+            </div>
+        </div>
+        {% endif %}
         {% for data in product %}
         <div class="sectionaq">
             <div class="choirc1">
