@@ -106,6 +106,13 @@ nroho_base_message_lecture_last:
         id:  \d+
         product:  \d+
 
+nroho_base_abonnement:
+    pattern: /profil/subscibe/{id}/
+    defaults: { _controller: BaseNrohoBundle:User:membership }
+    requirements:
+        id:  \d+
+        product:  \d+
+
 nroho_base_message_submit:
     pattern: /message/submit/{id}/{product}/{msg}
     defaults: { _controller: BaseNrohoBundle:Message:messagesubmit }
@@ -150,6 +157,18 @@ nroho_admin_permis_yes:
 nroho_admin_permis_no:
     pattern: /admin/permis/no/{id}
     defaults: { _controller: BaseNrohoBundle:Admin:noPermis }
+    requirements:
+        id:  \d+
+
+nroho_admin_membership_yes:
+    pattern: /admin/membership/yes/{id}
+    defaults: { _controller: BaseNrohoBundle:Admin:yesMembership }
+    requirements:
+        id:  \d+
+
+nroho_admin_membership_no:
+    pattern: /admin/membership/no/{id}
+    defaults: { _controller: BaseNrohoBundle:Admin:noMembership }
     requirements:
         id:  \d+
 

@@ -9,6 +9,8 @@ use Base\NrohoBundle\Entity\Product;
 use Base\NrohoBundle\Form\Type\ProductType;
 use Base\NrohoBundle\Entity\Permis;
 use Base\NrohoBundle\Form\Type\PermisType;
+use Base\NrohoBundle\Entity\Membership;
+use Base\NrohoBundle\Form\Type\MembershipType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -74,6 +76,7 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository('BaseUserBundle:User')
             ->createQueryBuilder('a')
             ->leftJoin('a.permis', 'b')->addSelect('b')
+            ->leftJoin('a.membership', 'c')->addSelect('c')
             ->where('a.id = :id')
             ->setParameter('id', $id)
             ->setMaxResults(1)
@@ -240,5 +243,33 @@ class UserController extends Controller
     public function confirmationRemoveAction()
     {
         return $this->render('BaseNrohoBundle:Confirmation:remove.html.twig');
+    }
+    
+    public function membershipAction(Request $request, $id)
+    {
+        $ip = $this->getRequest()->getClientIp();
+        $membership = new Membership;
+        $membership->setIp($ip);
+        $form_membership = $this->createForm(new MembershipType, $membership);
+        
+        if ($form_membership->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $membership->uploadProfilePicture();
+            //$permis->setUser($this->get('security.context')->getToken()->getUser());
+            
+            $this->get('security.context')->getToken()->getUser()->setMembership($membership);
+            
+            $em->persist($membership);
+            $em->flush();
+
+
+            $request->getSession()->getFlashBag()->add('notice', 'Votre reçu est en cours de vérification.');
+            return $this->render('BaseNrohoBundle:Confirmation:abonnement.html.twig');
+            
+        }
+        return $this->render('BaseNrohoBundle:Default:abonnement.html.twig', array(
+            'form_membership' => $form_membership->createView(),
+        ));
     }
 }

@@ -87,6 +87,12 @@ class User extends BaseUser
     private $phone;
     
     /**
+     * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\Membership")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $membership;
+    
+    /**
      * @ORM\OneToOne(targetEntity="Base\NrohoBundle\Entity\Permis")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -250,6 +256,29 @@ class User extends BaseUser
     public function getPermis()
     {
         return $this->permis;
+    }
+
+    /**
+     * Set membership
+     *
+     * @param \Base\NrohoBundle\Entity\Membership $membership
+     * @return User
+     */
+    public function setMembership(\Base\NrohoBundle\Entity\Membership $membership)
+    {
+        $this->membership = $membership;
+
+        return $this;
+    }
+
+    /**
+     * Get membership
+     *
+     * @return \Base\NrohoBundle\Entity\Membership 
+     */
+    public function getMembership()
+    {
+        return $this->membership;
     }
 
     /**

@@ -109,7 +109,7 @@
         {% endfor %}
         <div class="nouveau101">
             <h3>
-                Validation du permis de conduire
+                Validation des permis de conduire
             </h3>
         </div>
         {% if nbrP == 0 %}
@@ -130,6 +130,31 @@
         <div class="supprimer">
             <p><a href="{{ path('nroho_admin_permis_no',  { 'id': data.id }) }}">Refuser</a></p>
             <p><a href="{{ path('nroho_admin_permis_yes', { 'id': data.id }) }}">Valider</a></p>
+        </div>
+        {% endfor %}
+        <div class="nouveau101">
+            <h3>
+                Validation des abonnements
+            </h3>
+        </div>
+        {% if nbrM == 0 %}
+        <div class="sectiono">
+            <div class="mt1">
+                <center><p>Il n'y a pas d'abonnement à valider.</p></center>
+            </div>
+        </div>
+        {% endif %}
+        {% for data in membership %}
+        <div class="sectionaq">
+            {% if data.alt %}
+                <img src="{{ asset(data.getWebPath()) }}" style="max-width: 700px; display: block; margin: 0 auto;"/>
+            {% else %}
+                Pas d'abonnement à chargée !
+            {% endif %}
+        </div>
+        <div class="supprimer">
+            <p><a href="{{ path('nroho_admin_membership_no',  { 'id': data.id }) }}">Refuser</a></p>
+            <p><a href="{{ path('nroho_admin_membership_yes', { 'id': data.id }) }}">Valider</a></p>
         </div>
         {% endfor %}
     </div>

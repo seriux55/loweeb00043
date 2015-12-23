@@ -8,7 +8,7 @@ class AdminController extends Controller
 {
     public function annonceAction()
     {
-        $a = $p = 0;
+        $a = $p = $m = 0;
         $qb1 = $this->getDoctrine()->getRepository('BaseNrohoBundle:Product')
             ->createQueryBuilder('a')
             ->leftJoin('a.user', 'b')->addSelect('b')
@@ -28,11 +28,22 @@ class AdminController extends Controller
             $p++;
         }
         
+        $qb3 = $this->getDoctrine()->getRepository('BaseNrohoBundle:Membership')
+            ->createQueryBuilder('a')
+            ->where("a.etat = '2'")
+        ;
+        $membership = $qb3->getQuery()->getResult();
+        foreach($membership as $data){
+            $m++;
+        }
+        
         return $this->render('BaseNrohoBundle:Admin:annonce.html.twig', array(
-            'product' => $product,
-            'permis'  => $permis,
-            'nbrA'    => $a,
-            'nbrP'    => $p,
+            'product'       => $product,
+            'permis'        => $permis,
+            'membership'    => $membership,
+            'nbrA'          => $a,
+            'nbrP'          => $p,
+            'nbrM'          => $m,
         ));
     }
     
@@ -64,6 +75,22 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $em->find('BaseNrohoBundle:Permis', $id)->setEtat('0');
+        $em->flush();
+        return $this->forward('BaseNrohoBundle:Admin:annonce');
+    }
+    
+    public function yesMembershipAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->find('BaseNrohoBundle:Membership', $id)->setEtat('1');
+        $em->flush();
+        return $this->forward('BaseNrohoBundle:Admin:annonce');
+    }
+    
+    public function noMembershipAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->find('BaseNrohoBundle:Membership', $id)->setEtat('0');
         $em->flush();
         return $this->forward('BaseNrohoBundle:Admin:annonce');
     }

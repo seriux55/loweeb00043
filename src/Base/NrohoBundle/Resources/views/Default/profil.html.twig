@@ -69,8 +69,9 @@
         </center>
     </div>
     -->
-    <!-- Permis de conduire -->
+    
     {% for data in user %}
+        <!-- Permis de conduire -->
         {% if app.user.id == id %}
             {% if data.permis == null or data.permis.etat == '0' %}
                 <div class="detailono">
@@ -101,8 +102,35 @@
                 </div>
             </div> 
         {% endif %}
+        <!-- Fin Permis de conduire -->
+
+        <!-- Debut devenir premium -->
+        {% if app.user.id == id %}
+            {% if data.membership == null or data.membership.etat == '0' %}
+            <div class="detailono">
+                <div class="publiy">
+                    <div class="comail">
+                        <h5>Devenir un membre confirmé?</h5>
+                        <p>Un an d'abonnement pour 1000 dinars.</p>
+                        <div class="misa1" style="padding-top: 15px; padding-right: 14px;">
+                            <a href="{{ path('nroho_base_abonnement', { 'id' : id } ) }}">Accéder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+        {% if data.membership != null and data.membership.etat == '1' %}
+            <div class="detailono">
+                <div class="publiy">
+                    <div class="comail" style="padding-bottom: 15px;">
+                        Member confirmé chez nroho.com!<img style="padding-left: 9cm;" src="{{ asset('bundles/basenroho/img/valider.png') }}" alt="Amis">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <!-- Fin devenir premium -->
     {% endfor %}
-    <!-- Fin Permis de conduire -->
     
     <!-- Mes trajets -->
     {% if nbrw > 0 %}

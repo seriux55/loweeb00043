@@ -1,0 +1,55 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+<div class="bloc_page_bodyg">
+    {#
+    <div class="blocgau">
+        {{ include("BaseNrohoBundle:Default:menu.html.twig") }}
+    </div>
+    #}
+    <div>
+        <div class="nouveau101">
+            <h3>
+                Valider mon abonnemnt
+            </h3>
+        </div>
+        <div class="sectionaq">
+            
+            <div class="mt1">
+        
+                    <div class="nouveau7">
+                        <fieldset>
+                            <br />
+                            Modalités de paiement :<br />
+                            Différents moyens de paiement sont disponibles.<br />
+                            Prendre une photo lisible avec votre reçu avec votre smartphone, appareil photo,...<br />
+                            Et envoyez-nous la photo à l'aide du bouton ci-dessus.<br />
+                            Nous vous contacterons très rapidement pour valider votre abonnement.<br /><br />
+
+                            1  Le Mandat postal :<br />
+                            Titulaire du compte : Centre sebastopol<br />
+                            CCP : 0000378861  75<br /><br /><br />
+
+
+                            --
+                            2  Le virement bancaire :<br />
+                            Titulaire du compte : BADR - Sebastopol - 81, Cehnoua plage, 42000, Tiapza - Algérie.<br />
+                            R.I.B : 003 - 00448 - 300183300019.<br /><br /><br />
+
+
+                            --<br />
+                            3  Paiement par chèque<br />
+                            Libeller le chèque à l ordre de : Sebastopol<br />
+                            Envoyer le chèque à :<br />
+                            81, Chenoua plage - 42000, Tipaza - Algérie.<br /><br />
+                            
+                            <form method="post" {{ form_enctype(form_membership) }}>
+                                {{ form_widget(form_membership) }}
+                            </form>
+                        </fieldset>
+                    </div>
+            </div>
+        </div>
+    </div>	
+</div>
+{% endblock %}
