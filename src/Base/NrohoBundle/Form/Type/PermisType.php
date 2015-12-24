@@ -15,7 +15,7 @@ class PermisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file')
+            ->add('file', 'file', array('label'=>'Envoyer-nous votre permis!'))
             ->add('Envoyer', 'submit', array(
                 'attr' => array('class' => 'publier'),
             ))
