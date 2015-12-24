@@ -90,7 +90,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="heure", type="string", length=255)
+     * @ORM\Column(name="heure", type="string", length=255, nullable=true)
      */
     private $heure;
 
@@ -104,7 +104,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="villea", type="string", length=255)
+     * @ORM\Column(name="villea", type="string", length=255, nullable=true)
      */
     private $villea;
 
@@ -118,7 +118,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="villeb", type="string", length=255)
+     * @ORM\Column(name="villeb", type="string", length=255, nullable=true)
      */
     private $villeb;
 
@@ -132,7 +132,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="vehicule", type="string", length=255)
+     * @ORM\Column(name="vehicule", type="string", length=255, nullable=true)
      */
     private $vehicule;
 
