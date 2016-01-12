@@ -3,177 +3,183 @@ nroho_base_default:
     defaults: { _controller: BaseNrohoBundle:Default:index }
 
 nroho_base_aide:
-    pattern: /aide
+    pattern:  /aide
     defaults: { _controller: BaseNrohoBundle:Default:aide }
 
 nroho_base_add_select:
-    pattern: /add/{first}/{seconde}
+    pattern:  /add/{first}/{seconde}
     defaults: { _controller: BaseNrohoBundle:Search:addSelect }
     requirements:
         first:   \d+
         seconde: \d+
 
 nroho_base_top:
-    pattern: /top/{page}
+    pattern:  /top/{page}
     defaults: { _controller: BaseNrohoBundle:Search:top, page: 8 }
 
 nroho_base_search:
-    pattern: /search/{first}/{seconde}
+    pattern:  /search/{first}/{seconde}
     defaults: { _controller: BaseNrohoBundle:Search:search }
     requirements:
         first:   \d+
         seconde: \d+
 
 nroho_base_search_destination:
-    pattern: /search/{start}
+    pattern:  /search/{start}
     defaults: { _controller: BaseNrohoBundle:Search:destination }
     requirements:
         start: \d+
 
 nroho_base_recherche:
-    pattern: /recherche
+    pattern:  /recherche
     defaults: { _controller: BaseNrohoBundle:Search:recherche }
 
 nroho_base_produit:
-    pattern: /produit/{id}/
+    pattern:  /produit/{id}/
     defaults: { _controller: BaseNrohoBundle:Default:product }
     requirements:
         id:  \d+
 
 nroho_base_product:
-    pattern: /product/{id}/
+    pattern:  /product/{id}/
     defaults: { _controller: BaseNrohoBundle:Default:product }
     requirements:
         id:  \d+
 
 nroho_base_add:
-    pattern: /add
+    pattern:  /add
     defaults: { _controller: BaseNrohoBundle:User:add }
 
 nroho_base_edit:
-    pattern: /edit/{id}
+    pattern:  /edit/{id}
     defaults: { _controller: BaseNrohoBundle:User:edit }
     requirements:
         id:  \d+
 
 nroho_base_remove:
-    pattern: /remove/{id}
+    pattern:  /remove/{id}
     defaults: { _controller: BaseNrohoBundle:User:remove }
     requirements:
         id:  \d+
 
 nroho_base_annonce:
-    pattern: /annonce
+    pattern:  /annonce
     defaults: { _controller: BaseNrohoBundle:User:annonce }
 
 nroho_base_demande:
-    pattern: /demande
+    pattern:  /demande
     defaults: { _controller: BaseNrohoBundle:Demande:demande }
 
 nroho_base_demande_yes:
-    pattern: /demande/yes/{id}
+    pattern:  /demande/yes/{id}
     defaults: { _controller: BaseNrohoBundle:Demande:yesDemande }
     requirements:
         id:  \d+
 
 nroho_base_demande_no:
-    pattern: /demande/no/{id}
+    pattern:  /demande/no/{id}
     defaults: { _controller: BaseNrohoBundle:Demande:noDemande }
     requirements:
         id:  \d+
 
 nroho_base_Demande_cancel:
-    pattern: /demande/cancel/{id}
+    pattern:  /demande/cancel/{id}
     defaults: { _controller: BaseNrohoBundle:Demande:cancelDemande }
     requirements:
         id:  \d+
 
 nroho_base_message:
-    pattern: /message
+    pattern:  /message
     defaults: { _controller: BaseNrohoBundle:Message:message }
 
 nroho_base_message_lecture:
-    pattern: /message/{id}/{product}
+    pattern:  /message/{id}/{product}
     defaults: { _controller: BaseNrohoBundle:Message:messageid }
     requirements:
         id:  \d+
         product:  \d+
 
 nroho_base_message_lecture_last:
-    pattern: /message/last/{id}/{product}
+    pattern:  /message/last/{id}/{product}
     defaults: { _controller: BaseNrohoBundle:Message:messageidlast }
     requirements:
         id:  \d+
         product:  \d+
 
 nroho_base_abonnement:
-    pattern: /profil/subscibe/{id}/
+    pattern:  /profil/subscibe/{id}/
     defaults: { _controller: BaseNrohoBundle:User:membership }
     requirements:
         id:  \d+
         product:  \d+
 
 nroho_base_message_submit:
-    pattern: /message/submit/{id}/{product}/{msg}
+    pattern:  /message/submit/{id}/{product}/{msg}
     defaults: { _controller: BaseNrohoBundle:Message:messagesubmit }
     requirements:
         id:  \d+
         product: \d+
 
 nroho_base_profil:
-    pattern: /profil/{id}
+    pattern:  /profil/{id}
     defaults: { _controller: BaseNrohoBundle:User:profil }
     requirements:
         id:  \d+
 
 nroho_base_profil_id:
-    pattern: /profil/edit/{id}
+    pattern:  /profil/edit/{id}
     defaults: { _controller: BaseNrohoBundle:User:editProfil }
     requirements:
         id:  \d+
 
 nroho_admin_annonce:
-    pattern: /admin/annonce/
+    pattern:  /admin/annonce/
     defaults: { _controller: BaseNrohoBundle:Admin:Annonce }
 
 nroho_admin_annonce_yes:
-    pattern: /admin/annonce/yes/{id}
+    pattern:  /admin/annonce/yes/{id}
     defaults: { _controller: BaseNrohoBundle:Admin:yesAnnonce }
     requirements:
         id:  \d+
 
 nroho_admin_annonce_no:
-    pattern: /admin/annonce/no/{id}
+    pattern:  /admin/annonce/no/{id}
     defaults: { _controller: BaseNrohoBundle:Admin:noAnnonce }
     requirements:
         id:  \d+
 
 nroho_admin_permis_yes:
-    pattern: /admin/permis/yes/{id}
+    pattern:  /admin/permis/yes/{id}
     defaults: { _controller: BaseNrohoBundle:Admin:yesPermis }
     requirements:
         id:  \d+
 
 nroho_admin_permis_no:
-    pattern: /admin/permis/no/{id}
+    pattern:  /admin/permis/no/{id}
     defaults: { _controller: BaseNrohoBundle:Admin:noPermis }
     requirements:
         id:  \d+
 
 nroho_admin_membership_yes:
-    pattern: /admin/membership/yes/{id}
+    pattern:  /admin/membership/yes/{id}
     defaults: { _controller: BaseNrohoBundle:Admin:yesMembership }
     requirements:
         id:  \d+
 
 nroho_admin_membership_no:
-    pattern: /admin/membership/no/{id}
+    pattern:  /admin/membership/no/{id}
     defaults: { _controller: BaseNrohoBundle:Admin:noMembership }
     requirements:
         id:  \d+
 
 nroho_sortie_bledvoyage:
-    path:     /bledvoyage/{id}
+    pattern:  /bledvoyage/{id}
     defaults: { _controller: BaseNrohoBundle:Bledvoyage:index }
     requirements:
         id:  \d+
+
+sample_sitemaps_sitemap:
+    pattern:  /sitemap.{_format}
+    defaults: { _controller: BaseNrohoBundle:Sitemaps:sitemap.xml.twig }
+    requirements:
+        _format: xml
