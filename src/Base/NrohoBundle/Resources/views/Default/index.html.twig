@@ -198,7 +198,7 @@
                                     {% else %}
                                         <a href="{{ path('nroho_base_produit', { 'id': data.id }) }}">
                                     {% endif %}
-                                        <h1>Le {{ data.date|date("m/d/Y") }} {% if data.heure != "" %}à {{ data.heure }}  {% endif %}</h1>
+                                        <h1>Le {{ data.date|date("d/m/Y") }} {% if data.heure != "" %}à {{ data.heure }}  {% endif %}</h1>
                                     </a>
                                     <p>{{ data.message }}</p>
                                 </article>
