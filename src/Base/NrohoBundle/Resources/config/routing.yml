@@ -180,6 +180,6 @@ nroho_sortie_bledvoyage:
 
 sample_sitemaps_sitemap:
     pattern:  /sitemap.{_format}
-    defaults: { _controller: BaseNrohoBundle:Sitemaps:sitemap.xml.twig }
+    defaults: { _controller: BaseNrohoBundle:Sitemaps:sitemap }
     requirements:
         _format: xml

@@ -30,6 +30,9 @@ class SitemapsController extends Controller
                     array('id' => $product->getId())), 'changefreq' => 'weekly', 'priority' => '0.5');
         }
 
-        return array('urls' => $urls, 'hostname' => $hostname);
+        return $this->render('BaseNrohoBundle:Sitemaps:sitemap.xml.twig', array(
+            'urls' => $urls,
+            'hostname' => $hostname,
+        ));
     }
 }
